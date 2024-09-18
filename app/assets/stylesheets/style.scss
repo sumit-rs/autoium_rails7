@@ -600,6 +600,7 @@ h6 {
 .sidebar {
   position: fixed;
   top: 60px;
+  height: 90vh;
   left: 0;
   bottom: 0;
   width: 300px;
@@ -947,6 +948,7 @@ h6 {
 
 .dashboard .top-selling .table thead th {
   border: 0;
+  color: #00ff80;
 }
 
 .dashboard .top-selling .table tbody td {
@@ -1061,6 +1063,9 @@ h6 {
   color: #6980aa;
 }
 
+.text-theme {
+  color: #012970;
+}
 /*--------------------------------------------------------------
 # Contact
 --------------------------------------------------------------*/

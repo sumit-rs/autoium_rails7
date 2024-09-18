@@ -57,6 +57,7 @@ gem 'tinymce-rails'
 gem 'exception_notification'
 gem 'faraday'
 gem "devise", "~> 4.9"
+gem 'tinymce-rails'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

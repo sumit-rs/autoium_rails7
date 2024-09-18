@@ -14,11 +14,13 @@
   <link href="https://fonts.gstatic.com" rel="preconnect">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
-  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload", differ: true %>
+  <%= javascript_include_tag "https://code.jquery.com/jquery-3.6.0.min.js" %>
   <%= javascript_importmap_tags %>
   <%= javascript_include_tag "apexcharts/apexcharts.min.js", "data-turbo-track": "reload" %>
   <%= javascript_include_tag "chart.js/chart.umd.js", "data-turbo-track": "reload" %>
   <%= javascript_include_tag "echarts/echarts.min.js", "data-turbo-track": "reload" %>
+  <%= javascript_include_tag "simple-datatables/simple-datatables.js", "data-turbo-track": "reload" %>
   <%= javascript_include_tag "main.js", "data-turbo-track": "reload" %>
 
 </head>
@@ -34,13 +36,38 @@
   <%= render partial: 'layouts/side_nav' %>
 </aside>
 <!-- End Sidebar-->
-
 <main id="main" class="main">
-  <%= render partial: 'layouts/flash_message' %>
-
-  <%= yield %>
-
+  <div class="container">
+    <%= yield %>
+  </div>
 </main><!-- End #main -->
+
+<footer id="footer" class="footer">
+  <div class="copyright">
+    &copy; Copyright <strong><span>2024 Autoium</span></strong>. All Rights Reserved
+  </div>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+</footer>
+<script>
+    new simpleDatatables.DataTable('#myTable', {
+        perPageSelect: [5, 10, 15, ["All", -1]],
+        columns: [{
+            select: 2,
+            sortSequence: ["desc", "asc"]
+        },
+            {
+                select: 3,
+                sortSequence: ["desc"]
+            },
+            {
+                select: 4,
+                cellClass: "green",
+                headerClass: "red"
+            }
+        ]
+    });
+</script>
 </body>
 
 </html>

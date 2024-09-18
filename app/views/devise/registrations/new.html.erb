@@ -1,65 +1,58 @@
-<nav>
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="<%= root_url %>">Home</a></li>
-    <li class="breadcrumb-item active">Sign-up</li>
-  </ol>
-</nav>
-<section class="section">
-  <div class="row">
-    <div class="col-lg-4"></div>
-    <div class="col-lg-4">
-
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Sign-up</h5>
-          <%= render "layouts/flash_message", resource: resource %>
-          <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-            <div class="row g-3">
-              <div class="col-md-12">
-                <div class="form-floating">
-                  <%= f.text_field :first_name, autofocus: true, autocomplete: "first_name", placeholder: "Your First Name", class: 'form-control' %>
-                  <%= f.label :first_name %>
-                </div>
-              </div>
-              <div class="col-md-12">
-                <div class="form-floating">
-                  <%= f.text_field :last_name, autofocus: true, autocomplete: "last_name", placeholder: "Your Last Name", class: 'form-control' %>
-                  <%= f.label :last_name %>
-                </div>
-              </div>
-              <div class="col-md-12">
-                <div class="form-floating">
-                  <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Your Email Address", class: 'form-control' %>
-                  <%= f.label :email %>
-                </div>
-              </div>
-              <div class="col-md-12">
-                <div class="form-floating">
-                  <%= f.password_field :password, autofocus: true, autocomplete: "password", class: 'form-control' %>
-                  <%= f.label :password %>
-                  <% if @minimum_password_length %>
-                    <em class="small">(<%= @minimum_password_length %> characters minimum)</em>
-                  <% end %>
-                </div>
-              </div>
-              <div class="col-md-12">
-                <div class="form-floating">
-                  <%= f.password_field :password_confirmation, autofocus: true, autocomplete: "new_password", class: 'form-control' %>
-                  <%= f.label :password_confirmation %>
-                </div>
-              </div>
-
-              <div class="text-center">
-                <%= f.submit "Sign up", class: "btn btn-primary" %>
-              </div>
+<section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+        <div class="card mb-3">
+          <div class="card-body">
+            <div class="pt-4 pb-2">
+              <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
+              <p class="text-center small">Enter your personal details to create account</p>
             </div>
-          <% end %>
-          <%= render "devise/shared/links" %>
+            <%= render "layouts/flash_message", resource: resource %>
+
+            <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "row g-3" }) do |f| %>
+              <div class="col-12">
+                <%= f.label :first_name, class: "form-label" %>
+                <%= f.text_field :first_name, class: 'form-control', id: 'first_name', required: true %>
+                <div class="invalid-feedback">Please enter your first name.</div>
+
+              </div>
+
+              <div class="col-12">
+                <%= f.label :last_name, class: "form-label" %>
+                <%= f.text_field :last_name, class: 'form-control', id: 'last_name', required: true  %>
+                <div class="invalid-feedback">Please enter your last name.</div>
+              </div>
+
+              <div class="col-12">
+                <%= f.label :email, class: "form-label" %>
+                <%= f.email_field :email, class: 'form-control', id: 'email', required: true  %>
+                <div class="invalid-feedback">Please enter your username.</div>
+              </div>
+
+              <div class="col-12">
+                <%= f.label :password, class: "form-label" %>
+                <%= f.password_field :password, class: 'form-control', id: "password", required: true  %>
+                <% if @minimum_password_length %>
+                  <em class="small">(<%= @minimum_password_length %> characters minimum)</em>
+                <% end %>
+                <div class="invalid-feedback">Please enter your password!</div>
+              </div>
+
+              <div class="col-12">
+                <%= f.label :password_confirmation, class: "form-label" %>
+                <%= f.password_field :password_confirmation, class: 'form-control', id: "password_confirmation", required: true  %>
+                <div class="invalid-feedback">Confirm password doesn't match with entered password!</div>
+              </div>
+
+              <div class="col-12">
+                <%= f.submit "Submit", class: "btn btn-primary w-100" %>
+              </div>
+            <% end %>
+            <%= render "devise/shared/links" %>
+          </div>
         </div>
       </div>
     </div>
-    <div class="col-lg-4"></div>
   </div>
 </section>
-
-

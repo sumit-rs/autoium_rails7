@@ -1,6 +1,6 @@
-<% _type = {'error' => 'danger', 'notice' => 'warning', 'info' => 'danger', 'success' => 'success'} %>
+<% _type = {'errors' => 'danger', 'notice' => 'warning', 'info' => 'danger', 'success' => 'success'} %>
 <% if local_assigns.has_key? :resource and resource.errors.any? %>
-  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+  <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
     <ul>
       <% resource.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -14,7 +14,7 @@
     <%# _type = _type.has_key?(type) ? _type.dig(type) : type %>
     <% flash_type =  _type.dig(type)  %>
     <% if flash_type %>
-      <div class="alert alert-<%= flash_type %> alert-dismissible fade show" role="alert">
+      <div class="alert alert-<%= flash_type %> alert-dismissible fade show mt-3" role="alert">
         <% if msg.is_a?(Array) %>
           <ul>
             <% msg.each do |message| %>

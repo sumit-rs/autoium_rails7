@@ -1,0 +1,25 @@
+<%= render partial: 'layouts/flash_message' %>
+<%= form_with model: @environment, data: { turbo: false } do |f| %>
+  <div class="row g-3">
+
+    <div class="col-md-12">
+      <label class="form-label" for="environment_project_id">Project</label>
+      <%= f.select(:project_id, @projects, {:prompt => 'Select Project'}, class: 'form-control') %>
+    </div>
+
+    <div class="col-md-12">
+      <%= f.label :name, class: "form-label" %>
+      <%= f.text_field :name, placeholder: "Enter Environment Name", class: 'form-control' %>
+    </div>
+
+    <div class="col-md-12">
+      <%= f.label :url, class: "form-label" %>
+      <%= f.text_field :url, placeholder: "Enter Environment URL", class: 'form-control' %>
+    </div>
+
+    <div class="col-md-12">
+      <%= f.submit "Submit", class:"btn btn-primary" %>
+    </div>
+
+  </div>
+<% end %>

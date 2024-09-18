@@ -1,15 +1,29 @@
 // Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
-import "@hotwired/turbo-rails"
-import "controllers"
-import "popper"
-import "bootstrap"
+//import jquery from "jquery";
+//window.$ = window.jQuery = jquery;
+
+import "@hotwired/turbo-rails";
+import "controllers";
+import "popper";
+import "bootstrap";
 import "@fortawesome/fontawesome-free";
-import "jquery"
-import "jquery_ujs"
-import "./jquery-ui.min"
+//import "jquery";
+import "jquery_ujs";
+import "./jquery-ui.min";
+import "./tinymce";
 
-$(document).ready(function() {
-    $("#datepicker").datepicker();
-    $( "#draggable" ).draggable();
+
+$(document).on('ready page:load', function () {
+    if (typeof tinyMCE != 'undefined') {
+        tinyMCE.init({
+            selector: "textarea.tinymce",
+            toolbar: [
+                "styleselect | bold italic | alignleft aligncenter alignright alignjustify",
+                "bullist numlist outdent indent | link image | code | codesample"
+            ],
+            plugins: "image,link,code,codesample,autoresize,media,table,insertdatetime,charmap,preview,anchor,searchreplace,visualblocks,fullscreen"
+        });
+    } else {
+        //setTimeout(arguments.callee, 50);
+    }
 });
-
