@@ -53,7 +53,6 @@ gem "sassc-rails"
 
 gem 'select2-rails'
 gem 'dotenv-rails'
-gem 'tinymce-rails'
 gem 'exception_notification'
 gem 'faraday'
 gem "devise", "~> 4.9"

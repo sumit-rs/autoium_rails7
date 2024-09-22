@@ -1,0 +1,15 @@
+<%
+  _tabs = []
+  _tabs << {label: 'Basic Project Details', url: edit_project_path(project), match: {controller: 'projects', action: 'index'}, icon:"docs"}
+  _tabs << {label: 'Roles', url: project_roles_path(project), match: {controller: 'roles', action: 'index'},icon:"globe"}
+%>
+<ul class="nav nav-tabs mt-2">
+  <% _tabs.each do |project_menu| %>
+    <li class="nav-item">
+      <%= link_to(project_menu[:url], class: "nav-link #{'active' if project_menu[:match] == {controller: params[:controller], action: 'index'}}") do %>
+        <i class="icon-<%= project_menu[:icon] %>"></i>
+        <%= project_menu[:label] %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

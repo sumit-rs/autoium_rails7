@@ -314,10 +314,12 @@ h6 {
 .breadcrumb a {
   color: #899bbd;
   transition: 0.3s;
+  text-decoration: underline;
 }
 
 .breadcrumb a:hover {
   color: #51678f;
+  text-decoration: none;
 }
 
 .breadcrumb .breadcrumb-item::before {

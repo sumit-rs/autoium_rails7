@@ -7722,7 +7722,7 @@
       return !isNaN(numericToNumber(val));
     }
     /**
-     * Use random base to prevent users hard code depending on
+     * Use random base to prevent project_users hard code depending on
      * this auto generated marker id.
      * @return An positive integer.
      */
@@ -7795,12 +7795,12 @@
       }
     }
     /**
-     * If in __DEV__ environment, get console printable message for users hint.
+     * If in __DEV__ environment, get console printable message for project_users hint.
      * Parameters are separated by ' '.
      * @usage
      * makePrintable('This is an error on', someVar, someObj);
      *
-     * @param hintInfo anything about the current execution context to hint users.
+     * @param hintInfo anything about the current execution context to hint project_users.
      * @throws Error
      */
     function makePrintable() {
@@ -8577,7 +8577,7 @@
       target.registerClass = function (clz) {
         // `type` should not be a "instance member".
         // If using TS class, should better declared as `static type = 'series.pie'`.
-        // otherwise users have to mount `type` on prototype manually.
+        // otherwise project_users have to mount `type` on prototype manually.
         // For backward compat and enable instance visit type via `this.type`,
         // we still support fetch `type` from prototype.
         var componentFullType = clz.type || clz.prototype.type;
@@ -14314,11 +14314,11 @@
      * (1) This method **MUST NOT be used inside echarts !!!**, unless it is prepared
      * to use user registered shapes.
      * Because the built-in shape (see `getBuiltInShape`) will be registered by
-     * `registerShape` by default. That enables users to get both built-in
-     * shapes as well as the shapes belonging to themsleves. But users can overwrite
+     * `registerShape` by default. That enables project_users to get both built-in
+     * shapes as well as the shapes belonging to themsleves. But project_users can overwrite
      * the built-in shapes by using names like 'circle', 'rect' via calling
      * `registerShape`. So the echarts inner featrues should not fetch shapes from here
-     * in case that it is overwritten by users, except that some features, like
+     * in case that it is overwritten by project_users, except that some features, like
      * `custom series`, `graphic component`, do it deliberately.
      *
      * (2) In the features like `custom series`, `graphic component`, the user input
@@ -14604,7 +14604,7 @@
       }
     }
     // Register built-in shapes. These shapes might be overwritten
-    // by users, although we do not recommend that.
+    // by project_users, although we do not recommend that.
     registerShape('circle', Circle);
     registerShape('ellipse', Ellipse);
     registerShape('sector', Sector);
@@ -14826,7 +14826,7 @@
             // In rich, never `disableBox`.
             // FIXME: consider `label: {formatter: '{a|xx}', color: 'blue', rich: {a: {}}}`,
             // the default color `'blue'` will not be adopted if no color declared in `rich`.
-            // That might confuses users. So probably we should put `textStyleModel` as the
+            // That might confuses project_users. So probably we should put `textStyleModel` as the
             // root ancestor of the `richTextStyle`. But that would be a break change.
             setTokenTextStyle(richResult[name_1] = {}, richTextStyle, globalTextStyle, opt, isNotNormal, isAttached, false, true);
           }
@@ -17389,7 +17389,7 @@
             var opts = normalizeToArray(optInMainType);
             // Inner cmpts need to be removed.
             // Inner cmpts might not be at last since ec5.0, but still
-            // compatible for users: if inner cmpt at last, splice the returned array.
+            // compatible for project_users: if inner cmpt at last, splice the returned array.
             var realLen = opts.length;
             var metNonInner = false;
             for (var i = realLen - 1; i >= 0; i--) {
@@ -17857,7 +17857,7 @@
           // the restore merge solution is essentially incorrect.
           // the mapping can not be 100% consistent with ecModel, which probably brings
           // potential bug!
-          // The first merge is delayed, because in most cases, users do not call `setOption` twice.
+          // The first merge is delayed, because in most cases, project_users do not call `setOption` twice.
           // let fakeCmptsMap = this._fakeCmptsMap;
           // if (!fakeCmptsMap) {
           //     fakeCmptsMap = this._fakeCmptsMap = createHashMap();
@@ -17929,7 +17929,7 @@
           }
         }
         // FIXME
-        // Whether mediaDefault should force users to provide? Otherwise
+        // Whether mediaDefault should force project_users to provide? Otherwise
         // the change by media query can not be recorvered.
         if (!indices.length && mediaDefault) {
           indices = [-1];
@@ -19725,7 +19725,7 @@
 
     /**
      * TODO: disable writable.
-     * This structure will be exposed to users.
+     * This structure will be exposed to project_users.
      */
     var ExternalSource = /** @class */function () {
       function ExternalSource() {}
@@ -19786,7 +19786,7 @@
       if (internalSource.seriesLayoutBy !== SERIES_LAYOUT_BY_COLUMN) {
         // For the logic simplicity in transformer, only 'culumn' is
         // supported in data transform. Otherwise, the `dimensionsDefine`
-        // might be detected by 'row', which probably confuses users.
+        // might be detected by 'row', which probably confuses project_users.
         if ("development" !== 'production') {
           errMsg = '`seriesLayoutBy` of upstream dataset can only be "column" in data transform.';
         }
@@ -19794,7 +19794,7 @@
       }
       // [MEMO]
       // Create a new dimensions structure for exposing.
-      // Do not expose all dimension info to users directly.
+      // Do not expose all dimension info to project_users directly.
       // Because the dimension is probably auto detected from data and not might reliable.
       // Should not lead the transformers to think that is reliable and return it.
       // See [DIMENSION_INHERIT_RULE] in `sourceManager.ts`.
@@ -19815,7 +19815,7 @@
           if (name != null) {
             // Dimension name should not be duplicated.
             // For simplicity, data transform forbids name duplication, do not generate
-            // new name like module `completeDimensions.ts` did, but just tell users.
+            // new name like module `completeDimensions.ts` did, but just tell project_users.
             var errMsg_1 = '';
             if (hasOwn(dimsByName, name)) {
               if ("development" !== 'production') {
@@ -20036,7 +20036,7 @@
         var resultMetaRawOption;
         var firstUpSource = upSourceList[0];
         /**
-         * Intuitively, the end users known the content of the original `dataset.source`,
+         * Intuitively, the end project_users known the content of the original `dataset.source`,
          * calucating the transform result in mind.
          * Suppose the original `dataset.source` is:
          * ```js
@@ -21050,7 +21050,7 @@
      * (1) Keep support the feature: `metaRawOption` can be specified both on `series` and
      * `root-dataset`. Them on `series` has higher priority.
      * (2) Do not support to set `metaRawOption` on a `non-root-dataset`, because it might
-     * confuse users: whether those props indicate how to visit the upstream source or visit
+     * confuse project_users: whether those props indicate how to visit the upstream source or visit
      * the transform result source, and some transforms has nothing to do with these props,
      * and some transforms might have multiple upstream.
      * (3) Transforms should specify `metaRawOption` in each output, just like they can be
@@ -21466,7 +21466,7 @@
           markerType: 'item',
           markerColor: markerColor,
           // Do not mix display seriesName and itemName in one tooltip,
-          // which might confuses users.
+          // which might confuses project_users.
           name: inlineName,
           // name dimension might be auto assigned, where the name might
           // be not readable. So we check trim here.
@@ -22337,7 +22337,7 @@
         // Get from color palette by default.
         if (!globalStyle[colorKey] || colorCallback || hasAutoColor) {
           // Note: If some series has color specified (e.g., by itemStyle.color), we DO NOT
-          // make it effect palette. Because some scenarios users need to make some series
+          // make it effect palette. Because some scenarios project_users need to make some series
           // transparent or as background, which should better not effect the palette.
           var colorPalette = seriesModel.getColorFromPalette(
           // TODO series count changed.
@@ -25944,7 +25944,7 @@
         this.getZr().wakeUp();
       };
       // A work around for no `internal` modifier in ts yet but
-      // need to strictly hide private methods to JS users.
+      // need to strictly hide private methods to JS project_users.
       ECharts.internalField = function () {
         prepare = function (ecIns) {
           var scheduler = ecIns._scheduler;
@@ -27713,8 +27713,8 @@
      * NOTICE:
      * When there are too many dimensions in dataset and many series, only the used dimensions
      * (i.e., used by coord sys and declared in `series.encode`) are add to `dimensionDefineList`.
-     * But users may query data by other unused dimension names.
-     * In this case, users can only query data if and only if they have defined dimension names
+     * But project_users may query data by other unused dimension names.
+     * In this case, project_users can only query data if and only if they have defined dimension names
      * via ec option, so we provide `getDimensionIndexFromSource`, which only query them from
      * `source` dimensions.
      */
@@ -31058,7 +31058,7 @@
         }
         var modelMinRaw = this._modelMinRaw = axisMinValue;
         if (isFunction(modelMinRaw)) {
-          // This callback always provides users the full data extent (before data is filtered).
+          // This callback always provides project_users the full data extent (before data is filtered).
           this._modelMinNum = parseAxisModelMinMax(scale, modelMinRaw({
             min: dataExtent[0],
             max: dataExtent[1]
@@ -31068,7 +31068,7 @@
         }
         var modelMaxRaw = this._modelMaxRaw = model.get('max', true);
         if (isFunction(modelMaxRaw)) {
-          // This callback always provides users the full data extent (before data is filtered).
+          // This callback always provides project_users the full data extent (before data is filtered).
           this._modelMaxNum = parseAxisModelMinMax(scale, modelMaxRaw({
             min: dataExtent[0],
             max: dataExtent[1]
@@ -35554,7 +35554,7 @@
         return;
       }
       // Note that category label interval strategy might bring some weird effect
-      // in some scenario: users may wonder why some of the symbols are not
+      // in some scenario: project_users may wonder why some of the symbols are not
       // displayed. So we show all symbols as possible as we can.
       if (isAuto
       // Simplify the logic, do not determine label overlap here.

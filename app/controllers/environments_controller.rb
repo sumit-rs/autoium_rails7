@@ -11,7 +11,7 @@ class EnvironmentsController < ApplicationController
 
   def update
     if @environment.update(environment_params)
-      flash[:success] = 'Environment Update Successfully.'
+      flash[:success] = 'Environment update successfully.'
       redirect_to environments_path
     else
       flash.now[:errors] = @environment.errors.full_messages
@@ -26,7 +26,7 @@ class EnvironmentsController < ApplicationController
     @environment = Environment.new(environment_params)
     @environment.user = Current.user
     if @environment.save
-      flash[:success] = "Environment Created Successfully. Kindly fill additional details under 'Login, Custom Command & Git' section."
+      flash[:success] = "Environment created successfully. Kindly fill additional details under 'Login, Custom Command & Git' section."
       redirect_to edit_environment_path(@environment)
     else
       flash.now[:errors] = @environment.errors.full_messages
@@ -36,7 +36,7 @@ class EnvironmentsController < ApplicationController
 
   def destroy
     if @environment.delete
-      flash[:success] = 'Environment Deleted Successfully'
+      flash[:success] = 'Environment deleted Successfully.'
     else
       flash[:errors] = @environment.errors.full_messages
     end

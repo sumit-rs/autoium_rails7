@@ -1,0 +1,55 @@
+<%
+  breadcrumb = {'Home': root_url, 'Manage Projects' => projects_url , 'Manage Team Members' => project_team_members_url(@project) }
+  btn = [{name: 'Create Member', url: new_project_team_member_path(@project), class: 'btn btn-primary rounded-pill btn-sm float-right'}]
+%>
+<%= render partial: 'common/breadcrumb', locals: {heading: 'Manage Team Members', breadcrumb: breadcrumb, action_btns: btn} %>
+
+<section class="section min-vh-100">
+
+  <%= render partial: 'layouts/flash_message' %>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title">Project: <%= @project.name %></p>
+          <!-- Table with stripped rows -->
+          <table class="table datatable mt-2">
+            <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Assign Projects</th>
+              <th data-type="date" data-format="DD-MM-YYYY">Created</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% if @project_users %>
+              <% @project_users.each do |project_user| %>
+                <tr>
+                  <td><%= project_user.full_name  %></td>
+                  <td><%= project_user.email %></td>
+                  <td><%= project_user.assign_projects.collect(&:name).uniq %></td>
+                  <td><%= date_format(project_user.created_at) %></td>
+                  <td>
+                    <%= link_to(edit_project_team_member_path(@project,project_user), title: 'Edit Project') do %>
+                      <i class="bi bi-pencil-fill"></i>
+                    <% end %>
+
+                    <%= link_to(project_team_member_path(@project, project_user), method: :delete, data: {confirm: 'Are you sure?'}, title: 'Delete Project') do %>
+                      <i class="bi bi-trash"></i>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            <% end %>
+            </tbody>
+          </table>
+          <!-- End Table with stripped rows -->
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

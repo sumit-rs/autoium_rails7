@@ -16,6 +16,8 @@
 
   <%= stylesheet_link_tag "application", "data-turbo-track": "reload", differ: true %>
   <%= javascript_include_tag "https://code.jquery.com/jquery-3.6.0.min.js" %>
+  <%= javascript_include_tag "https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" %>
+
   <%= javascript_importmap_tags %>
   <%= javascript_include_tag "apexcharts/apexcharts.min.js", "data-turbo-track": "reload" %>
   <%= javascript_include_tag "chart.js/chart.umd.js", "data-turbo-track": "reload" %>
@@ -50,23 +52,25 @@
 
 </footer>
 <script>
-    new simpleDatatables.DataTable('#myTable', {
-        perPageSelect: [5, 10, 15, ["All", -1]],
-        columns: [{
-            select: 2,
-            sortSequence: ["desc", "asc"]
-        },
-            {
-                select: 3,
-                sortSequence: ["desc"]
-            },
-            {
-                select: 4,
-                cellClass: "green",
-                headerClass: "red"
-            }
-        ]
-    });
+  if($('#myTable').length > 0){
+      new simpleDatatables.DataTable('#myTable', {
+          perPageSelect: [5, 10, 15, ["All", -1]],
+          columns: [{
+              select: 2,
+              sortSequence: ["desc", "asc"]
+          },
+              {
+                  select: 3,
+                  sortSequence: ["desc"]
+              },
+              {
+                  select: 4,
+                  cellClass: "green",
+                  headerClass: "red"
+              }
+          ]
+      });
+  }
 </script>
 </body>
 

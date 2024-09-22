@@ -7861,7 +7861,7 @@
       return !isNaN(numericToNumber(val));
     }
     /**
-     * Use random base to prevent users hard code depending on
+     * Use random base to prevent project_users hard code depending on
      * this auto generated marker id.
      * @return An positive integer.
      */
@@ -7934,12 +7934,12 @@
       }
     }
     /**
-     * If in __DEV__ environment, get console printable message for users hint.
+     * If in __DEV__ environment, get console printable message for project_users hint.
      * Parameters are separated by ' '.
      * @usage
      * makePrintable('This is an error on', someVar, someObj);
      *
-     * @param hintInfo anything about the current execution context to hint users.
+     * @param hintInfo anything about the current execution context to hint project_users.
      * @throws Error
      */
     function makePrintable() {
@@ -8732,7 +8732,7 @@
       target.registerClass = function (clz) {
         // `type` should not be a "instance member".
         // If using TS class, should better declared as `static type = 'series.pie'`.
-        // otherwise users have to mount `type` on prototype manually.
+        // otherwise project_users have to mount `type` on prototype manually.
         // For backward compat and enable instance visit type via `this.type`,
         // we still support fetch `type` from prototype.
         var componentFullType = clz.type || clz.prototype.type;
@@ -14469,11 +14469,11 @@
      * (1) This method **MUST NOT be used inside echarts !!!**, unless it is prepared
      * to use user registered shapes.
      * Because the built-in shape (see `getBuiltInShape`) will be registered by
-     * `registerShape` by default. That enables users to get both built-in
-     * shapes as well as the shapes belonging to themsleves. But users can overwrite
+     * `registerShape` by default. That enables project_users to get both built-in
+     * shapes as well as the shapes belonging to themsleves. But project_users can overwrite
      * the built-in shapes by using names like 'circle', 'rect' via calling
      * `registerShape`. So the echarts inner featrues should not fetch shapes from here
-     * in case that it is overwritten by users, except that some features, like
+     * in case that it is overwritten by project_users, except that some features, like
      * `custom series`, `graphic component`, do it deliberately.
      *
      * (2) In the features like `custom series`, `graphic component`, the user input
@@ -14865,7 +14865,7 @@
       }
     }
     // Register built-in shapes. These shapes might be overwritten
-    // by users, although we do not recommend that.
+    // by project_users, although we do not recommend that.
     registerShape('circle', Circle);
     registerShape('ellipse', Ellipse);
     registerShape('sector', Sector);
@@ -15139,7 +15139,7 @@
             // In rich, never `disableBox`.
             // FIXME: consider `label: {formatter: '{a|xx}', color: 'blue', rich: {a: {}}}`,
             // the default color `'blue'` will not be adopted if no color declared in `rich`.
-            // That might confuses users. So probably we should put `textStyleModel` as the
+            // That might confuses project_users. So probably we should put `textStyleModel` as the
             // root ancestor of the `richTextStyle`. But that would be a break change.
             setTokenTextStyle(richResult[name_1] = {}, richTextStyle, globalTextStyle, opt, isNotNormal, isAttached, false, true);
           }
@@ -16293,7 +16293,7 @@
      * Make value user readable for tooltip and label.
      * "User readable":
      *     Try to not print programmer-specific text like NaN, Infinity, null, undefined.
-     *     Avoid to display an empty string, which users can not recognize there is
+     *     Avoid to display an empty string, which project_users can not recognize there is
      *     a value and it might look like a bug.
      */
     function makeValueReadable(value, valueType, useUTC) {
@@ -17849,7 +17849,7 @@
             var opts = normalizeToArray(optInMainType);
             // Inner cmpts need to be removed.
             // Inner cmpts might not be at last since ec5.0, but still
-            // compatible for users: if inner cmpt at last, splice the returned array.
+            // compatible for project_users: if inner cmpt at last, splice the returned array.
             var realLen = opts.length;
             var metNonInner = false;
             for (var i = realLen - 1; i >= 0; i--) {
@@ -18317,7 +18317,7 @@
           // the restore merge solution is essentially incorrect.
           // the mapping can not be 100% consistent with ecModel, which probably brings
           // potential bug!
-          // The first merge is delayed, because in most cases, users do not call `setOption` twice.
+          // The first merge is delayed, because in most cases, project_users do not call `setOption` twice.
           // let fakeCmptsMap = this._fakeCmptsMap;
           // if (!fakeCmptsMap) {
           //     fakeCmptsMap = this._fakeCmptsMap = createHashMap();
@@ -18389,7 +18389,7 @@
           }
         }
         // FIXME
-        // Whether mediaDefault should force users to provide? Otherwise
+        // Whether mediaDefault should force project_users to provide? Otherwise
         // the change by media query can not be recorvered.
         if (!indices.length && mediaDefault) {
           indices = [-1];
@@ -20269,7 +20269,7 @@
 
     /**
      * TODO: disable writable.
-     * This structure will be exposed to users.
+     * This structure will be exposed to project_users.
      */
     var ExternalSource = /** @class */function () {
       function ExternalSource() {}
@@ -20330,7 +20330,7 @@
       if (internalSource.seriesLayoutBy !== SERIES_LAYOUT_BY_COLUMN) {
         // For the logic simplicity in transformer, only 'culumn' is
         // supported in data transform. Otherwise, the `dimensionsDefine`
-        // might be detected by 'row', which probably confuses users.
+        // might be detected by 'row', which probably confuses project_users.
         if ("development" !== 'production') {
           errMsg = '`seriesLayoutBy` of upstream dataset can only be "column" in data transform.';
         }
@@ -20338,7 +20338,7 @@
       }
       // [MEMO]
       // Create a new dimensions structure for exposing.
-      // Do not expose all dimension info to users directly.
+      // Do not expose all dimension info to project_users directly.
       // Because the dimension is probably auto detected from data and not might reliable.
       // Should not lead the transformers to think that is reliable and return it.
       // See [DIMENSION_INHERIT_RULE] in `sourceManager.ts`.
@@ -20359,7 +20359,7 @@
           if (name != null) {
             // Dimension name should not be duplicated.
             // For simplicity, data transform forbids name duplication, do not generate
-            // new name like module `completeDimensions.ts` did, but just tell users.
+            // new name like module `completeDimensions.ts` did, but just tell project_users.
             var errMsg_1 = '';
             if (hasOwn(dimsByName, name)) {
               if ("development" !== 'production') {
@@ -20580,7 +20580,7 @@
         var resultMetaRawOption;
         var firstUpSource = upSourceList[0];
         /**
-         * Intuitively, the end users known the content of the original `dataset.source`,
+         * Intuitively, the end project_users known the content of the original `dataset.source`,
          * calucating the transform result in mind.
          * Suppose the original `dataset.source` is:
          * ```js
@@ -21594,7 +21594,7 @@
      * (1) Keep support the feature: `metaRawOption` can be specified both on `series` and
      * `root-dataset`. Them on `series` has higher priority.
      * (2) Do not support to set `metaRawOption` on a `non-root-dataset`, because it might
-     * confuse users: whether those props indicate how to visit the upstream source or visit
+     * confuse project_users: whether those props indicate how to visit the upstream source or visit
      * the transform result source, and some transforms has nothing to do with these props,
      * and some transforms might have multiple upstream.
      * (3) Transforms should specify `metaRawOption` in each output, just like they can be
@@ -22276,7 +22276,7 @@
           markerType: 'item',
           markerColor: markerColor,
           // Do not mix display seriesName and itemName in one tooltip,
-          // which might confuses users.
+          // which might confuses project_users.
           name: inlineName,
           // name dimension might be auto assigned, where the name might
           // be not readable. So we check trim here.
@@ -23243,7 +23243,7 @@
         // Get from color palette by default.
         if (!globalStyle[colorKey] || colorCallback || hasAutoColor) {
           // Note: If some series has color specified (e.g., by itemStyle.color), we DO NOT
-          // make it effect palette. Because some scenarios users need to make some series
+          // make it effect palette. Because some scenarios project_users need to make some series
           // transparent or as background, which should better not effect the palette.
           var colorPalette = seriesModel.getColorFromPalette(
           // TODO series count changed.
@@ -26850,7 +26850,7 @@
         this.getZr().wakeUp();
       };
       // A work around for no `internal` modifier in ts yet but
-      // need to strictly hide private methods to JS users.
+      // need to strictly hide private methods to JS project_users.
       ECharts.internalField = function () {
         prepare = function (ecIns) {
           var scheduler = ecIns._scheduler;
@@ -28619,8 +28619,8 @@
      * NOTICE:
      * When there are too many dimensions in dataset and many series, only the used dimensions
      * (i.e., used by coord sys and declared in `series.encode`) are add to `dimensionDefineList`.
-     * But users may query data by other unused dimension names.
-     * In this case, users can only query data if and only if they have defined dimension names
+     * But project_users may query data by other unused dimension names.
+     * In this case, project_users can only query data if and only if they have defined dimension names
      * via ec option, so we provide `getDimensionIndexFromSource`, which only query them from
      * `source` dimensions.
      */
@@ -31964,7 +31964,7 @@
         }
         var modelMinRaw = this._modelMinRaw = axisMinValue;
         if (isFunction(modelMinRaw)) {
-          // This callback always provides users the full data extent (before data is filtered).
+          // This callback always provides project_users the full data extent (before data is filtered).
           this._modelMinNum = parseAxisModelMinMax(scale, modelMinRaw({
             min: dataExtent[0],
             max: dataExtent[1]
@@ -31974,7 +31974,7 @@
         }
         var modelMaxRaw = this._modelMaxRaw = model.get('max', true);
         if (isFunction(modelMaxRaw)) {
-          // This callback always provides users the full data extent (before data is filtered).
+          // This callback always provides project_users the full data extent (before data is filtered).
           this._modelMaxNum = parseAxisModelMinMax(scale, modelMaxRaw({
             min: dataExtent[0],
             max: dataExtent[1]
@@ -38071,7 +38071,7 @@
         return;
       }
       // Note that category label interval strategy might bring some weird effect
-      // in some scenario: users may wonder why some of the symbols are not
+      // in some scenario: project_users may wonder why some of the symbols are not
       // displayed. So we show all symbols as possible as we can.
       if (isAuto
       // Simplify the logic, do not determine label overlap here.
@@ -45620,7 +45620,7 @@
       // `legacy: false`, force do not compat.
       // `legacy` not set: auto detect whether legacy.
       //     But in this case we do not compat (difficult to detect and rare case):
-      //     Becuse custom series and graphic component support "merge", users may firstly
+      //     Becuse custom series and graphic component support "merge", project_users may firstly
       //     only set `textStrokeWidth` style or secondly only set `text`.
       return style && (style.legacy || style.legacy !== false && !hasOwnTextContentOption && !hasOwnTextConfig && elType !== 'tspan'
       // Difficult to detect whether legacy for a "text" el.
@@ -45841,7 +45841,7 @@
           // It is probably complicated and not needed to cover all the cases.
           // But still need consider the case:
           // (1) When using init animation on `style.opacity`, and before the animation
-          //     ended users triggers an update by mousewhel. At that time the init
+          //     ended project_users triggers an update by mousewhel. At that time the init
           //     animation should better be continued rather than terminated.
           //     So after `useStyle` called, we should change the animation target manually
           //     to continue the effect of the init animation.
@@ -45994,7 +45994,7 @@
       var latestUserDuring = transitionInnerStore(el).userDuring;
       var scopeUserDuring = scope.userDuring;
       // Ensured a during is only called once in each animation frame.
-      // If a during is called multiple times in one frame, maybe some users' calculation logic
+      // If a during is called multiple times in one frame, maybe some project_users' calculation logic
       // might be wrong (not sure whether this usage exists).
       // The case of a during might be called twice can be: by default there is a animator for
       // 'x', 'y' when init. Before the init animation finished, call `setOption` to start
@@ -46442,7 +46442,7 @@
           // PENDING
           // Currently, when `bounding: 'all'`, the union bounding rect of the group
           // does not include the rect of [0, 0, group.width, group.height], which
-          // is probably weird for users. Should we make a break change for it?
+          // is probably weird for project_users. Should we make a break change for it?
           var layoutPos = {};
           var layouted = positionElement(el, elOption, containerInfo, null, {
             hv: elOption.hv,
@@ -46489,7 +46489,7 @@
       }
       var Clz = hasOwn(nonShapeGraphicElements, graphicType)
       // Those graphic elements are not shapes. They should not be
-      // overwritten by users, so do them first.
+      // overwritten by project_users, so do them first.
       ? nonShapeGraphicElements[graphicType] : getShapeClass(graphicType);
       if ("development" !== 'production') {
         assert(Clz, "graphic type " + graphicType + " can not be found");
@@ -46750,7 +46750,7 @@
          *     and `dMax` is `axis.max` if `axis.max` specified, otherwise `data.extent[1]`.
          *     Axis extent will be determined by the result of the percent of `[dMin, dMax]`.
          *
-         * For example, when users are using dynamic data (update data periodically via `setOption`),
+         * For example, when project_users are using dynamic data (update data periodically via `setOption`),
          * if in `'value`' mode, the window will be kept in a fixed value range despite how
          * data are appended, while if in `'percent'` mode, whe window range will be changed alone with
          * the appended data (suppose `axis.min` and `axis.max` are not specified).
@@ -46766,7 +46766,7 @@
          * We should keep the `main process` idempotent, that is, given a set of values
          * on `option`, we get the same result.
          *
-         * But sometimes, values on `option` will be updated for providing users
+         * But sometimes, values on `option` will be updated for providing project_users
          * a "final calculated value" (`dataZoomProcessor` will do that). Those value
          * should not be the base/input of the `main process`.
          *
@@ -46999,7 +46999,7 @@
           // to `settledOption`. This strategy enables the feature to clear the original
           // value in `settledOption` to `null/undefined`.
           // But if both of them are `null/undefined`, we do not set them to `settledOption`
-          // and keep `settledOption` with the original value. This strategy enables users to
+          // and keep `settledOption` with the original value. This strategy enables project_users to
           // only set <end or endValue> but not set <start or startValue> when calling
           // `dispatchAction`.
           // The pair <end, endValue> is treated in the same way.
@@ -47513,7 +47513,7 @@
         // For value axis, if min/max/scale are not set, we just use the extent obtained
         // by series data, which may be a little different from the extent calculated by
         // `axisHelper.getScaleExtent`. But the different just affects the experience a
-        // little when zooming. So it will not be fixed until some users require it strongly.
+        // little when zooming. So it will not be fixed until some project_users require it strongly.
         var rawExtentInfo = axisModel.axis.scale.rawExtentInfo;
         if (percentWindow[0] !== 0) {
           rawExtentInfo.setDeterminedMinMax('min', +valueWindow[0].toFixed(precision));
@@ -51202,7 +51202,7 @@
         // that requires setting `trigger` nothing on component yet.
         this._showOrMove(subTooltipModel, function () {
           // Use formatterParams from element defined in component
-          // Avoid users modify it.
+          // Avoid project_users modify it.
           var formatterParams = clone(subTooltipModel.get('formatterParams') || {});
           this._showTooltipContent(subTooltipModel, defaultHtml, formatterParams, asyncTicket, e.offsetX, e.offsetY, e.position, el, markupStyleCreator);
         });
@@ -55182,7 +55182,7 @@
           controlType = oneType;
         }
         // Prevent default move event by default. If one false, do not prevent. Otherwise
-        // users may be confused why it does not work when multiple insideZooms exist.
+        // project_users may be confused why it does not work when multiple insideZooms exist.
         preventDefaultMouseMove = preventDefaultMouseMove && dataZoomModel.get('preventDefaultMouseMove', true);
       });
       return {
