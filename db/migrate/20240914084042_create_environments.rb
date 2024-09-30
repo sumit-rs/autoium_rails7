@@ -17,9 +17,9 @@ class CreateEnvironments < ActiveRecord::Migration[7.2]
       t.string :selenium_tester_url, null: true
       t.boolean :sleep_status, null: false, default: false
 
-      t.string :git_branch, null: true
-      t.string :git_orgranization, null: true
       t.string :git_provider, null: true
+      t.string :git_branch, null: true
+      t.string :git_organization, null: true
       t.string :git_repo_name, null: true
       t.string :git_last_commit, null: true
       t.text :git_access_token, null: true

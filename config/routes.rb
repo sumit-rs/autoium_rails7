@@ -4,15 +4,22 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   resources :projects do
-    resources :roles do
-    end
     resources :team_members do
       collection do
         post :assign_existing_member
       end
     end
   end
-  resources :environments
+  resources :environments do
+    member do
+      get :login_details
+      post :login_details
+
+      get :git_branch_details
+      post :git_branch_details
+    end
+    resources :custom_commands
+  end
 
   # Defines the root path route ("/")
   root "home#index"

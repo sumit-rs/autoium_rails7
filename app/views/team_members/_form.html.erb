@@ -4,13 +4,12 @@
     <div class="col-md-5">
       <p class="text-theme fs-5">Assign Existing Member</p>
       <%#= form_with model: @user, url: @user.new_record? ? project_team_members_path(@project, @user) : project_team_member_path(@project, @user), data: { turbo: false } do |f| %>
-       <%= form_tag assign_existing_member_project_team_members_path(@project) do %>
+       <%= form_tag assign_existing_member_project_team_members_path(@project), data: { turbo: false } do %>
         <div class="row g-3">
+
           <div class="col-md-12">
-            <label class="form-label" for="user_project_id">Project Access Role</label>
-            <div id="user_project_access_role">
-              <%= select_tag(:project_access_role_id, options_from_collection_for_select(@project.project_access_roles, "id", "name", @user.assign_project_roles.user_project(@project).try(:id)), prompt: 'Select Access Role',name: 'user[project_access_role_id]', class: 'form-control') %>
-            </div>
+            <label class="form-label" for="user_project_id">Project</label>
+            <%= select_tag(:project_id, options_for_select([[@project.name, @project.id]]), name: 'user[project_id]', id:'user_project_id', class: "form-control", multiple: false) %>
           </div>
 
           <div class="col-md-12">
@@ -31,15 +30,14 @@
   <% end %>
 
   <div class="<%= @user.id.blank? ? 'col-md-6' : 'col-md-12' %>">
+    <% if @user.id.blank? %>
     <p class="text-theme fs-5">Assign New Member</p>
-
+    <% end %>
     <%= form_with model: @user, url: @user.new_record? ? project_team_members_path(@project, @user) : project_team_member_path(@project, @user), data: { turbo: false } do |f| %>
       <div class="row g-3">
         <div class="col-md-6">
-          <label class="form-label" for="user_project_id">Project Access Role</label>
-          <div id="user_project_access_role">
-            <%= f.select(:project_access_role_id, options_from_collection_for_select(@project.project_access_roles, "id", "name", @user.assign_project_roles.user_project(@project).try(:id)), { prompt: 'Select Access Role' }, class: 'form-control') %>
-          </div>
+          <label class="form-label" for="user_project_id">Project</label>
+          <%= f.select(:project_id, options_for_select([[@project.name, @project.id]]), {}, class: "form-control") %>
         </div>
 
         <div class="col-md-6">

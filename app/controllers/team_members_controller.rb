@@ -10,6 +10,7 @@ class TeamMembersController < ApplicationController
   end
   def create
     @user = User.new(team_member_params)
+    @user.project_id = @project.id
     @user.allow_generate_password = true
     if @user.save
       flash[:success] = 'User has been assigned to project and send out to access link to user.'
@@ -44,13 +45,13 @@ class TeamMembersController < ApplicationController
   def assign_existing_member
     @user = User.new
     user = User.where(email: team_member_params[:email]).take
-    access_role = ProjectAccessRole.where(id: team_member_params[:project_access_role_id]).take
-    project_team_member = ProjectTeamMember.find_or_initialize_by(team_member: user, project: @project, project_access_role: access_role)
-    if project_team_member.save
+    project_team_member = ProjectTeamMember.find_or_initialize_by(team_member: user, project: @project)
+    if user and project_team_member.valid?
+      project_team_member.save
       flash[:success] = 'User has been assigned to project and send out to access link to user'
       redirect_to project_team_members_url(@project)
     else
-      flash.now[:errors] = project_team_member.errors.full_messages
+      flash.now[:errors] = "User must exist."
       render :new
     end
   end

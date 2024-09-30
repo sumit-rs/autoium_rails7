@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_09_19_095131) do
+ActiveRecord::Schema[7.2].define(version: 2024_09_30_144341) do
+  create_table "custom_commands", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "environment_id", null: false
+    t.string "name", null: false
+    t.string "command", null: false
+    t.text "additional_information"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "environments", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "url", null: false
@@ -26,9 +35,9 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_19_095131) do
     t.string "user_email"
     t.string "selenium_tester_url"
     t.boolean "sleep_status", default: false, null: false
-    t.string "git_branch"
-    t.string "git_orgranization"
     t.string "git_provider"
+    t.string "git_branch"
+    t.string "git_organization"
     t.string "git_repo_name"
     t.string "git_last_commit"
     t.text "git_access_token"
@@ -38,19 +47,9 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_19_095131) do
     t.index ["project_id"], name: "index_environments_on_project_id", unique: true
   end
 
-  create_table "project_access_roles", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.string "name", null: false
-    t.text "description", null: false
-    t.integer "project_id", null: false
-    t.integer "created_by", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "team_members", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "project_team_members", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "project_id", null: false
     t.integer "team_member_id", null: false
-    t.integer "project_access_role_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

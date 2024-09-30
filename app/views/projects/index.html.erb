@@ -31,9 +31,6 @@
                   <td><%= project.save_to_s3 ? 'Yes' : 'No' %></td>
                   <td><%= date_format(project.created_at) %></td>
                   <td>
-                    <%= link_to(project_roles_path(project), title: 'Project Roles') do %>
-                      <i class="bi bi-unlock"></i>
-                    <% end %>
                     <%= link_to(project_team_members_path(project), title: 'Project Team Members') do %>
                       <i class="bi bi-person-plus-fill"></i>
                     <% end %>
