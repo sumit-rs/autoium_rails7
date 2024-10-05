@@ -1,0 +1,52 @@
+<%
+  breadcrumb = {'Home': root_url, 'Environments' => environments_url, 'Test Plans' => environment_test_plans_url(@environment) }
+  btn = [{name: 'Create Test Plan', url: new_environment_test_plan_path(@environment), class: 'btn btn-primary rounded-pill btn-sm float-right'}]
+%>
+<%= render partial: 'common/breadcrumb', locals: {heading: 'Manage Test Plan', breadcrumb: breadcrumb, action_btns: btn} %>
+
+<section class="section min-vh-100">
+  <%= render partial: 'layouts/flash_message' %>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title">Environment: <%= @environment.name %> - <%= @environment.url %></p>
+          <!-- Table with stripped rows -->
+          <table class="table datatable mt-2">
+            <thead>
+            <tr>
+              <th width="20%">Name</th>
+              <th width="30%">Description</th>
+              <th width="15%">Role</th>
+              <th width="10%">Min Suite</th>
+              <th width="15%" data-type="date" data-format="DD-MM-YYYY">Created</th>
+              <th width="10%">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% if @test_plans %>
+              <% @test_plans.each do |test_plan| %>
+                <tr>
+                  <td><%= test_plan.name  %></td>
+                  <td><%= test_plan.description.html_safe %></td>
+                  <td>TBI</td>
+                  <td><%= test_plan.suite_count %></td>
+                  <td><%= date_format(test_plan.created_at) %></td>
+                  <td>
+                    <%= link_to(edit_environment_test_plan_url(@environment, test_plan), title: 'Edit Test Plan') do %>
+                      <i class="bi bi-pencil-fill"></i>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            <% end %>
+            </tbody>
+          </table>
+          <!-- End Table with stripped rows -->
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

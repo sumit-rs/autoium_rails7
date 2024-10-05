@@ -11,7 +11,7 @@ import "./jquery-ui.min";
 import "./tinymce";
 
 
-$(document).on('ready page:load', function () {
+$( document ).ready(function() {
     if (typeof tinyMCE != 'undefined') {
         tinyMCE.init({
             selector: "textarea.tinymce",

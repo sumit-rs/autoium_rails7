@@ -20,6 +20,8 @@ class Environment < ApplicationRecord
   belongs_to :user
   belongs_to :project
   has_many :custom_commands
+  has_many :test_roles, dependent: :destroy
+  has_many :test_plans, dependent: :destroy
 
   # -------------------------------------------------------------
   validates :name, presence: true

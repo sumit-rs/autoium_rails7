@@ -33,7 +33,15 @@
                   <td><%= date_format(environment.created_at) %></td>
                   <td>
                     <%= link_to(edit_environment_path(environment), title: 'Edit Environment') do %>
-                      <i class="bi bi-pencil-fill"></i>
+                      <i class="bi bi-pencil-fill"></i> |
+                    <% end %>
+
+                    <%= link_to(environment_test_roles_path(environment), title: 'Test Roles') do %>
+                      <i class="bi bi-person-lines-fill"></i> |
+                    <% end %>
+
+                    <%= link_to(environment_test_plans_path(environment), title: 'Test Plans') do %>
+                      <i class="bi bi-newspaper"></i> |
                     <% end %>
 
                     <%= link_to(environment_path(environment), method: :delete, data: {confirm: 'Are you sure?'}, title: 'Delete Environment') do %>

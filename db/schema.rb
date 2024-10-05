@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_09_30_144341) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_05_131613) do
   create_table "custom_commands", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "environment_id", null: false
     t.string "name", null: false
@@ -64,6 +64,36 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_30_144341) do
     t.text "s3_secret_key"
     t.string "s3_region_name"
     t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "test_plan_steps", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "test_plan_id", null: false
+    t.string "name", null: false
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "test_plans", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "environment_id", null: false
+    t.integer "user_id", null: false
+    t.string "name", null: false
+    t.text "description"
+    t.integer "suite_count", default: 0, null: false
+    t.text "additional_information"
+    t.boolean "status", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "test_roles", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.string "user_id", null: false
+    t.string "environment_id", null: false
+    t.string "name", null: false
+    t.text "description"
+    t.boolean "status", default: true, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

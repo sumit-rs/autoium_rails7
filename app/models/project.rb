@@ -8,6 +8,8 @@ class Project < ApplicationRecord
   has_many :environments, dependent: :destroy
   has_many :project_team_members, dependent: :destroy
   has_many :assign_team_members, through: :project_team_members, source: :team_member
+  has_many :test_roles, through: :environments
+  has_many :test_plans, through: :environments
 
   # -------------------------------------------------------------
   validates :name, presence: true

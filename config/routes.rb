@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       end
     end
   end
+
   resources :environments do
     member do
       get :login_details
@@ -19,6 +20,8 @@ Rails.application.routes.draw do
       post :git_branch_details
     end
     resources :custom_commands
+    resources :test_plans
+    resources :test_roles
   end
 
   # Defines the root path route ("/")
