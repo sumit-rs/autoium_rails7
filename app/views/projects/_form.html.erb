@@ -2,40 +2,40 @@
 <%= form_with model: @project, data: { turbo: false } do |f| %>
   <div class="row g-3">
     <div class="col-md-12">
-        <%= f.label :name, class: "form-label" %>
+        <%= f.label :name, class: "form-label fw-bold" %>
         <%= f.text_field :name, placeholder: "Enter Project Name", class: 'form-control' %>
     </div>
 
     <div class="col-md-12">
-      <%= f.label :description, class: "form-label" %>
+      <%= f.label :description, class: "form-label fw-bold" %>
       <%= f.text_area :description, placeholder: "Enter Project Description", class: 'form-control tinymce' %>
     </div>
 
     <div class="col-md-12">
       <div class="form-check">
-        <%= f.check_box :save_to_s3, class: 'form-check-input s3_enable'  %>
+        <%= f.check_box :save_to_s3, class: 'form-check-input s3_enable fw-bold'  %>
         <label class="form-check-label" for="project_save_to_s3">S3 Enable (store screenshot on S3)</label>
       </div>
     </div>
 
     <div class="row mt-2 d-none s3_div">
       <div class="col-md-12">
-        <label class="form-label" for="project_s3_bucket_name">S3 Bucket Name</label>
+        <label class="form-label fw-bold" for="project_s3_bucket_name">S3 Bucket Name</label>
         <%= f.text_field :s3_bucket_name, placeholder: "Enter S3 bucket name", class: 'form-control' %>
       </div>
 
       <div class="col-md-12">
-        <label class="form-label" for="project_s3_access_key">S3 Access Key</label>
+        <label class="form-label fw-bold" for="project_s3_access_key">S3 Access Key</label>
         <%= f.text_field :s3_access_key, placeholder: "Enter S3 secret access", class: 'form-control' %>
       </div>
 
       <div class="col-md-12">
-        <label class="form-label" for="project_s3_secret_key">S3 Secret Key</label>
+        <label class="form-label fw-bold" for="project_s3_secret_key">S3 Secret Key</label>
         <%= f.text_field :s3_secret_key, placeholder: "Enter S3 secret key", class: 'form-control' %>
       </div>
 
       <div class="col-md-12">
-        <label class="form-label" for="project_s3_region_name">S3 Region Name</label>
+        <label class="form-label fw-bold" for="project_s3_region_name ">S3 Region Name</label>
         <%= f.text_field :s3_region_name, placeholder: "Enter S3 region name", class: 'form-control' %>
       </div>
     </div>

@@ -12,7 +12,7 @@
         <div class="card-body">
           <p class="card-title">Environment: <%= @environment.name %> - <%= @environment.url %></p>
           <!-- Table with stripped rows -->
-          <table class="table datatable mt-2">
+          <table class="table datatable mt-2" id="myTable">
             <thead>
             <tr>
               <th width="20%">Name</th>
@@ -29,12 +29,15 @@
                 <tr>
                   <td><%= test_plan.name  %></td>
                   <td><%= test_plan.description.html_safe %></td>
-                  <td>TBI</td>
+                  <td><%= test_plan.test_roles.collect(&:name) %></td>
                   <td><%= test_plan.suite_count %></td>
                   <td><%= date_format(test_plan.created_at) %></td>
                   <td>
                     <%= link_to(edit_environment_test_plan_url(@environment, test_plan), title: 'Edit Test Plan') do %>
-                      <i class="bi bi-pencil-fill"></i>
+                      <i class="bi bi-pencil-fill"></i> |
+                    <% end %>
+                    <%= link_to(environment_test_plan_url(@environment, test_plan), method: :delete, data: {confirm: 'Are you sure?'}, title: 'Delete Test Plan') do %>
+                      <i class="bi bi-trash"></i>
                     <% end %>
                   </td>
                 </tr>

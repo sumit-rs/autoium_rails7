@@ -1,6 +1,6 @@
 <%
-  breadcrumb = {'Home': root_url, 'Manage Environments' => environments_url, 'Custom Commands' => environment_custom_commands_path(@environment) }
-  btn = []
+  breadcrumb = {'Home': root_url, 'Manage Environments' => environments_url }
+  btns = []
 %>
 <%= render partial: 'common/breadcrumb', locals: {heading: 'Create Environment', breadcrumb: breadcrumb, action_btns: btns} %>
 <section class="section min-vh-100">

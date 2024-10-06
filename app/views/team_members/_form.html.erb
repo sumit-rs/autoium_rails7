@@ -8,12 +8,12 @@
         <div class="row g-3">
 
           <div class="col-md-12">
-            <label class="form-label" for="user_project_id">Project</label>
+            <label class="form-label fw-bold" for="user_project_id">Project:</label>
             <%= select_tag(:project_id, options_for_select([[@project.name, @project.id]]), name: 'user[project_id]', id:'user_project_id', class: "form-control", multiple: false) %>
           </div>
 
           <div class="col-md-12">
-            <label class="form-label" for="user_email">Email</label>
+            <label class="form-label fw-bold" for="user_email">Email:</label>
             <%= select_tag(:email, options_for_select([]), name: 'user[email]', id:'user_email', class: "form-control", multiple: false) %>
           </div>
 
@@ -36,22 +36,22 @@
     <%= form_with model: @user, url: @user.new_record? ? project_team_members_path(@project, @user) : project_team_member_path(@project, @user), data: { turbo: false } do |f| %>
       <div class="row g-3">
         <div class="col-md-6">
-          <label class="form-label" for="user_project_id">Project</label>
+          <label class="form-label fw-bold" for="user_project_id">Project:</label>
           <%= f.select(:project_id, options_for_select([[@project.name, @project.id]]), {}, class: "form-control") %>
         </div>
 
         <div class="col-md-6">
-          <label class="form-label" for="user_email">Email</label>
+          <label class="form-label fw-bold" for="user_email">Email:</label>
           <%= f.text_field :email, placeholder: "Enter Email", class: 'form-control' %>
         </div>
 
         <div class="col-md-6">
-          <label class="form-label" for="user_first_name">First Name</label>
+          <label class="form-label fw-bold" for="user_first_name">First Name:</label>
           <%= f.text_field :first_name, placeholder: "Enter First Name", class: 'form-control' %>
         </div>
 
         <div class="col-md-6">
-          <label class="form-label" for="user_last_name">Last Name</label>
+          <label class="form-label fw-bold" for="user_last_name">Last Name:</label>
           <%= f.text_field :last_name, placeholder: "Enter Last Name", class: 'form-control' %>
         </div>
 

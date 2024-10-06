@@ -3,27 +3,27 @@
   <div class="row g-3">
 
     <div class="col-md-6">
-      <label class="form-label" for="environment_git_provider">Git Provider</label>
+      <label class="form-label fw-bold" for="environment_git_provider">Git Provider</label>
       <%= f.select :git_provider, Environment::PROVIDERS, {:prompt => 'Select Provider'} , class: 'form-control' %>
     </div>
 
     <div class="col-md-6">
-      <label class="form-label" for="environment_git_branch">Git Branch</label>
+      <label class="form-label fw-bold" for="environment_git_branch">Git Branch</label>
       <%= f.text_field :git_branch, placeholder: "Enter branch name", class: 'form-control' %>
     </div>
 
     <div class="col-md-6">
-      <label class="form-label" for="environment_git_organization">Git Organization</label>
+      <label class="form-label fw-bold" for="environment_git_organization">Git Organization</label>
       <%= f.text_field :git_organization, placeholder: "Enter organization", class: 'form-control' %>
     </div>
 
     <div class="col-md-6">
-      <label class="form-label" for="environment_git_repo_name">Repository Name</label>
+      <label class="form-label fw-bold" for="environment_git_repo_name">Repository Name</label>
       <%= f.text_field :git_repo_name, placeholder: "Enter repository name", class: 'form-control' %>
     </div>
 
     <div class="col-md-6">
-      <label class="form-label" for="environment_git_access_token">Access Token</label>
+      <label class="form-label fw-bold" for="environment_git_access_token">Access Token</label>
       <%= f.text_field :git_access_token, placeholder: "Enter access token", class: 'form-control' %>
     </div>
 

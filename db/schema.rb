@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_05_131613) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_06_014822) do
   create_table "custom_commands", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "environment_id", null: false
     t.string "name", null: false
@@ -86,6 +86,12 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_05_131613) do
     t.boolean "status", default: true, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "test_plans_roles", id: false, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.bigint "test_plan_id", null: false
+    t.bigint "test_role_id", null: false
+    t.index ["test_plan_id", "test_role_id"], name: "index_test_plans_roles_on_test_plan_id_and_test_role_id"
   end
 
   create_table "test_roles", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
