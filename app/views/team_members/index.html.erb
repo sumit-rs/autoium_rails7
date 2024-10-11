@@ -30,7 +30,7 @@
                   <td><%= project_user.email %></td>
                   <td><%= date_format(project_user.created_at) %></td>
                   <td>
-                    <%= link_to(edit_project_team_member_path(@project,project_user), title: 'Edit Project') do %>
+                    <%= link_to(edit_project_team_member_path(@project,project_user), title: 'Edit Team Member') do %>
                       <i class="bi bi-pencil-fill"></i> |
                     <% end %>
 

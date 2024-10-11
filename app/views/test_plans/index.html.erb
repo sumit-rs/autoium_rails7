@@ -36,7 +36,7 @@
                     <%= link_to(edit_environment_test_plan_url(@environment, test_plan), title: 'Edit Test Plan') do %>
                       <i class="bi bi-pencil-fill"></i> |
                     <% end %>
-                    <%= link_to(environment_test_plan_url(@environment, test_plan), method: :delete, data: {confirm: 'Are you sure?'}, title: 'Delete Test Plan') do %>
+                    <%= link_to(environment_test_plan_url(@environment, test_plan), method: :delete, data: {confirm: 'Are you sure? It will delete all the associated records of it like test suites, test cases etc.'}, title: 'Delete Test Plan') do %>
                       <i class="bi bi-trash"></i>
                     <% end %>
                   </td>

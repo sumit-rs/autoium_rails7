@@ -44,9 +44,14 @@
                       <i class="bi bi-newspaper"></i> |
                     <% end %>
 
-                    <%= link_to(environment_path(environment), method: :delete, data: {confirm: 'Are you sure?'}, title: 'Delete Environment') do %>
+                    <%= link_to(environment_test_suites_path(environment), title: 'Test Suites') do %>
+                      <i class="bi bi-journal-text"></i> |
+                    <% end %>
+
+                    <%= link_to(environment_path(environment), method: :delete, data: {confirm: 'Are you sure? It will delete all the associates records of it like Test Plan, Test Suites and Test Cases etc.'}, title: 'Delete Environment') do %>
                       <i class="bi bi-trash"></i>
                     <% end %>
+
                   </td>
                 </tr>
               <% end %>

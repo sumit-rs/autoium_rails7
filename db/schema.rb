@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_06_014822) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_10_135006) do
   create_table "custom_commands", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "environment_id", null: false
     t.string "name", null: false
@@ -44,7 +44,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_06_014822) do
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["project_id"], name: "index_environments_on_project_id", unique: true
   end
 
   create_table "project_team_members", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -66,6 +65,37 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_06_014822) do
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "test_cases", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "test_suite_id", null: false
+    t.integer "custom_command_id"
+    t.string "field_name"
+    t.string "field_type"
+    t.string "read_element"
+    t.string "input_value"
+    t.string "string"
+    t.string "action"
+    t.string "action_url"
+    t.string "base_url"
+    t.string "xpath"
+    t.string "selenium_file"
+    t.string "element_class"
+    t.string "full_xpath"
+    t.integer "sleeps"
+    t.integer "priority"
+    t.text "description"
+    t.boolean "need_screenshot", default: false
+    t.boolean "dependency", default: false
+    t.boolean "new_tab", default: false
+    t.boolean "enter_action", default: false
+    t.boolean "javascript_conditional_enabled", default: false
+    t.text "javascript_conditional"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["test_suite_id"], name: "index_test_cases_on_test_suite_id"
+    t.index ["user_id"], name: "index_test_cases_on_user_id"
   end
 
   create_table "test_plan_steps", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -104,6 +134,30 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_06_014822) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "test_suites", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "test_plan_id", null: false
+    t.bigint "environment_id", null: false
+    t.integer "base_suite_id"
+    t.integer "post_suite_id"
+    t.string "name"
+    t.string "short_description"
+    t.string "base_url"
+    t.string "jira_id"
+    t.text "video_file"
+    t.text "description"
+    t.text "flow_state"
+    t.string "status"
+    t.boolean "dependency", default: false
+    t.boolean "is_stale", default: false
+    t.boolean "is_automated", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["environment_id"], name: "index_test_suites_on_environment_id"
+    t.index ["test_plan_id"], name: "index_test_suites_on_test_plan_id"
+    t.index ["user_id"], name: "index_test_suites_on_user_id"
+  end
+
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "first_name", null: false
     t.string "last_name", null: false
@@ -117,4 +171,10 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_06_014822) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end
+
+  add_foreign_key "test_cases", "test_suites"
+  add_foreign_key "test_cases", "users"
+  add_foreign_key "test_suites", "environments"
+  add_foreign_key "test_suites", "test_plans"
+  add_foreign_key "test_suites", "users"
 end

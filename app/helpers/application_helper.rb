@@ -1,5 +1,12 @@
 module ApplicationHelper
 
+  def error_class(resource, field_name)
+    if resource.errors[field_name].present?
+      return "is-invalid".html_safe
+    else
+      return "".html_safe
+    end
+  end
   def date_format(date)
     date.strftime('%d-%m-%Y %H:%M')
   end

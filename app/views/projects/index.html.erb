@@ -32,11 +32,11 @@
                   <td><%= date_format(project.created_at) %></td>
                   <td>
                     <%= link_to(project_team_members_path(project), title: 'Project Team Members') do %>
-                      <i class="bi bi-person-plus-fill"></i> |
+                      <i class="bi bi-person-plus-fill"></i>
                     <% end %>
                     <% if project.creator == Current.user %>
                       <%= link_to(edit_project_path(project), title: 'Edit Project') do %>
-                        <i class="bi bi-pencil-fill"></i> |
+                        | <i class="bi bi-pencil-fill"></i> |
                       <% end %>
 
                       <%= link_to(project_path(project), method: :delete, data: {confirm: 'Are you sure?'}, title: 'Delete Project') do %>

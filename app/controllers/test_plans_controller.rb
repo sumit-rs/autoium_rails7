@@ -3,7 +3,7 @@ class TestPlansController < ApplicationController
   before_action :get_test_plan, only: [:show, :edit, :update, :destroy]
 
   def index
-    @test_plans = @environment.test_plans.where(user_id: Current.user.id)
+    @test_plans = @environment.test_plans
   end
 
   def new
@@ -39,18 +39,22 @@ class TestPlansController < ApplicationController
   end
 
   def destroy
-    if @test_plan.destroy
-      flash[:success] = 'Test plan deleted Successfully.'
+    if Current.user == @test_plan.user or @environment.project.creator == Current.user
+      if @test_plan.destroy
+        flash[:success] = 'Test plan deleted Successfully.'
+      else
+        flash[:errors] = @test_plan.errors.full_messages
+      end
+      redirect_to environment_test_plans_url(@environment)
     else
-      flash[:errors] = @test_plan.errors.full_messages
+      redirect_to environment_test_plans_url(@environment), notice: 'You are not allowed to delete the test plan which are created by other user.' and return unless Current.user == @test_plan.user
     end
-    redirect_to environment_test_plans_url(@environment)
   end
 
   private
 
   def get_environment
-    @environment = Current.user.environments.where(id: params[:environment_id]).take
+    @environment = Environment.where(id: params[:environment_id]).take
   end
 
   def get_test_plan

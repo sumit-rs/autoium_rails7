@@ -18,9 +18,9 @@ class User < ApplicationRecord
   #this return project roles where user belongs to different - 2 projects
   has_many :assign_projects, class_name: 'Project', foreign_key: 'project_id', through: :project_team_members
   has_many :environments, dependent: :destroy
-  has_many :test_plans, dependent: :destroy
   has_many :test_roles, dependent: :destroy
-
+  has_many :test_plans, dependent: :destroy
+  has_many :test_suites, dependent: :destroy
 
   # -------------------------------------------------------------
   validates :first_name, presence: true, length: { maximum: 50 }

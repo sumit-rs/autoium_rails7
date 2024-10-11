@@ -1,0 +1,59 @@
+<%= render partial: 'layouts/flash_message' %>
+<%= form_with model: @test_suite, url: @test_suite.new_record? ? environment_test_suites_path(@environment, @test_suite) : environment_test_suite_path(@environment, @test_suite), data: { turbo: false } do |f| %>
+  <div class="row g-3">
+    <div class="col-md-6">
+      <%= f.label :test_plan, 'Test Plan*', class: 'form-label fw-bold' %>
+      <%= f.select(:test_plan_id, options_for_select(@environment.test_plans.pluck(:name,:id), @test_suite.test_plan_id), {include_blank: "Choose Test Plan"}, class: "form-control #{error_class(@test_suite, :test_plan_id)}") %>
+    </div>
+
+    <div class="col-md-6">
+      <%= f.label :is_automated, 'Suite Type', class: 'form-label fw-bold' %>
+      <%= f.select(:is_automated, options_for_select([['Manual', 0],['Automated', 1]]), {}, class: "form-control") %>
+    </div>
+
+
+    <div class="col-md-6">
+      <%= f.label :name, 'Name*', class: 'form-label fw-bold' %>
+      <%= f.text_field :name, placeholder: "Enter name", class: "form-control #{error_class(@test_suite, :name)}" %>
+    </div>
+
+    <div class="col-md-6">
+      <%= f.label :jira_id, 'Jira Id', class: 'form-label fw-bold' %>
+      <%= f.text_field :jira_id, placeholder: "Enter jira id", class: 'form-control' %>
+    </div>
+
+    <div class="col-md-6">
+      <%= f.label :base_suite_id, 'Base Suite', class: 'form-label fw-bold' %>
+      <%= f.select(:base_suite_id, options_for_select(TestSuite.all.pluck(:name,:id), @test_suite.base_suite_id), {include_blank: "Choose base suite"}, class: "form-control #{error_class(@test_suite, :base_suit_id)}") %>
+
+    </div>
+    <div class="col-md-6">
+      <%= f.label :post_suite_id, 'Post Suite', class: 'form-label fw-bold' %>
+      <%= f.select(:post_suite_id, options_for_select(TestSuite.all.pluck(:name,:id), @test_suite.post_suite_id), {include_blank: "Choose post suite"}, class: "form-control #{error_class(@test_suite, :post_suit_id)}") %>
+    </div>
+    <div class="col-md-12">
+      <%= f.label :short_description, 'Short description (Max 255 chars)', class: 'form-label fw-bold' %>
+      <%= f.text_area :short_description, placeholder: "Enter short description", class: 'form-control' %>
+    </div>
+
+    <div class="col-md-12">
+      <%= f.label :description, 'Description', class: 'form-label fw-bold' %>
+      <%= f.text_area :description, class: 'form-control tinymce' %>
+    </div>
+
+    <div class="col-md-6">
+      <%= f.label :status, 'Suite Status', class: 'form-label fw-bold' %>
+      <%= f.select(:status, options_for_select([[TestSuite::SUITE_DRAFT_STATUS,TestSuite::SUITE_DRAFT_STATUS], [TestSuite::SUITE_FINAL_STATUS,TestSuite::SUITE_FINAL_STATUS]]), {}, class: "form-control") %>
+    </div>
+
+    <div class="col-md-6">
+      <%= f.label :is_stale, 'Stale', class: 'form-label fw-bold' %>
+      <%= f.select(:is_stale, options_for_select([['No', 0],['Yes', 1]]), {}, class: "form-control") %>
+    </div>
+
+    <div class="col-md-12">
+      <%= f.submit "Submit", class: "btn btn-primary" %>
+    </div>
+  </div>
+
+<% end %>

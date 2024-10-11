@@ -1,7 +1,7 @@
 class TestRolesController < ApplicationController
   before_action :get_environment
   def index
-    @test_roles = TestRole.where(user_id: Current.user.id, environment_id: params[:environment_id])
+    @test_roles = TestRole.where(environment_id: params[:environment_id])
   end
 
   def new
@@ -33,7 +33,7 @@ class TestRolesController < ApplicationController
       redirect_to environment_test_roles_url(@environment)
     else
       flash.now[:errors] = @test_role.errors.full_messages
-      render :new
+      render :edit
     end
   end
 

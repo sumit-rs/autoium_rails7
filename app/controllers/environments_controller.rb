@@ -2,7 +2,7 @@ class EnvironmentsController < ApplicationController
   before_action :get_environment, only: %i[show edit update destroy login_details git_branch_details]
   before_action :get_projects
   def index
-    @environments = Environment.where(project_id: Current.user.projects.collect(&:id))
+    @environments = Environment.where(project_id: Current.user.assign_projects.collect(&:id))
   end
 
   def show; end
@@ -59,12 +59,16 @@ class EnvironmentsController < ApplicationController
   end
 
   def destroy
-    if @environment.delete
-      flash[:success] = 'Environment deleted Successfully.'
+    if Current.user == @environment.user or @environment.project.creator == Current.user
+      if @environment.delete
+        flash[:success] = 'Environment deleted Successfully.'
+      else
+        flash[:errors] = @environment.errors.full_messages
+      end
+      redirect_to environments_path
     else
-      flash[:errors] = @environment.errors.full_messages
+      redirect_to environments_path, notice: "You are not allowed to delete the environment which are created by other user."
     end
-    redirect_to environments_path
   end
 
   private

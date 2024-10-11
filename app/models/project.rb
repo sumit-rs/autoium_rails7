@@ -21,6 +21,10 @@ class Project < ApplicationRecord
   # -------------------------------------------------------------
   after_create :create_project_team_member_as_creator
 
+  def self.current_user_project(user)
+    user.projects
+  end
+
   private
 
   def create_project_team_member_as_creator

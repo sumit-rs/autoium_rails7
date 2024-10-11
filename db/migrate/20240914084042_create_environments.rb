@@ -27,6 +27,5 @@ class CreateEnvironments < ActiveRecord::Migration[7.2]
       t.datetime :deleted_at, null: true
       t.timestamps
     end
-    add_index :environments, :project_id, unique: true
   end
 end

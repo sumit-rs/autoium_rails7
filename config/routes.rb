@@ -22,6 +22,11 @@ Rails.application.routes.draw do
     resources :custom_commands
     resources :test_plans
     resources :test_roles
+    resources :test_suites do
+      collection do
+      end
+      resources :test_cases
+    end
   end
 
   # Defines the root path route ("/")
