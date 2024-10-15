@@ -47,7 +47,6 @@ class TestSuitesController < ApplicationController
     else
       redirect_to environment_test_suites_url(@environment), notice: "You are not allowed to delete the suite which are created by other user."
     end
-
   end
 
   private

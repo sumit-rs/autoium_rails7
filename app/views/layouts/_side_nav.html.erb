@@ -7,7 +7,7 @@
     </a>
   </li><!-- End Dashboard Nav -->
 
-  <% _show = ['projects', 'environments', 'team_members', 'custom_commands', 'test_plans', 'test_roles'].include?(params[:controller]) ? 'show' : '' %>
+  <% _show = ['projects', 'environments', 'team_members', 'custom_commands', 'test_plans', 'test_roles', 'test_suites', 'manual_test_cases'].include?(params[:controller]) ? 'show' : '' %>
   <li class="nav-item">
     <a class="nav-link <%= _show.present? ? '' : 'collapsed' %>" data-bs-target="#projects-nav" data-bs-toggle="collapse" href="#">
       <i class="bi bi-menu-button-wide"></i><span>Manage Projects</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -20,9 +20,32 @@
         <% end %>
       </li>
 
-      <li>
-        <%= link_to(environments_path, class: ['environments','test_plans', 'test_roles'].include?(params[:controller]) ? 'active' : '') do %>
+      <li class="nav-item">
+        <% clss = ['environments','test_plans', 'test_roles', 'test_suites', 'manual_test_cases'].include?(params[:controller]) ? 'active ' : '' %>
+        <a class="nav-link <%= clss %>" data-bs-target="#env-nav" href="<%= environments_path %>">
           <i class="bi bi-circle"></i><span>Environments</span>
+        </a>
+        <% if params[:environment_id].present? %>
+        <ul id="env-nav" class="nav-content ms-3" data-bs-parent="#env-nav">
+          <li>
+            <%= link_to(environment_test_roles_path(get_environment), class: ['test_roles'].include?(params[:controller]) ? 'active' : '') do %>
+              <i class="bi bi-circle"></i>
+              <span>Test Roles</span>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to(environment_test_plans_path(get_environment), class: ['test_plans'].include?(params[:controller]) ? 'active' : '') do %>
+              <i class="bi bi-circle"></i>
+              <span>Test Plan</span>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to(environment_test_suites_path(get_environment), class: ['test_suites', 'manual_test_cases'].include?(params[:controller]) ? 'active' : '') do %>
+              <i class="bi bi-circle"></i>
+              <span>Test Suites</span>
+            <% end %>
+          </li>
+        </ul>
         <% end %>
       </li>
 
@@ -31,14 +54,28 @@
 
   <li class="nav-item">
     <a class="nav-link collapsed" data-bs-target="#suites-nav" data-bs-toggle="collapse" href="#">
-      <i class="bi bi-journal-text"></i><span>Manage Suites</span><i class="bi bi-chevron-down ms-auto"></i>
+      <i class="bi bi-journal-text"></i><span>Manage Tests</span><i class="bi bi-chevron-down ms-auto"></i>
     </a>
     <ul id="suites-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
       <li>
-        <a href="forms-elements.html">
-          <i class="bi bi-circle"></i><span>Environment Suites</span>
-        </a>
+        <%= link_to('#', class: ['test_plans'].include?(params[:controller]) ? 'active' : '') do %>
+          <i class="bi bi-circle"></i>
+          <span>Environment Plan</span>
+        <% end %>
       </li>
+      <li>
+        <%= link_to('#', class: ['test_suites'].include?(params[:controller]) ? 'active' : '') do %>
+          <i class="bi bi-circle"></i>
+          <span>Environment Suites</span>
+        <% end %>
+      </li>
+      <li>
+        <%= link_to('#', class: ['test_suites'].include?(params[:controller]) ? 'active' : '') do %>
+          <i class="bi bi-circle"></i>
+          <span>Environment Cases</span>
+        <% end %>
+      </li>
+
     </ul>
   </li><!-- End Forms Nav -->
 

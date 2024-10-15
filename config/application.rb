@@ -2,6 +2,7 @@ require_relative "boot"
 
 require "rails/all"
 
+require "active_storage/engine"
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
@@ -18,6 +19,25 @@ module FeedBook
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    config.action_mailer.raise_delivery_errors = true
+    config.action_mailer.delivery_method = :smtp
+    config.action_mailer.smtp_settings = {
+      address: 'smtp.office365.com',
+      port: '587',
+      authentication: :login,
+      user_name: ENV["SMTP_TECH_SUPPORT_USER_NAME"],
+      password: ENV["SMTP_TECH_SUPPORT_PASSWORD"],
+      domain: 'resourcestack.com.com',
+      enable_starttls_auto: true
+    }
+
+    config.middleware.use ExceptionNotification::Rack, email: {
+      email_prefix: "[Exception][#{Rails.env.capitalize}][#{ENV["APP_NAME"]}]",
+      sender_address: "TechnicalSupport <technicalsupport@resourcestack.com>",
+      exception_recipients: %w[sumit.kumar@resourcestack.com],
+    }
+
+
     config.tinymce.install = :compile
 
     config.active_record.encryption.support_unencrypted_data = true

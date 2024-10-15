@@ -32,17 +32,23 @@
                 <tr>
                   <td>
                     <% if test_suite.is_automated?  %>
+                      <% case_path =  environment_test_suite_test_cases_path(test_suite.environment, test_suite) %>
                       <span class="badge rounded-pill bg-info">M</span>
                     <% else %>
+                      <% case_path =  environment_test_suite_manual_test_cases_path(test_suite.environment, test_suite) %>
                       <span class="badge rounded-pill bg-danger">M</span>
                     <% end %>
                   </td>
                   <td><%= test_suite.name  %></td>
                   <td><%= test_suite.short_description  %></td>
                   <td><%= test_suite.test_plan.try(&:name)  %></td>
-                  <td><%= test_suite.status ? TestSuite::SUITE_FINAL_STATUS : TestSuite::SUITE_DRAFT_STATUS %></td>
                   <td><%= test_suite.is_stale ? "Yes" : "No" %></td>
+                  <td><%= test_suite.status %></td>
                   <td>
+                    <%= link_to(case_path, title: 'Test Cases') do %>
+                      <i class="bi bi-briefcase"></i> |
+                    <% end %>
+
                     <%= link_to(edit_environment_test_suite_url(test_suite.environment, test_suite), title: 'Edit Suite') do %>
                       <i class="bi bi-pencil-fill"></i>
                     <% end %>

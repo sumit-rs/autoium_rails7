@@ -9,6 +9,7 @@ class TestSuite < ApplicationRecord
   belongs_to :user
   belongs_to :environment
   belongs_to :test_plan
+  has_many  :manual_cases, dependent: :destroy
 
   # -------------------------------------------------------------
   validates :name, presence: true

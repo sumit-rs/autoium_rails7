@@ -10,4 +10,8 @@ module ApplicationHelper
   def date_format(date)
     date.strftime('%d-%m-%Y %H:%M')
   end
+
+  def get_environment
+    Environment.where(id: params[:environment_id]).first || '#'
+  end
 end

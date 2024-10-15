@@ -23,9 +23,12 @@ Rails.application.routes.draw do
     resources :test_plans
     resources :test_roles
     resources :test_suites do
-      collection do
-      end
       resources :test_cases
+      resources :manual_test_cases do
+        member do
+          delete :delete_attachment
+        end
+      end
     end
   end
 

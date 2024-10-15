@@ -32,20 +32,20 @@
                   <td><%= environment.user.full_name %></td>
                   <td><%= date_format(environment.created_at) %></td>
                   <td>
-                    <%= link_to(edit_environment_path(environment), title: 'Edit Environment') do %>
-                      <i class="bi bi-pencil-fill"></i> |
-                    <% end %>
-
                     <%= link_to(environment_test_roles_path(environment), title: 'Test Roles') do %>
                       <i class="bi bi-person-lines-fill"></i> |
                     <% end %>
 
                     <%= link_to(environment_test_plans_path(environment), title: 'Test Plans') do %>
-                      <i class="bi bi-newspaper"></i> |
+                      <i class="bi bi-palette2"></i> |
                     <% end %>
 
                     <%= link_to(environment_test_suites_path(environment), title: 'Test Suites') do %>
-                      <i class="bi bi-journal-text"></i> |
+                      <i class="bi bi-paperclip"></i> |
+                    <% end %>
+
+                    <%= link_to(edit_environment_path(environment), title: 'Edit Environment') do %>
+                      <i class="bi bi-pencil-fill"></i> |
                     <% end %>
 
                     <%= link_to(environment_path(environment), method: :delete, data: {confirm: 'Are you sure? It will delete all the associates records of it like Test Plan, Test Suites and Test Cases etc.'}, title: 'Delete Environment') do %>
