@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_15_145851) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_19_143831) do
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -37,6 +37,19 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_15_145851) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "assign_manual_test_suites", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "assign_to", null: false
+    t.bigint "test_suite_id", null: false
+    t.integer "assign_number"
+    t.string "state"
+    t.string "browser"
+    t.integer "fail_case_count"
+    t.integer "pass_case_count"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["test_suite_id"], name: "index_assign_manual_test_suites_on_test_suite_id"
   end
 
   create_table "custom_commands", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -72,6 +85,18 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_15_145851) do
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "manual_case_results", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.bigint "assign_manual_test_suite_id", null: false
+    t.bigint "manual_case_id", null: false
+    t.integer "assign_to", null: false
+    t.text "description"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["assign_manual_test_suite_id"], name: "index_manual_case_results_on_assign_manual_test_suite_id"
+    t.index ["manual_case_id"], name: "index_manual_case_results_on_manual_case_id"
   end
 
   create_table "manual_cases", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -213,6 +238,9 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_15_145851) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "assign_manual_test_suites", "test_suites"
+  add_foreign_key "manual_case_results", "assign_manual_test_suites"
+  add_foreign_key "manual_case_results", "manual_cases"
   add_foreign_key "manual_cases", "test_suites"
   add_foreign_key "test_cases", "test_suites"
   add_foreign_key "test_cases", "users"

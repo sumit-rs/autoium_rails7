@@ -23,12 +23,25 @@ Rails.application.routes.draw do
     resources :test_plans
     resources :test_roles
     resources :test_suites do
+      member do
+        get :assign_users
+        post :assign_users
+      end
       resources :test_cases
       resources :manual_test_cases do
         member do
           delete :delete_attachment
         end
       end
+    end
+  end
+
+  resources :assign_suites, only: [:index] do
+    collection do
+      get :manual
+    end
+    member do
+      get :manual_cases
     end
   end
 

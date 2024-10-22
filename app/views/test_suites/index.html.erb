@@ -49,6 +49,10 @@
                       <i class="bi bi-briefcase"></i> |
                     <% end %>
 
+                    <%= link_to(assign_users_environment_test_suite_path(test_suite.environment, test_suite), title: 'Assign suites to users', remote: true) do %>
+                      <i class="bi bi-person-check"></i> |
+                    <% end %>
+
                     <%= link_to(edit_environment_test_suite_url(test_suite.environment, test_suite), title: 'Edit Suite') do %>
                       <i class="bi bi-pencil-fill"></i>
                     <% end %>
@@ -69,3 +73,15 @@
     </div>
   </div>
 </section>
+<div class="modal fade" id="test-assignment-user" tabindex="-1" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Assign suite to key user for perform verification.</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body test-assignment-user-content">
+      </div>
+    </div>
+  </div>
+</div>

@@ -24,4 +24,8 @@ $( document ).ready(function() {
     } else {
         //setTimeout(arguments.callee, 50);
     }
+
+    $('.toggle-sidebar-btn').click(function() {
+       $('.autoium-body').toggleClass('toggle-sidebar');
+    });
 });

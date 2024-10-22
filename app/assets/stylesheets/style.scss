@@ -1243,6 +1243,11 @@ h6 {
   margin-bottom: 0rem;
 }
 
+.select2-container--bootstrap .select2-selection--multiple .select2-selection__choice{
+  margin: 5px !important;
+  padding: 0px !important;
+}
+
 .was-validated .form-control:invalid, .form-control.is-invalid {
   border-color: #ff4f70;
   padding-right: calc(1.5em + 0.75rem);

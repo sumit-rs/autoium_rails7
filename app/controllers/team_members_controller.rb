@@ -58,7 +58,11 @@ class TeamMembersController < ApplicationController
 
   def fetch_team_members
     users = User.where("first_name like ? OR last_name like ? OR email like ?", "#{params[:term]}%", "#{params[:term]}%", "#{params[:term]}%")
-    render json: {results: users.collect{|user| {id: user.email, text: "#{user.full_name} <#{user.email}> "}}}
+    if params[:format_id]
+      render json: {results: users.collect{|user| {id: user.id, text: "#{user.full_name} <#{user.email}> "}}}
+    else
+      render json: {results: users.collect{|user| {id: user.email, text: "#{user.full_name} <#{user.email}> "}}}
+    end
   end
 
   private

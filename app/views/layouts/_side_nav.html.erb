@@ -53,31 +53,11 @@
   </li><!-- End Components Nav -->
 
   <li class="nav-item">
-    <a class="nav-link collapsed" data-bs-target="#suites-nav" data-bs-toggle="collapse" href="#">
-      <i class="bi bi-journal-text"></i><span>Manage Tests</span><i class="bi bi-chevron-down ms-auto"></i>
-    </a>
-    <ul id="suites-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-      <li>
-        <%= link_to('#', class: ['test_plans'].include?(params[:controller]) ? 'active' : '') do %>
-          <i class="bi bi-circle"></i>
-          <span>Environment Plan</span>
-        <% end %>
-      </li>
-      <li>
-        <%= link_to('#', class: ['test_suites'].include?(params[:controller]) ? 'active' : '') do %>
-          <i class="bi bi-circle"></i>
-          <span>Environment Suites</span>
-        <% end %>
-      </li>
-      <li>
-        <%= link_to('#', class: ['test_suites'].include?(params[:controller]) ? 'active' : '') do %>
-          <i class="bi bi-circle"></i>
-          <span>Environment Cases</span>
-        <% end %>
-      </li>
-
-    </ul>
+    <%= link_to(manual_assign_suites_path, class: ['assign_suites'].include?(params[:controller]) ? 'active nav-link' : 'nav-link collapsed') do %>
+      <i class="bi bi-journal-text"></i><span>Assigned Suites</span>
+    <% end %>
   </li><!-- End Forms Nav -->
+
 
   <li class="nav-item">
     <a class="nav-link collapsed" data-bs-target="#reports-nav" data-bs-toggle="collapse" href="#">
