@@ -33,7 +33,7 @@
                   <td><%= manual_suite.state %></td>
                   <td><%= date_format(manual_suite.created_at) %></td>
                   <td>
-                    <%= link_to(manual_cases_assign_suite_path(manual_suite), title: 'Edit Team Member') do %>
+                    <%= link_to(manual_cases_assign_suite_path(manual_suite), title: 'Execute manual test suite') do %>
                       <i class="bi bi-file-play"></i>
                     <% end %>
                   </td>

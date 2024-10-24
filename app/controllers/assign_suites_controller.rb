@@ -8,7 +8,7 @@ class AssignSuitesController < ApplicationController
   end
 
   def manual_cases
-    @assign_manual_test = AssignManualTestSuite.where(id: params[:id]).take
+    @assign_manual_test = AssignManualTestSuite.where(id: params[:id], assign_to: Current.user.id).take
     redirect_to manual_assign_suites_path, notice: 'There is no assign test suites exist.' and return if @assign_manual_test.nil?
 
     @manual_case_results = if @assign_manual_test.manual_case_results.present?
@@ -23,9 +23,5 @@ class AssignSuitesController < ApplicationController
                              @assign_manual_test.reload!
                              @assign_manual_suites.manual_case_results
                            end
-  end
-
-  def mark_test_case_result
-
   end
 end

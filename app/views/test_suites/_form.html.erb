@@ -32,8 +32,8 @@
       <%= f.select(:post_suite_id, options_for_select(TestSuite.all.pluck(:name,:id), @test_suite.post_suite_id), {include_blank: "Choose post suite"}, class: "form-control #{error_class(@test_suite, :post_suit_id)}") %>
     </div>
     <div class="col-md-12">
-      <%= f.label :short_description, 'Short description (Max 255 chars)', class: 'form-label fw-bold' %>
-      <%= f.text_area :short_description, placeholder: "Enter short description", class: 'form-control' %>
+      <%= f.label :short_description, 'Short description (Max 255 chars)*', class: 'form-label fw-bold' %>
+      <%= f.text_area :short_description, placeholder: "Enter short description", class: "form-control #{error_class(@test_suite, :short_description)}" %>
     </div>
 
     <div class="col-md-12">
@@ -43,7 +43,7 @@
 
     <div class="col-md-6">
       <%= f.label :status, 'Suite Status', class: 'form-label fw-bold' %>
-      <%= f.select(:status, options_for_select([[TestSuite::SUITE_DRAFT_STATUS,TestSuite::SUITE_DRAFT_STATUS], [TestSuite::SUITE_FINAL_STATUS,TestSuite::SUITE_FINAL_STATUS]]), {}, class: "form-control") %>
+      <%= f.select(:status, options_for_select([[TestSuite::SUITE_DRAFT_STATUS,TestSuite::SUITE_DRAFT_STATUS], [TestSuite::SUITE_FINAL_STATUS,TestSuite::SUITE_FINAL_STATUS]], @test_suite.status), {}, class: "form-control") %>
     </div>
 
     <div class="col-md-6">
