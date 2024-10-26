@@ -20,7 +20,7 @@ class AssignSuitesController < ApplicationController
                              end
                              @assign_manual_test.state = AssignManualTestSuite::STATE_START
                              @assign_manual_test.save
-                             @assign_manual_test.reload!
+                             #@assign_manual_test.reload!
                              @assign_manual_suites.manual_case_results
                            end
   end
