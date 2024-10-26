@@ -1,0 +1,63 @@
+<%
+  breadcrumb = {'Home': root_url, 'Assign Suites' => manual_assign_suites_path, 'Assign Manual Suite' => manual_assign_suites_path }
+  btn = []
+%>
+<%= render partial: 'common/breadcrumb', locals: {heading: "#{@assign_manual_test.test_suite.name} manual test cases verification", breadcrumb: breadcrumb, action_btns: btn} %>
+
+<section class="section min-vh-100">
+  <div class="flash_notice_container"><%= render partial: 'layouts/flash_message' %></div>
+  <p class="text-danger">Please use <%= @assign_manual_test.browser %> browser instance and go to <a href="<%= @assign_manual_test.environment.url %>" target="_blank" class="text-danger"><%= @assign_manual_test.environment.url %></a></p>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <!-- Table with stripped rows -->
+          <table class="table datatable mt-2">
+            <thead>
+            <tr>
+              <th>Test</th>
+              <th>Suite</th>
+              <th>Short Desc</th>
+              <th data-type="date" data-format="DD-MM-YYYY">Created</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% if @manual_case_results %>
+              <% @manual_case_results.each do |manual_case_result| %>
+                <tr>
+                  <td><%= manual_case_result.manual_case.name  %></td>
+                  <td><%= manual_case_result.manual_case.test_suite.name  %></td>
+                  <td><%= manual_case_result.manual_case.test_suite.short_description  %></td>
+                  <td><%= date_format(manual_case_result.created_at) %></td>
+                  <td>
+                    <%= select_tag(
+                          "manual_case_result[status]",
+                          options_for_select(ManualCaseResult::STATUS, manual_case_result.status),
+                          prompt: "Select",
+                          class: 'form-control',
+                          data: {
+                            remote: true,
+                            url: manual_case_result_path(manual_case_result),
+                            method: 'patch'
+                          },
+                          ) %>
+                  </td>
+                  <td>
+                    <%= link_to edit_manual_case_result_path(manual_case_result), class: 'btn btn-outline-info', remote: true do %>
+                      Add Info
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            <% end %>
+            </tbody>
+          </table>
+          <!-- End Table with stripped rows -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<%= render partial: 'common/dialog', locals: {modal_title: 'Add Additional Information', modal_class: 'test-case-result-edit-frm'} %>

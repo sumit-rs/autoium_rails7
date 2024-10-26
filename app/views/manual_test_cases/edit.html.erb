@@ -1,0 +1,19 @@
+<%
+  breadcrumb = {'Home': root_url, 'Environments' => environments_url, 'Manual Test Cases' => environment_test_suite_manual_test_cases_path(@environment, @test_suite) }
+  btns = []
+%>
+<%= render partial: 'common/breadcrumb', locals: {heading: 'Update Manual Test Case', breadcrumb: breadcrumb, action_btns: btns} %>
+<section class="section min-vh-100">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title">Environment: <%= @environment.name %></p>
+          <div class="mt-3">
+            <%= render partial: 'manual_test_cases/form' %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

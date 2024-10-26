@@ -1,0 +1,24 @@
+<%= form_with model: @assign_manual_test_suite, url: assign_users_environment_test_suite_path(@environment, @test_suite) , data: { turbo: false, remote: true } do |f| %>
+  <div id="error"></div>
+  <div class="row g-3">
+    <div class="col-md-6">
+      <%= f.label :test_suite, 'Test Suite*', class: 'form-label fw-bold' %>
+      <%= f.select(:test_suite_id, options_for_select(@environment.test_suites.pluck(:name,:id), @test_suite.id), {include_blank: "Choose Test Suite"}, class: "form-control #{error_class(@test_suite, :test_suite_id)}") %>
+    </div>
+
+    <div class="col-md-6">
+      <%= f.label :browser, 'Browser*', class: 'form-label fw-bold' %>
+      <%= f.select(:browser, options_for_select(AssignManualTestSuite::BROWSERS), {}, class: "form-control #{error_class(@test_suite, :browser)}") %>
+    </div>
+
+
+    <div class="col-md-12">
+      <label class="form-label fw-bold" for="user_email">Email:</label>
+      <%= select_tag(:assign_to, options_for_select([]), name: 'assign_manual_test_suite[assign_to][]', id:'user_email', class: "form-control", multiple: true) %>
+    </div>
+
+    <div class="col-md-12">
+      <%= f.submit "Submit", class: "btn btn-primary", data: { disable_with: "Please wait..." } %>
+    </div>
+  </div>
+<% end %>

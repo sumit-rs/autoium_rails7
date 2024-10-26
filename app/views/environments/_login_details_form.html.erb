@@ -1,0 +1,56 @@
+<%= render partial: 'layouts/flash_message' %>
+<%= form_with model: @environment, url: login_details_environment_path(@environment), method: :post, data: { turbo: false } do |f| %>
+  <div class="row g-3">
+
+    <div class="col-md-6">
+      <%= f.label :user_name, class: "form-label fw-bold" %>
+      <%= f.text_field :user_name, placeholder: "Enter username", class: 'form-control' %>
+    </div>
+
+    <div class="col-md-6">
+      <%= f.label :password, class: "form-label fw-bold" %>
+      <%= f.text_field :password, placeholder: "Enter password", class: 'form-control' %>
+    </div>
+
+    <div class="col-md-6">
+      <label class="form-label fw-bold" for="environment_login_field">Login Field</label>
+      <%= f.text_field :login_field, placeholder: "Enter login field", class: 'form-control' %>
+    </div>
+
+    <div class="col-md-6">
+      <label class="form-label fw-bold" for="environment_password_field">Password Field</label>
+      <%= f.text_field :password_field, placeholder: "Enter password field", class: 'form-control' %>
+    </div>
+
+    <div class="col-md-6">
+      <%= f.label :action_button, class: "form-label fw-bold" %>
+      <%= f.text_field :action_button, placeholder: "Enter action button", class: 'form-control' %>
+    </div>
+
+    <div class="col-md-6">
+      <label class="form-label fw-bold" for="environment_action_type">Action Type</label>
+      <%= f.select :action_type, Environment::ACTION_TYPES, {:prompt => 'Select Action Type'} , class: 'form-control' %>
+    </div>
+
+    <div class="col-md-6">
+      <label class="form-label fw-bold" for="environment_selenium_tester_url">Selenium Tester Path</label>
+      <%= f.text_field :selenium_tester_url, placeholder: "Enter selenium web tester path", class: 'form-control' %>
+    </div>
+
+    <div class="col-md-6">
+      <label class="form-label fw-bold" for="environment_sleep_status">Sleep</label>
+      <%= f.select :sleep_status, [['NO', false], ['YES', true]], {} , class: 'form-control' %>
+    </div>
+
+    <div class="col-md-6">
+      <label class="form-label fw-bold" for="environment_user_email">User Emails</label>
+      <%= f.text_field :user_email, placeholder: "Enter user emails", class: 'form-control' %>
+    </div>
+
+    <div class="col-md-12">
+      <%= hidden_field_tag 'environment_section', 'login_details' %>
+      <%= f.submit "Submit", class:"btn btn-primary" %>
+    </div>
+
+  </div>
+<% end %>
