@@ -1,8 +1,8 @@
 class CreateTestCases < ActiveRecord::Migration[7.2]
   def change
     create_table :test_cases do |t|
-      t.references :user, null: false, foreign_key: true
-      t.references :test_suite, null: false, foreign_key: true
+      t.references :user, null: false
+      t.references :test_suite, null: false
       t.integer :custom_command_id
       t.string :field_name
       t.string :field_type

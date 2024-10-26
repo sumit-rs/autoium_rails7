@@ -1,9 +1,9 @@
 class CreateTestSuites < ActiveRecord::Migration[7.2]
   def change
     create_table :test_suites do |t|
-      t.references :user, null: false, foreign_key: true
-      t.references :test_plan, null: false, foreign_key: true
-      t.references :environment, null: false, foreign_key: true
+      t.references :user, null: false
+      t.references :test_plan, null: false
+      t.references :environment, null: false
       t.integer :base_suite_id
       t.integer :post_suite_id
       t.string :name

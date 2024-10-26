@@ -238,13 +238,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_19_143831) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "assign_manual_test_suites", "test_suites"
   add_foreign_key "manual_case_results", "assign_manual_test_suites"
   add_foreign_key "manual_case_results", "manual_cases"
-  add_foreign_key "manual_cases", "test_suites"
-  add_foreign_key "test_cases", "test_suites"
-  add_foreign_key "test_cases", "users"
-  add_foreign_key "test_suites", "environments"
-  add_foreign_key "test_suites", "test_plans"
-  add_foreign_key "test_suites", "users"
 end
