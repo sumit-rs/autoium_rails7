@@ -1,0 +1,52 @@
+<%
+  breadcrumb = {'Home': root_url, 'Environments' => environments_url, 'Manual Test Cases' => environment_test_suite_manual_test_cases_path(@environment, @test_suite) }
+  btn = [
+    { name: 'Create Manual Case', url: new_environment_test_suite_manual_test_case_path(@environment, @test_suite), class: 'btn btn-primary rounded-pill btn-sm float-right'}
+  ]
+%>
+<%= render partial: 'common/breadcrumb', locals: {heading: 'Manage Manual Test Cases', breadcrumb: breadcrumb, action_btns: btn} %>
+
+<section class="section min-vh-100">
+  <%= render partial: 'layouts/flash_message' %>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <!-- Table with stripped rows -->
+          <table class="table datatable mt-2" id="myTable">
+            <thead>
+            <tr>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% if @test_cases %>
+              <% @test_cases.each do |test_case| %>
+                <tr>
+                  <td><%= test_case.name  %></td>
+                  <td><%= test_case.description.html_safe  %></td>
+                  <td><%= test_case.is_active %></td>
+                  <td>
+                    <%= link_to(edit_environment_test_suite_manual_test_case_url(@environment, @test_suite, test_case), title: 'Edit Suite') do %>
+                      <i class="bi bi-pencil-fill"></i>
+                    <% end %>
+                    <%= link_to(environment_test_suite_manual_test_case_url(@environment, @test_suite, test_case), method: :delete, data: {confirm: 'Are you sure? It will delete all the associates records of it like test results etc.'}, title: 'Delete Case') do %>
+                      | <i class="bi bi-trash"></i>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            <% end %>
+            </tbody>
+          </table>
+          <!-- End Table with stripped rows -->
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

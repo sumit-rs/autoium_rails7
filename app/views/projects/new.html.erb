@@ -1,0 +1,20 @@
+<%
+  breadcrumb = {'Home': root_url, 'Manage Projects' => projects_url, 'Create Project' => '#' }
+  btns = []
+%>
+<%= render partial: 'common/breadcrumb', locals: {heading: 'Create Project', breadcrumb: breadcrumb, action_btns: btns} %>
+<section class="section min-vh-100">
+  <div class="row">
+    <div class="col-lg-12">
+
+      <div class="card">
+        <div class="card-body">
+          <div class="mt-3">
+            <%= render partial: 'projects/form' %>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

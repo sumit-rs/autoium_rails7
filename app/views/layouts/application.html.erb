@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <!-- Favicon icon -->
+  <title>ResourceStack - Autoium</title>
+
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload", differ: true %>
+  <%= javascript_include_tag "https://code.jquery.com/jquery-3.6.0.min.js" %>
+  <%= javascript_include_tag "https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" %>
+
+  <%= javascript_importmap_tags %>
+  <%= javascript_include_tag "apexcharts/apexcharts.min.js", "data-turbo-track": "reload" %>
+  <%= javascript_include_tag "chart.js/chart.umd.js", "data-turbo-track": "reload" %>
+  <%= javascript_include_tag "echarts/echarts.min.js", "data-turbo-track": "reload" %>
+  <%= javascript_include_tag "simple-datatables/simple-datatables.js", "data-turbo-track": "reload" %>
+  <%= javascript_include_tag "main.js", "data-turbo-track": "reload" %>
+
+</head>
+
+<body class="autoium-body <%= !user_signed_in? ? 'toggle-sidebar' : '' %>">
+<!-- Start Header -->
+<%= render partial: 'layouts/header' %>
+
+<!-- End Header -->
+
+<!-- ======= Sidebar ======= -->
+<aside id="sidebar" class="sidebar">
+  <%= render partial: 'layouts/side_nav' %>
+</aside>
+<!-- End Sidebar-->
+<main id="main" class="main">
+  <div class="container">
+    <%= yield %>
+  </div>
+</main><!-- End #main -->
+
+<footer id="footer" class="footer">
+  <div class="copyright">
+    &copy; Copyright <strong><span>2024 Autoium</span></strong>. All Rights Reserved
+  </div>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+</footer>
+<script>
+  if($('#myTable').length > 0){
+      new simpleDatatables.DataTable('#myTable', {
+          perPageSelect: [5, 10, 15, ["All", -1]],
+          columns: [{
+              select: 2,
+              sortSequence: ["desc", "asc"]
+          },
+              {
+                  select: 3,
+                  sortSequence: ["desc"]
+              },
+              {
+                  select: 4,
+                  cellClass: "green",
+                  headerClass: "red"
+              }
+          ]
+      });
+  }
+</script>
+</body>
+
+</html>

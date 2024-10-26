@@ -1,0 +1,41 @@
+<header id="header" class="header fixed-top d-flex align-items-center">
+
+  <div class="d-flex align-items-center justify-content-between">
+    <a href="<%= root_url %>" class="logo d-flex align-items-center">
+      <%= image_tag("logo.png") %>
+      <span class="d-none d-lg-block"></span>
+    </a>
+
+    <i class="bi bi-list toggle-sidebar-btn"></i>
+  </div><!-- End Logo -->
+
+
+  <nav class="header-nav ms-auto">
+    <ul class="d-flex align-items-center">
+
+      <li class="nav-item d-block d-lg-none">
+        <a class="nav-link nav-icon search-bar-toggle " href="#">
+          <i class="bi bi-search"></i>
+        </a>
+      </li>
+
+      <!-- End Search Icon-->
+      <li class="nav-item mx-2">
+        <a class="text-theme" href="<%= privacy_policy_path %>">Privacy Policy</a>
+      </li>
+      <div class="d-flex mx-2" style="height: 20px;color: #1a1a1a">
+        <div class="vr"></div>
+      </div>
+      <% if user_signed_in? %>
+        <li class="nav-item dropdown pe-3">
+          <%= render partial: 'layouts/logged_in_nav' %>
+        </li>
+      <% else %>
+        <li class="nav-item me-5 ms-2">
+          <a class="text-theme" href="<%= new_user_session_url %>">Sign-In</a>
+        </li>
+      <% end %>
+    </ul>
+  </nav><!-- End Icons Navigation -->
+
+</header>

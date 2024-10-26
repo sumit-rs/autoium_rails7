@@ -1,0 +1,31 @@
+# Log files
+*.log
+
+
+# Ignore bundler config.
+/.bundle
+# Ignore all logfiles and tempfiles.
+log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
+
+# Ignore pidfiles, but keep the directory.
+/tmp/pids/*
+/storage/*
+!/storage/.keep
+/tmp/storage/*
+!/tmp/storage/
+!/tmp/storage/.keep
+.env
+
+# Default ignored files
+/shelf/
+/workspace.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
+vendor/bundle/*
+tmp/*

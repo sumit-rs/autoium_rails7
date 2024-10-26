@@ -1,0 +1,21 @@
+<%= render partial: 'layouts/flash_message' %>
+<%= form_with model: @test_role, url: @test_role.new_record? ? environment_test_roles_path(@environment, @test_role) : environment_test_role_path(@environment, @test_role), data: { turbo: false } do |f| %>
+
+    <div class="row g-3">
+
+    <div class="col-md-12">
+      <label class="form-label fw-bold" for="test_plan_role_name">Name:</label>
+      <%= f.text_field :name, placeholder: "Enter name", class: 'form-control' %>
+    </div>
+
+    <div class="col-md-12">
+      <label class="form-label fw-bold" for="custom_command_command">Status:</label>
+      <%= f.select :status, [['Active', 1], ['In-active', 0]], {}, class: 'form-control' %>
+    </div>
+
+    <div class="col-md-12">
+      <%= f.submit "Submit", class:"btn btn-primary" %>
+    </div>
+
+  </div>
+<% end %>

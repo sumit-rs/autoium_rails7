@@ -1,0 +1,52 @@
+<%
+  breadcrumb = {'Home': root_url, 'Assign Suites' => manual_assign_suites_path }
+  btn = []
+%>
+<%= render partial: 'common/breadcrumb', locals: {heading: 'Assign Suites', breadcrumb: breadcrumb, action_btns: btn} %>
+
+<section class="section min-vh-100">
+
+  <%= render partial: 'layouts/flash_message' %>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <!-- Table with stripped rows -->
+          <table class="table datatable mt-2">
+            <thead>
+            <tr>
+              <th>Number</th>
+              <th>Test Suite</th>
+              <th>Browser</th>
+              <th>State</th>
+              <th data-type="date" data-format="DD-MM-YYYY">Created</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% if @assign_manual_suites %>
+              <% @assign_manual_suites.each do |manual_suite| %>
+                <tr>
+                  <td><%= manual_suite.assign_number %></td>
+                  <td><%= manual_suite.test_suite.name %></td>
+                  <td><%= manual_suite.browser %></td>
+                  <td><%= manual_suite.state %></td>
+                  <td><%= date_format(manual_suite.created_at) %></td>
+                  <td>
+                    <%= link_to(manual_cases_assign_suite_path(manual_suite), title: 'Execute manual test suite') do %>
+                      <i class="bi bi-file-play"></i>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            <% end %>
+            </tbody>
+          </table>
+          <!-- End Table with stripped rows -->
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

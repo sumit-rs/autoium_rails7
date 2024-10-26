@@ -1,0 +1,4 @@
+<%#=j(render(partial: 'manual_case_results/form_content')) %>
+$('.test-case-result-edit-frm').html('<%=j(render(partial: 'manual_case_results/form_content')) %>');
+var paper_submission_modal = new bootstrap.Modal(document.getElementById('test-case-result-edit-frm'))
+paper_submission_modal.show();

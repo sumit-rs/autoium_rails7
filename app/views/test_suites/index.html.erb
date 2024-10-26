@@ -1,0 +1,87 @@
+<%
+  breadcrumb = {'Home': root_url, 'Environments' => environments_url, 'Test Suites' => environment_test_suites_url(@environment) }
+  btn = [
+    { name: 'Create Test Suite', url: new_environment_test_suite_path(@environment), class: 'btn btn-primary rounded-pill btn-sm float-right'}
+  ]
+%>
+<%= render partial: 'common/breadcrumb', locals: {heading: 'Manage Test Suite', breadcrumb: breadcrumb, action_btns: btn} %>
+
+<section class="section min-vh-100">
+  <%= render partial: 'layouts/flash_message' %>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title">Environment: <%= @environment.name %> - <%= @environment.url %></p>
+          <!-- Table with stripped rows -->
+          <table class="table datatable mt-2" id="myTable">
+            <thead>
+            <tr>
+              <th></th>
+              <th>Name</th>
+              <th>Short Description</th>
+              <th>Test Plan</th>
+              <th>Stale</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% if @test_suites %>
+              <% @test_suites.each do |test_suite| %>
+                <tr>
+                  <td>
+                    <% if test_suite.is_automated?  %>
+                      <% case_path =  environment_test_suite_test_cases_path(test_suite.environment, test_suite) %>
+                      <span class="badge rounded-pill bg-info">M</span>
+                    <% else %>
+                      <% case_path =  environment_test_suite_manual_test_cases_path(test_suite.environment, test_suite) %>
+                      <span class="badge rounded-pill bg-danger">M</span>
+                    <% end %>
+                  </td>
+                  <td><%= test_suite.name  %></td>
+                  <td><%= test_suite.short_description  %></td>
+                  <td><%= test_suite.test_plan.try(&:name)  %></td>
+                  <td><%= test_suite.is_stale ? "Yes" : "No" %></td>
+                  <td><%= test_suite.status %></td>
+                  <td>
+                    <%= link_to(case_path, title: 'Test Cases') do %>
+                      <i class="bi bi-briefcase"></i> |
+                    <% end %>
+
+                    <%= link_to(assign_users_environment_test_suite_path(test_suite.environment, test_suite), title: 'Assign suites to users', remote: true) do %>
+                      <i class="bi bi-person-check"></i> |
+                    <% end %>
+
+                    <%= link_to(edit_environment_test_suite_url(test_suite.environment, test_suite), title: 'Edit Suite') do %>
+                      <i class="bi bi-pencil-fill"></i>
+                    <% end %>
+                    <%= link_to(environment_test_suite_url(test_suite.environment, test_suite), method: :delete, data: {confirm: 'Are you sure? It will delete all the associates records of it like Test cases etc.'}, title: 'Delete Suite') do %>
+                      | <i class="bi bi-trash"></i>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            <% end %>
+            </tbody>
+          </table>
+          <!-- End Table with stripped rows -->
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<div class="modal fade" id="test-assignment-user" tabindex="-1" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Assign suite to key user for perform verification.</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body test-assignment-user-content">
+      </div>
+    </div>
+  </div>
+</div>

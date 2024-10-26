@@ -1,0 +1,19 @@
+<%
+  breadcrumb = {'Home': root_url, 'Manage Projects' => projects_url , 'Manage Team Members' => project_team_members_url(@project), 'Assign Team Member' => '#' }
+  btns = []
+%>
+<%= render partial: 'common/breadcrumb', locals: {heading: 'Create Team Member', breadcrumb: breadcrumb, action_btns: btns} %>
+<section class="section min-vh-100">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="mt-3">
+            <%= render partial: 'team_members/form' %>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

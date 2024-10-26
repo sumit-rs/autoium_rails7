@@ -1,0 +1,145 @@
+<ul class="sidebar-nav" id="sidebar-nav">
+  <% _show = ['home'].include?(params[:controller]) ? 'show' : '' %>
+  <li class="nav-item">
+    <a class="nav-link <%= _show.present? ? '' : 'collapsed' %>" href="<%= root_url %>">
+      <i class="bi bi-grid"></i>
+      <span>Dashboard</span>
+    </a>
+  </li><!-- End Dashboard Nav -->
+
+  <% _show = ['projects', 'environments', 'team_members', 'custom_commands', 'test_plans', 'test_roles', 'test_suites', 'manual_test_cases'].include?(params[:controller]) ? 'show' : '' %>
+  <li class="nav-item">
+    <a class="nav-link <%= _show.present? ? '' : 'collapsed' %>" data-bs-target="#projects-nav" data-bs-toggle="collapse" href="#">
+      <i class="bi bi-menu-button-wide"></i><span>Manage Projects</span><i class="bi bi-chevron-down ms-auto"></i>
+    </a>
+    <ul id="projects-nav" class="nav-content collapse <%=_show %>" data-bs-parent="#sidebar-nav">
+      <li>
+        <%= link_to(projects_path, class: ['projects', 'team_members', 'custom_commands'].include?(params[:controller]) ? 'active' : '') do %>
+          <i class="bi bi-circle"></i>
+          <span>Projects</span>
+        <% end %>
+      </li>
+
+      <li class="nav-item">
+        <% clss = ['environments','test_plans', 'test_roles', 'test_suites', 'manual_test_cases'].include?(params[:controller]) ? 'active ' : '' %>
+        <a class="nav-link <%= clss %>" data-bs-target="#env-nav" href="<%= environments_path %>">
+          <i class="bi bi-circle"></i><span>Environments</span>
+        </a>
+        <% if params[:environment_id].present? %>
+        <ul id="env-nav" class="nav-content ms-3" data-bs-parent="#env-nav">
+          <li>
+            <%= link_to(environment_test_roles_path(get_environment), class: ['test_roles'].include?(params[:controller]) ? 'active' : '') do %>
+              <i class="bi bi-circle"></i>
+              <span>Test Roles</span>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to(environment_test_plans_path(get_environment), class: ['test_plans'].include?(params[:controller]) ? 'active' : '') do %>
+              <i class="bi bi-circle"></i>
+              <span>Test Plan</span>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to(environment_test_suites_path(get_environment), class: ['test_suites', 'manual_test_cases'].include?(params[:controller]) ? 'active' : '') do %>
+              <i class="bi bi-circle"></i>
+              <span>Test Suites</span>
+            <% end %>
+          </li>
+        </ul>
+        <% end %>
+      </li>
+
+    </ul>
+  </li><!-- End Components Nav -->
+
+  <li class="nav-item">
+    <%= link_to(manual_assign_suites_path, class: ['assign_suites'].include?(params[:controller]) ? 'active nav-link' : 'nav-link collapsed') do %>
+      <i class="bi bi-journal-text"></i><span>Assigned Suites</span>
+    <% end %>
+  </li><!-- End Forms Nav -->
+
+
+  <li class="nav-item">
+    <a class="nav-link collapsed" data-bs-target="#reports-nav" data-bs-toggle="collapse" href="#">
+      <i class="bi bi-bar-chart"></i><span>Manage Reports</span><i class="bi bi-chevron-down ms-auto"></i>
+    </a>
+    <ul id="reports-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+      <li>
+        <a href="tables-general.html">
+          <i class="bi bi-circle"></i><span>Suite Reports</span>
+        </a>
+      </li>
+    </ul>
+  </li><!-- End Tables Nav -->
+
+  <li class="nav-item">
+    <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
+      <i class="bi bi-layout-text-window-reverse"></i><span>Manage Compliance</span><i class="bi bi-chevron-down ms-auto"></i>
+    </a>
+    <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+      <li>
+        <a href="charts-chartjs.html">
+          <i class="bi bi-circle"></i><span>Accessibility Compliance</span>
+        </a>
+      </li>
+    </ul>
+  </li><!-- End Charts Nav -->
+
+  <li class="nav-item">
+    <a class="nav-link collapsed" data-bs-target="#release-nav" data-bs-toggle="collapse" href="#">
+      <i class="bi bi-gem"></i><span>Manage Release</span><i class="bi bi-chevron-down ms-auto"></i>
+    </a>
+    <ul id="release-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+      <li>
+        <a href="icons-bootstrap.html">
+          <i class="bi bi-circle"></i><span>Release</span>
+        </a>
+      </li>
+    </ul>
+  </li><!-- End Icons Nav -->
+
+  <li class="nav-heading">Administrator Section</li>
+
+  <li class="nav-item">
+    <a class="nav-link collapsed" href="users-profile.html">
+      <i class="bi bi-person"></i>
+      <span>Invite Users</span>
+    </a>
+  </li><!-- End Profile Page Nav -->
+
+  <li class="nav-item">
+    <a class="nav-link collapsed" href="pages-faq.html">
+      <i class="bi bi-currency-dollar"></i>
+      <span>Subscription Plans</span>
+    </a>
+  </li><!-- End F.A.Q Page Nav -->
+
+  <li class="nav-item">
+    <a class="nav-link collapsed" href="pages-contact.html">
+      <i class="bi bi-envelope"></i>
+      <span>User Inquiry</span>
+    </a>
+  </li><!-- End Contact Page Nav -->
+
+  <li class="nav-item">
+    <a class="nav-link collapsed" href="pages-register.html">
+      <i class="bi bi-download"></i>
+      <span>Software Version</span>
+    </a>
+  </li><!-- End Register Page Nav -->
+
+  <li class="nav-item">
+    <a class="nav-link collapsed" href="pages-login.html">
+      <i class="bi bi-info-circle"></i>
+      <span>Documentation</span>
+    </a>
+  </li><!-- End Login Page Nav -->
+
+  <li class="nav-item">
+    <%= link_to(destroy_user_session_path, class: 'nav-link collapsed', data: { turbo_method: :delete, confirm: "Are you sure?" }) do %>
+      <i class="bi bi-box-arrow-right"></i>
+      <span>Sign Out</span>
+    <% end %>
+  </li>
+
+</ul>

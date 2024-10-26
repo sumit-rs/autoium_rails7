@@ -1,0 +1,2 @@
+module ManualTestCasesHelper
+end
