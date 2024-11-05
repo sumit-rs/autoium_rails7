@@ -19,12 +19,11 @@ class AssignManualTestSuite < ApplicationRecord
 
   #-------------------------------------------------------------
   validates :browser, presence: true
-
+  validate :check_test_suite_status
   #-------------------------------------------------------------
-  before_create :assign_manual_test_suite_cases
 
   private
-  def assign_manual_test_suite_cases
-
+  def check_test_suite_status
+    errors.add(:test_suite, "status must be in final status.") if self.test_suite.status != TestSuite::SUITE_FINAL_STATUS
   end
 end

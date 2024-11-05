@@ -15,11 +15,12 @@
           <table class="table datatable mt-2">
             <thead>
             <tr>
-              <th>Number</th>
-              <th>Test Suite</th>
-              <th>Browser</th>
-              <th>State</th>
-              <th data-type="date" data-format="DD-MM-YYYY">Created</th>
+              <th width="15%">Number</th>
+              <th width="15%">Test Suite</th>
+              <th width="35%">Environment</th>
+              <th width="7%">Browser</th>
+              <th width="8%">State</th>
+              <th data-type="date" data-format="DD-MM-YYYY" width="15%">Assigned</th>
               <th>Action</th>
             </tr>
             </thead>
@@ -29,12 +30,34 @@
                 <tr>
                   <td><%= manual_suite.assign_number %></td>
                   <td><%= manual_suite.test_suite.name %></td>
-                  <td><%= manual_suite.browser %></td>
-                  <td><%= manual_suite.state %></td>
+                  <td>
+                    <p><%= manual_suite.environment.name %></p>
+                    <p class="small"><%= manual_suite.environment.url %></p>
+                  </td>
+                  <td>
+                    <% if manual_suite.browser == AssignManualTestSuite::BROWSER_CHROME %>
+                      <i class="bi bi-browser-chrome" title="CHROME" alt="CHROME"></i>
+                    <% elsif manual_suite.browser == AssignManualTestSuite::BROWSER_FIREFOX %>
+                      <i class="bi bi-browser-firefox" title="FIREFOX" alt="FIREFOX"></i>
+                    <% elsif manual_suite.browser == AssignManualTestSuite::BROWSER_SAFARI %>
+                      <i class="bi bi-browser-safari" title="SAFARI" alt="SAFARI"></i>
+                    <% elsif manual_suite.browser == AssignManualTestSuite::BROWSER_EDGE %>
+                      <i class="bi bi-browser-edge" title="EDGE" alt="EDGE"></i>
+                    <% end %>
+                  </td>
+                  <td>
+                    <% if [AssignManualTestSuite::STATE_PROGRESS, AssignManualTestSuite::STATE_START].include?( manual_suite.state) %>
+                      <%= image_tag "in-progress-icon.png", width: '20px', title: AssignManualTestSuite::STATE_PROGRESS, alt: AssignManualTestSuite::STATE_PROGRESS %>
+                    <% elsif manual_suite.state == AssignManualTestSuite::STATE_ASSIGN %>
+                      <i class="bi bi-person-lines-fill" title="ASSIGN" alt="ASSIGN"></i>
+                    <% elsif manual_suite.state == AssignManualTestSuite::STATE_FINISH %>
+                      <i class="bi bi-check2-circle" title="FINISHED" alt="FINISHED"></i>
+                    <% end %>
+                  </td>
                   <td><%= date_format(manual_suite.created_at) %></td>
                   <td>
                     <%= link_to(manual_cases_assign_suite_path(manual_suite), title: 'Execute manual test suite') do %>
-                      <i class="bi bi-file-play"></i>
+                      <i class="bi bi-play-circle" title="Execute manual test suite" alt="Execute manual test suite"></i>
                     <% end %>
                   </td>
                 </tr>

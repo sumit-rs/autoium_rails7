@@ -47,6 +47,13 @@
       <%= f.text_field :user_email, placeholder: "Enter user emails", class: 'form-control' %>
     </div>
 
+    <div class="col-md-6">
+      <div class="form-check form-switch pt-4">
+        <label class="form-check-label" for="flexSwitchCheckChecked">Login Required</label>
+        <%= f.check_box "login_required", class: 'form-check-input form-control' %>
+      </div>
+    </div>
+
     <div class="col-md-12">
       <%= hidden_field_tag 'environment_section', 'login_details' %>
       <%= f.submit "Submit", class:"btn btn-primary" %>

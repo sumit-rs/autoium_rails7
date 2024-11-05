@@ -30,7 +30,11 @@ class TestSuitesController < ApplicationController
   def update
     if @test_suite.update(test_suite_params)
       flash[:success] = 'Test suite updated successfully.'
-      redirect_to environment_test_suites_url(@environment)
+      if request.xhr?
+        render js: "window.location.href =' #{environment_test_suites_url(@environment)}'"
+      else
+        redirect_to environment_test_suites_url(@environment)
+      end
     else
       flash.now[:errors] = @test_suite.errors.full_messages
       render :edit
@@ -54,12 +58,13 @@ class TestSuitesController < ApplicationController
     @error = false
     @assign_manual_test_suite = AssignManualTestSuite.new
     if request.xhr? and request.post?
-      user_ids = assign_manual_test_suite_params[:assign_to].map(&:to_i) || []
+      user_ids = (assign_manual_test_suite_params[:assign_to] || []).map(&:to_i)
       test_suite_id = assign_manual_test_suite_params[:test_suite_id]
-      if user_ids.empty? or assign_manual_test_suite_params[:test_suite_id].empty?
+      if user_ids.empty? or test_suite_id.empty? or @test_suite.manual_cases.empty?
         str = ''
         str << 'User must exist.<br/>' if user_ids.empty?
-        str << 'Test suite must exist.' if assign_manual_test_suite_params[:test_suite_id].empty?
+        str << 'Test suite must exist.' if test_suite_id.empty?
+        str << 'No manual case exist for test suite.' if @test_suite.manual_cases.empty?
         @error = true
         flash.now[:errors] = str
       else
@@ -68,16 +73,24 @@ class TestSuitesController < ApplicationController
                                                         state: [AssignManualTestSuite::STATE_ASSIGN, AssignManualTestSuite::STATE_START],
                                                         test_suite_id: test_suite_id, browser: assign_manual_test_suite_params[:browser]
         ).collect(&:assign_to)
+        error = ''
         [user_ids - user_assignment_exists].flatten.each do |user_id|
           ats =  AssignManualTestSuite.new(assign_to: user_id, test_suite_id: test_suite_id, browser: assign_manual_test_suite_params[:browser], assign_number: Time.now.to_i)
           ats.state = AssignManualTestSuite::STATE_ASSIGN
           if ats.save
           else
-            Rails.logger.info "Error: Test Suite Assign: #{ats.errors.full_messages.inspect}"
+            error = ats.errors.full_messages.join(',')
+            @error = true
+            break
+            #Rails.logger.info "Error: Test Suite Assign: #{ats.errors.full_messages.inspect}"
           end
         end
-        flash[:success] = 'Test suite assigned successfully!'
-        render js: "window.location.href =' #{environment_test_suites_url(@environment)}'"
+        if @error
+          flash.now[:errors] = error
+        else
+          flash[:success] = 'Test suite assigned successfully!'
+          render js: "window.location.href =' #{environment_test_suites_url(@environment)}'"
+        end
       end
     end
   end

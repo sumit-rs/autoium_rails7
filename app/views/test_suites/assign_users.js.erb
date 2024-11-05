@@ -1,10 +1,10 @@
 
 $('.test-assignment-user-content').html('<%= j(render partial: 'test_suites/assign_users_frm', locals: {}) %>');
+var user_assignment_modal = new bootstrap.Modal(document.getElementById('test-assignment-user'))
+user_assignment_modal.show();
 <% if @error %>
 $('#error').html('<%=j(render(partial: 'layouts/flash_message')) %>');
 <% end %>
-var paper_submission_modal = new bootstrap.Modal(document.getElementById('test-assignment-user'))
-paper_submission_modal.show();
 
 $('#test-assignment-user #user_email').select2({
     dropdownParent: $('#test-assignment-user'),

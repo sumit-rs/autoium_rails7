@@ -9,6 +9,7 @@ class ManualCaseResult < ApplicationRecord
   belongs_to :user, foreign_key: :assign_to
   belongs_to :manual_case
   has_one :test_suite, through: :manual_case, foreign_key: :test_suite_id
+  has_one_attached :case_result_file
 
   #-------------------------------------------------------------
   after_save :update_assigned_suites

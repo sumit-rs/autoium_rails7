@@ -10,5 +10,18 @@ class TestPlan < ApplicationRecord
 
   # -------------------------------------------------------------
   validates :name, presence: true
-  validates :suite_count, length: {minimum: 1}
+  validates :suite_count, numericality: { greater_than: 0 }
+  #validates :suite_count, length: {minimum: 1}
+
+  before_validation :change_suit_count_data_type
+
+  # def suite_count=(suite_count) #creates a setter method for name
+  #   @suite_count = suite_count.to_i
+  # end
+
+  private
+
+  def change_suit_count_data_type
+    self.suite_count = self.suite_count.to_i
+  end
 end

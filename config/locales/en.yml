@@ -30,4 +30,5 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  assign_test_suite:
+    no_manual_case: 'There is no manual case(s) have created for the suite. Kindly create the suite first before user assignment'
