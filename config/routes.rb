@@ -48,6 +48,8 @@ Rails.application.routes.draw do
   resources :manual_case_results do
   end
 
+  resources :suite_reports, only:[:index, :show]
+
   # Defines the root path route ("/")
   root "home#index"
   match "fetch-team-members", to: "team_members#fetch_team_members", via: [:get, :post]

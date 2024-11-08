@@ -1,0 +1,57 @@
+<%
+  breadcrumb = {'Home': root_url, 'Test Suite Report' => '#' }
+  btn = []
+%>
+<%= render partial: 'common/breadcrumb', locals: {heading: 'Test Suite Report', breadcrumb: breadcrumb, action_btns: btn} %>
+
+<section class="section min-vh-100">
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="card-title"><%= @suite_report.test_suite.environment.name %> (<%= @suite_report.test_suite.environment.url %>)</div>
+        <div class="row">
+          <div class="col-6"><p class="small"><strong>Test Suite</strong>: <%= @suite_report.test_suite.name %></p></div>
+          <div class="col-6"><p class="small"><strong>Assigned To</strong>: <%= @suite_report.user.full_name %></p></div>
+          <div class="col-6">
+            <p class="small"><strong>Status</strong>:
+              <% if (@suite_report.fail_case_count || 0) > 0 %>
+                <%= image_tag 'failed.jpg', width: '50px' %> (Fail: <%= (@suite_report.fail_case_count || 0) %>, Pass: <%= (@suite_report.pass_case_count || 0) %>)
+              <% else %>
+                <%= image_tag 'pass.png', width: '50px' %>
+              <% end %>
+            </p>
+          </div>
+          <div class="col-6">
+            <p class="small"><strong>Result:</strong>: Fail: <%= (@suite_report.fail_case_count || 0) %>, Pass: <%= (@suite_report.pass_case_count || 0) %>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+            <tr class="text-dark">
+              <th width="20%">TestCase</th>
+              <th width="40%">Description</th>
+              <th width="25%">URL</th>
+              <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% @suite_report.manual_case_results.each do |manual_case_result| %>
+            <tr class="font-14 text-dark">
+              <td class="wrap"><%= manual_case_result.manual_case.name %></td>
+              <td class="wrap"><%= manual_case_result.manual_case.description %></td>
+              <td><%= manual_case_result.manual_case.url %></td>
+              <td class="text-danger"><%= manual_case_result.status %></td>
+            </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>

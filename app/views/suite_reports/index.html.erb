@@ -1,0 +1,54 @@
+<%
+  breadcrumb = {'Home': root_url, 'Assign Suites' => manual_assign_suites_path }
+  btn = []
+%>
+<%= render partial: 'common/breadcrumb', locals: {heading: 'Suite Reports', breadcrumb: breadcrumb, action_btns: btn} %>
+
+<section class="section min-vh-100">
+
+  <%= render partial: 'layouts/flash_message' %>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <!-- Table with stripped rows -->
+          <table class="table datatable mt-2">
+            <thead>
+            <tr>
+              <th width="15%">Number</th>
+              <th width="15%">Test Suite</th>
+              <th width="30%">Environment</th>
+              <th width="15%">Assigned</th>
+              <th width="10%">State</th>
+              <th width="15%">Status</th>
+            </tr>
+            </thead>
+            <tbody>
+              <% if @reports %>
+                <% @reports.each do |report| %>
+                  <tr>
+                    <td><a href="<%= suite_report_path(report) %>" target="_blank"><%= report.assign_number %></a></td>
+                    <td><%= report.test_suite.name %></td>
+                    <td><%= report.test_suite.environment.name %></td>
+                    <td><%= report.user.full_name %></td>
+                    <td><%= report.state %></td>
+                    <td>
+                      <% if (report.fail_case_count || 0) > 0  %>
+                        <%= image_tag 'failed.jpg', width: '40px' %>
+                      <% else %>
+                        <%= image_tag 'pass.png', width: '40px' %>
+                      <% end %>
+                    </td>
+                  </tr>
+              <% end %>
+              <% end %>
+            </tbody>
+          </table>
+          <!-- End Table with stripped rows -->
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
