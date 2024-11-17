@@ -22,6 +22,7 @@ class User < ApplicationRecord
   has_many :test_plans, dependent: :destroy
   has_many :test_suites, dependent: :destroy
   has_many :assign_manual_test_suites, foreign_key: 'assign_to', dependent: :destroy
+  has_many :test_cases, dependent: :destroy
 
   # -------------------------------------------------------------
   validates :first_name, presence: true, length: { maximum: 50 }

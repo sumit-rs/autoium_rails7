@@ -26,13 +26,13 @@
       <div class="d-flex mx-2" style="height: 20px;color: #1a1a1a">
         <div class="vr"></div>
       </div>
-      <% if user_signed_in? %>
+      <% if Current.user.present? %>
         <li class="nav-item dropdown pe-3">
           <%= render partial: 'layouts/logged_in_nav' %>
         </li>
       <% else %>
         <li class="nav-item me-5 ms-2">
-          <a class="text-theme" href="<%= new_user_session_url %>">Sign-In</a>
+          <a class="text-theme" href="<%#= new_user_session_url %>">Sign-In</a>
         </li>
       <% end %>
     </ul>

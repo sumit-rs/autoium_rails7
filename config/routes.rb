@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     resources :custom_commands
     resources :test_plans
     resources :test_roles
+
     resources :test_suites do
       member do
         get :assign_users

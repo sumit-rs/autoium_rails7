@@ -27,7 +27,7 @@
 
 </head>
 
-<body class="autoium-body <%= !user_signed_in? ? 'toggle-sidebar' : '' %>">
+<body class="autoium-body <%= Current.user.present? ? '' : 'toggle-sidebar' %>">
 <!-- Start Header -->
 <%= render partial: 'layouts/header' %>
 

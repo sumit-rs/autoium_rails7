@@ -1,0 +1,96 @@
+<%= render partial: 'layouts/flash_message' %>
+<%= form_with model: @test_case, url: @test_case.new_record? ? environment_test_suite_test_cases_path(@environment, @test_suite) : environment_test_suite_test_case_path(@environment, @test_suite, @test_case), data: { turbo: false } do |f| %>
+  <div class="row g-3">
+
+    <div class="col-md-6">
+      <%= f.label :environment, 'Environment', class: 'form-label fw-bold' %>
+      <%= f.text_field :environment, class: "form-control", value: @environment.name, readonly: true, disabled: true %>
+    </div>
+
+    <div class="col-md-6">
+      <%= f.label :test_suite, 'Test Suite', class: 'form-label fw-bold' %>
+      <%= f.text_field :test_suite, class: "form-control", value: @test_suite.name, readonly: true, disabled: true %>
+    </div>
+
+    <div class="col-md-6">
+      <%= f.label :field_name, 'Field Name', class: 'form-label fw-bold' %>
+      <%= f.text_field :field_name, placeholder: "Enter Field Name", class: "form-control #{error_class(@test_case, :field_name)}" %>
+    </div>
+
+    <div class="col-md-6">
+      <%= f.label :field_type, 'Field Type', class: 'form-label fw-bold' %>
+      <%= f.text_field :field_type, placeholder: "Field Type", class: 'form-control' %>
+    </div>
+
+    <div class="col-md-6">
+      <%= f.label :read_element, 'Read Element', class: 'form-label fw-bold' %>
+      <%= f.text_field :read_element, class: "form-control #{error_class(@test_case, :read_element)}" %>
+    </div>
+
+    <div class="col-md-6">
+      <%= f.label :element_class, 'Element Classname', class: 'form-label fw-bold' %>
+      <%= f.text_field :element_class, class: "form-control #{error_class(@test_case, :element_class)}" %>
+    </div>
+
+    <div class="col-md-6">
+      <%= f.label :input_value, 'Input Value', class: 'form-label fw-bold' %>
+      <%= f.text_field :input_value, class: "form-control #{error_class(@test_case, :input_value)}" %>
+    </div>
+
+    <div class="col-md-6">
+      <%= f.label :string, 'String', class: 'form-label fw-bold' %>
+      <%= f.text_field :string, class: "form-control #{error_class(@test_case, :string)}" %>
+    </div>
+
+    <div class="col-md-6">
+      <%= f.label :action, 'Action', class: 'form-label fw-bold' %>
+      <%= f.text_field :action, class: "form-control #{error_class(@test_case, :action)}" %>
+    </div>
+
+    <div class="col-md-6">
+      <%= f.label :action_url, 'Action URL', class: 'form-label fw-bold' %>
+      <%= f.text_field :action_url, class: "form-control #{error_class(@test_case, :action_url)}" %>
+    </div>
+
+    <div class="col-md-6">
+      <%= f.label :base_url, 'Base URL', class: 'form-label fw-bold' %>
+      <%= f.text_field :base_url, class: "form-control #{error_class(@test_case, :base_url)}" %>
+    </div>
+
+    <div class="col-md-6">
+      <%= f.label :sleeps, 'Sleeps', class: 'form-label fw-bold' %>
+      <%= f.number_field :sleeps, class: "form-control #{error_class(@test_case, :sleeps)}" %>
+    </div>
+
+    <div class="col-md-6">
+      <%= f.label :xpath, 'Xpath', class: 'form-label fw-bold' %>
+      <%= f.text_field :xpath, class: "form-control #{error_class(@test_case, :xpath)}" %>
+    </div>
+
+    <div class="col-md-6">
+      <%= f.label :full_xpath, 'Full Xpath', class: 'form-label fw-bold' %>
+      <%= f.text_field :full_xpath, class: "form-control #{error_class(@test_case, :full_xpath)}" %>
+    </div>
+
+    <div class="col-md-6">
+      <%= f.label :new_tab, 'New Tab', class: 'form-label fw-bold' %>
+      <%= f.select(:new_tab, options_for_select([['Yes', 1],['No', 1]]), {}, class: "form-control") %>
+    </div>
+
+    <div class="col-md-6">
+      <%= f.label :need_screenshot, 'Need Screenshot', class: 'form-label fw-bold' %>
+      <%= f.select(:need_screenshot, options_for_select([['Yes', 1],['No', 1]]), {}, class: "form-control") %>
+    </div>
+
+    <div class="col-md-6">
+      <%= f.label :description, 'Description', class: 'form-label fw-bold' %>
+      <%= f.text_area :description, class: "form-control tinymce #{error_class(@test_case, :description)}" %>
+    </div>
+
+
+    <div class="col-md-12">
+      <%= f.submit "Submit", class: "btn btn-primary" %>
+    </div>
+  </div>
+
+<% end %>

@@ -8,7 +8,7 @@
 
     <div class="col-md-6">
       <%= f.label :is_automated, 'Suite Type', class: 'form-label fw-bold' %>
-      <%= f.select(:is_automated, options_for_select([['Manual', 0],['Automated', 1]]), {}, class: "form-control") %>
+      <%= f.select(:is_automated, options_for_select({'Manual' => 0, 'Automated' => 1}, @test_suite.is_automated? ? 1 : 0), {}, class: "form-control", disabled: @test_suite.manual_cases.present?) %>
     </div>
 
 

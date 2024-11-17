@@ -12,6 +12,7 @@ class TestSuite < ApplicationRecord
   belongs_to :base_suite, class_name: 'TestSuite', foreign_key: :base_suite_id, optional: true
   belongs_to :post_suite, class_name: 'TestSuite', foreign_key: :post_suite_id, optional: true
   has_many  :manual_cases, dependent: :destroy
+  has_many  :test_cases, dependent: :destroy
   has_many :assign_manual_test_suites, dependent: :destroy
 
   # -------------------------------------------------------------
