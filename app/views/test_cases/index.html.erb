@@ -1,6 +1,7 @@
 <%
   breadcrumb = {'Home': root_url, 'Environments' => environments_url, 'Automate Test Cases' => environment_test_suite_manual_test_cases_path(@environment, @test_suite) }
   btn = [
+    { name: 'Add Selenium Code', url: selenium_custom_code_environment_test_suite_test_cases_path(@environment, @test_suite), class: 'btn btn-info rounded-pill btn-sm float-right'},
     { name: 'Create Automate Case', url: new_environment_test_suite_test_case_path(@environment, @test_suite), class: 'btn btn-primary rounded-pill btn-sm float-right'}
   ]
 %>

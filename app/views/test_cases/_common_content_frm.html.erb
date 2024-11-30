@@ -1,0 +1,64 @@
+<div class="col-md-6">
+  <%= f.label :environment, 'Environment', class: 'form-label fw-bold' %>
+  <%= f.text_field :environment, class: "form-control", value: @environment.name, readonly: true, disabled: true %>
+</div>
+
+<div class="col-md-6">
+  <%= f.label :test_suite, 'Test Suite', class: 'form-label fw-bold' %>
+  <%= f.text_field :test_suite, class: "form-control", value: @test_suite.name, readonly: true, disabled: true %>
+</div>
+
+<div class="col-md-6">
+  <%= f.label :field_name, 'Field Name', class: 'form-label fw-bold' %>
+  <%= f.text_field :field_name, placeholder: "Enter Field Name", class: "form-control #{error_class(@test_case, :field_name)}" %>
+</div>
+
+<div class="col-md-6">
+  <%= f.label :field_type, 'Field Type', class: 'form-label fw-bold' %>
+  <% @test_case.field_type = @test_case.field_type == 'SELENIUM_CODE' ? 'SELENIUM_CODE' : @test_case.field_type %>
+  <%= f.text_field :field_type, placeholder: "Field Type", class: 'form-control', readonly: @test_case.field_type == 'SELENIUM_CODE' ? true : false %>
+</div>
+
+<div class="col-md-6">
+  <%= f.label :sleeps, 'Sleeps', class: 'form-label fw-bold' %>
+  <%= f.number_field :sleeps, class: "form-control #{error_class(@test_case, :sleeps)}" %>
+</div>
+
+<div class="col-md-6">
+  <%= f.label :new_tab, 'New Tab', class: 'form-label fw-bold' %>
+  <%= f.select(:new_tab, options_for_select([['Yes', 1],['No', 1]]), {}, class: "form-control") %>
+</div>
+
+<div class="col-md-6">
+  <%= f.label :need_screenshot, 'Need Screenshot', class: 'form-label fw-bold' %>
+  <%= f.select(:need_screenshot, options_for_select([['Yes', 1],['No', 1]]), {}, class: "form-control") %>
+</div>
+
+<div class="col-md-6">
+  <%= f.label :description, 'Description', class: 'form-label fw-bold' %>
+  <%= f.text_area :description, class: "form-control tinymce #{error_class(@test_case, :description)}" %>
+</div>
+
+<div class="col-md-6 form-check form-switch">
+  <%= f.check_box 'enter_action', class: 'form-check-input' %>
+  <label class="form-check-label" for="enter_action">Enter action</label>
+</div>
+
+<div class="col-md-6 form-check form-switch">
+  <%= f.check_box 'javascript_conditional_enabled', id:"javascript_conditional_enabled", class: 'form-check-input' %>
+  <label class="form-check-label" for="flexSwitchCheckChecked">Enable js condition</label>
+</div>
+
+<div class="col-md-6" id="javaScriptConditional" style="display: none">
+  <%= f.label :javascript_conditional, 'Javascript Conditional', class: 'form-label fw-bold' %>
+  <%= f.text_area :javascript_conditional, class: "form-control #{error_class(@test_case, :javascript_conditional)}" %>
+</div>
+
+<script type="text/javascript">
+    $('#javascript_conditional_enabled').click(function() {
+        $("#javaScriptConditional").hide();
+        if ($(this).is(':checked')) {
+            $("#javaScriptConditional").show();
+        }
+    });
+</script>

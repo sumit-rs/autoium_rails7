@@ -2,6 +2,22 @@ Rails.application.routes.draw do
   devise_for :users
   # get 'home/index'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  namespace :api do
+    namespace :v1 do
+      resources :environments, only: [:index] do
+        resources :test_suites do
+        end
+      end
+
+      resources :users, only: [:index] do
+        collection do
+          post :login
+          get :logout
+        end
+      end
+    end
+  end
+  #end of api namespace
 
   resources :projects do
     resources :team_members do
@@ -28,7 +44,13 @@ Rails.application.routes.draw do
         get :assign_users
         post :assign_users
       end
-      resources :test_cases
+
+      resources :test_cases do
+        collection do
+          get :selenium_custom_code
+        end
+      end
+
       resources :manual_test_cases do
         member do
           delete :delete_attachment

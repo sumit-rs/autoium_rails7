@@ -11,6 +11,10 @@ class TestCasesController < ApplicationController
     @test_case = TestCase.new
   end
 
+  def selenium_custom_code
+    @test_case = TestCase.new
+  end
+
   def create
     @test_case = TestCase.new(automate_test_params)
     @test_case.user = Current.user
@@ -26,6 +30,16 @@ class TestCasesController < ApplicationController
   end
 
   def edit
+  end
+
+  def update
+    if @test_case.update(automate_test_params)
+      flash[:success] = 'Automate test case case updated successfully.'
+      redirect_to environment_test_suite_test_cases_path(@environment, @test_suite)
+    else
+      flash.now[:errors] = @test_case.errors.full_messages
+      render :edit
+    end
   end
 
   def destroy
@@ -52,6 +66,6 @@ class TestCasesController < ApplicationController
     @test_case = @test_suite.test_cases.where(id: params[:id]).take
   end
   def automate_test_params
-    params.require(:test_case).permit(:field_name, :field_type, :read_element, :element_class, :input_value, :string, :action, :action_url, :base_url, :sleeps, :xpath, :full_xpath, :new_tab, :need_screenshot, :description)
+    params.require(:test_case).permit(:field_name, :field_type, :read_element, :element_class, :input_value, :string, :action, :action_url, :base_url, :sleeps, :xpath, :full_xpath, :new_tab, :need_screenshot, :description, :javascript_conditional, :javascript_conditional_enabled, :enter_action)
   end
 end

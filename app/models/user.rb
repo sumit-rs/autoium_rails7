@@ -36,6 +36,10 @@ class User < ApplicationRecord
   def full_name
     "#{self.first_name} #{self.last_name}"
   end
+  def self.generate_jwt_token(email)
+    payload = {email: email}
+    JsonWebToken.encode(payload)
+  end
 
   private
 
