@@ -26,6 +26,7 @@ class CustomCommandsController < ApplicationController
 
   def update
     @custom_command = @environment.custom_commands.where(id: params[:id]).take
+    @custom_command.parameters = [] unless custom_command_params.dig(:parameters).present?
     if @custom_command.update(custom_command_params)
       flash[:success] = 'Custom command was successfully updated.'
       redirect_to environment_custom_commands_path(@environment)
@@ -51,6 +52,6 @@ class CustomCommandsController < ApplicationController
   end
 
   def custom_command_params
-    params.require(:custom_command).permit(:name, :command)
+    params.require(:custom_command).permit(:name, :command, parameters: [])
   end
 end

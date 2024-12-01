@@ -13,8 +13,48 @@
     </div>
 
     <div class="col-md-12">
+      <table id="custom_commands_form" class="table no-wrap">
+        <thead>
+        <tr>
+          <th>Params</th>
+          <th class="actions"></th>
+        </tr>
+        </thead>
+        <% (@custom_command.parameters || []).each_with_index do |parameter, index| %>
+        <tr id="row-<%= index %>">
+          <td>
+            <input type="text" name="custom_command[parameters][]" class='form-control' value="<%= parameter %>" />
+          </td>
+          <td class='' style='vertical-align: middle;'>
+            <a href='javascript:void(0);' class='remove-options'><i class='bi bi-trash' title='remove'></i></a>
+          </td>
+        </tr>
+        <% end %>
+
+      </table>
+      <div class="table-responsive" style="text-align: right">
+        <a href="javascript:void(0)" class="add-options"><i class="bi bi-file-earmark-plus-fill"></i>Add Params</a>
+      </div>
+    </div>
+
+    <div class="col-md-12">
       <%= f.submit "Submit", class:"btn btn-primary" %>
     </div>
 
   </div>
 <% end %>
+<script>
+    var _row = <%= @custom_command.parameters.present? ? @custom_command.parameters.count + 1 : 0  %>;
+    $(".add-options").click(function () {
+        $('#custom_commands_form').append('<tr id="row-' + (_row) + '"></tr>');
+        $('#row-' + _row).html("<td><input name='custom_command[parameters][]' type='text' placeholder='' class='form-control'  /></td><td class='' style='vertical-align: middle;'><a href='javascript:void(0);' class='remove-options'><i class='bi bi-trash' title='remove'></i></a></td>");
+        _row++;
+    });
+
+    $(document).on("click", '.remove-options', function () {
+        // if ($(this).next().hasClass('destroy')) {
+        //     $(this).next().attr('value', true);
+        // }
+        $(this).parent().parent().remove();
+    });
+</script>

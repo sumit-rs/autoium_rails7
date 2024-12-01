@@ -12,38 +12,40 @@
         <div class="card-body">
           <%= render partial: 'environments/nav_tab' %>
           <!-- Table with stripped rows -->
-          <table class="table datatable mt-2" id="myTable">
-            <thead>
-            <tr>
-              <th width="25%">Name</th>
-              <th width="25%">command</th>
-              <th width="25%">Parameters</th>
-              <th width="15%">Created</th>
-              <th width="10%" >Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            <% if @custom_commands %>
-              <% @custom_commands.each do |custom_command| %>
-                <tr>
-                  <td><%= custom_command.name  %></td>
-                  <td><%= custom_command.command %></td>
-                  <td><%= 'ss' %></td>
-                  <td><%= date_format(custom_command.created_at) %></td>
-                  <td>
-                    <%= link_to(edit_environment_custom_command_path(@environment, custom_command), title: 'Edit Environment') do %>
-                      <i class="bi bi-pencil-fill"></i>
-                    <% end %>
+          <div class="table-responsive">
+            <table class="table datatable mt-2" id="myTable">
+              <thead>
+              <tr>
+                <th width="25%">Name</th>
+                <th width="25%">command</th>
+                <th width="25%">Parameters</th>
+                <th width="15%">Created</th>
+                <th width="10%" >Action</th>
+              </tr>
+              </thead>
+              <tbody>
+              <% if @custom_commands %>
+                <% @custom_commands.each do |custom_command| %>
+                  <tr>
+                    <td><%= custom_command.name  %></td>
+                    <td><%= custom_command.command %></td>
+                    <td><%= 'ss' %></td>
+                    <td><%= date_format(custom_command.created_at) %></td>
+                    <td>
+                      <%= link_to(edit_environment_custom_command_path(@environment, custom_command), title: 'Edit Environment') do %>
+                        <i class="bi bi-pencil-fill"></i>
+                      <% end %>
 
-                    <%= link_to(environment_custom_command_path(@environment, custom_command), method: :delete, data: {confirm: 'Are you sure?'}, title: 'Delete Environment') do %>
-                      <i class="bi bi-trash"></i>
-                    <% end %>
-                  </td>
-                </tr>
+                      <%= link_to(environment_custom_command_path(@environment, custom_command), method: :delete, data: {confirm: 'Are you sure?'}, title: 'Delete Environment') do %>
+                        <i class="bi bi-trash"></i>
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
               <% end %>
-            <% end %>
-            </tbody>
-          </table>
+              </tbody>
+            </table>
+          </div>
           <!-- End Table with stripped rows -->
 
         </div>

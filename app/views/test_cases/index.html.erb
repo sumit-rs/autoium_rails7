@@ -14,16 +14,17 @@
       <div class="card">
         <div class="card-body">
           <!-- Table with stripped rows -->
-          <table class="table datatable mt-2" id="myTable">
+          <div class="table-responsive">
+            <table class="table datatable mt-2 table-hover table-sm" id="myTable">
             <thead>
             <tr>
-              <th>Name</th>
-              <th>FieldType</th>
-              <th>ReadElement</th>
-              <th>InputValue</th>
-              <th>Action</th>
-              <th>XPATH</th>
-              <th>FullPath</th>
+              <th scope="col">Name</th>
+              <th scope="col">FieldType</th>
+              <th scope="col">ReadElement</th>
+              <th scope="col">InputValue</th>
+              <th scope="col">Action</th>
+              <th scope="col">XPATH</th>
+              <th scope="col">FullPath</th>
               <th>Action</th>
             </tr>
             </thead>
@@ -37,7 +38,7 @@
                   <td><%= test_case.input_value  %></td>
                   <td><%= test_case.action %></td>
                   <td><%= test_case.xpath %></td>
-                  <td><%= test_case.full_xpath %></td>
+                  <td class="wrap"><%= test_case.full_xpath %></td>
                   <td>
                     <%= link_to(edit_environment_test_suite_test_case_url(@environment, @test_suite, test_case), title: 'Edit Suite') do %>
                       <i class="bi bi-pencil-fill"></i>
@@ -51,6 +52,7 @@
             <% end %>
             </tbody>
           </table>
+          </div>
           <!-- End Table with stripped rows -->
 
         </div>
