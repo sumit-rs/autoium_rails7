@@ -52,6 +52,6 @@ class CustomCommandsController < ApplicationController
   end
 
   def custom_command_params
-    params.require(:custom_command).permit(:name, :command, parameters: [])
+    params.require(:custom_command).permit(:name, :command, parameters: [:field, :value])
   end
 end

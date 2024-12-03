@@ -2,16 +2,10 @@ class Api::V1::TestCasesController < ApplicationApiController
   include CommonConcern
   before_action :get_test_cases, only: [:show, :update]
   def index
-    if @test_suite.present?
-      @test_cases = @test_suite.test_cases.select('id, description as name, custom_command_id').as_json
-      render(json: { message: 'Test cases retrieved!', result: @test_cases, status: true }, status: :ok)
-    else
-      render(json: { message: 'Test cases retrieved!', result: @test_cases, status: false }, status: :precondition_failed)
-    end
+    @test_cases =  @test_suite.present? ? @test_suite.test_cases : []
   end
 
   def show
-    render(json: { message: 'Test cases retrieved!', result: @test_case.as_json, status: true }, status: :ok)
   end
   def create
     @test_case = TestCase.new(automate_test_params)

@@ -12,7 +12,7 @@ module CommonConcern
   end
 
   def get_test_suite
-    return unless params[:test_suite_id].present?
+    return unless params[:test_suite_id].present? and @environment.present?
     @test_suite = @environment.test_suites.where(id: params[:test_suite_id]).take
   end
 end

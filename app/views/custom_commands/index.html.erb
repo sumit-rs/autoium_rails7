@@ -29,7 +29,7 @@
                   <tr>
                     <td><%= custom_command.name  %></td>
                     <td><%= custom_command.command %></td>
-                    <td><%= 'ss' %></td>
+                    <td><%= custom_command.parameters %></td>
                     <td><%= date_format(custom_command.created_at) %></td>
                     <td>
                       <%= link_to(edit_environment_custom_command_path(@environment, custom_command), title: 'Edit Environment') do %>

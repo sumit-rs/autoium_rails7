@@ -13,17 +13,22 @@
     </div>
 
     <div class="col-md-12">
+      <label class="form-label fw-bold" for="custom_commands_form">Steps:</label>
       <table id="custom_commands_form" class="table no-wrap">
         <thead>
         <tr>
-          <th>Params</th>
+          <th>Field</th>
+          <th>Value</th>
           <th class="actions"></th>
         </tr>
         </thead>
         <% (@custom_command.parameters || []).each_with_index do |parameter, index| %>
         <tr id="row-<%= index %>">
           <td>
-            <input type="text" name="custom_command[parameters][]" class='form-control' value="<%= parameter %>" />
+            <input type="text" name="custom_command[parameters][][field]" class='form-control' value="<%= parameter.dig('field') %>" />
+          </td>
+          <td>
+            <input type="text" name="custom_command[parameters][][value]" class='form-control' value="<%= parameter.dig('value') %>" />
           </td>
           <td class='' style='vertical-align: middle;'>
             <a href='javascript:void(0);' class='remove-options'><i class='bi bi-trash' title='remove'></i></a>
@@ -47,7 +52,7 @@
     var _row = <%= @custom_command.parameters.present? ? @custom_command.parameters.count + 1 : 0  %>;
     $(".add-options").click(function () {
         $('#custom_commands_form').append('<tr id="row-' + (_row) + '"></tr>');
-        $('#row-' + _row).html("<td><input name='custom_command[parameters][]' type='text' placeholder='' class='form-control'  /></td><td class='' style='vertical-align: middle;'><a href='javascript:void(0);' class='remove-options'><i class='bi bi-trash' title='remove'></i></a></td>");
+        $('#row-' + _row).html("<td><input name='custom_command[parameters][][field]' type='text' placeholder='' class='form-control'  /></td><td><input name='custom_command[parameters][][value]' type='text' placeholder='' class='form-control'  /></td><td class='' style='vertical-align: middle;'><a href='javascript:void(0);' class='remove-options'><i class='bi bi-trash' title='remove'></i></a></td>");
         _row++;
     });
 
