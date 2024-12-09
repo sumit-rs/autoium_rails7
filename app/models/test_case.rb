@@ -3,6 +3,7 @@ class TestCase < ApplicationRecord
   # -------------------------------------------------------------
   belongs_to :user
   belongs_to :test_suite
+  belongs_to :custom_command, optional: true
   has_one :environment, through: :test_suite
 
   # -------------------------------------------------------------
