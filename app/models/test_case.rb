@@ -7,6 +7,9 @@ class TestCase < ApplicationRecord
   has_one :environment, through: :test_suite
 
   # -------------------------------------------------------------
+  store :additional_info, accessors: [:parameters], coder: JSON
+
+  # -------------------------------------------------------------
   before_save :check_javascript_conditional
 
   # -------------------------------------------------------------

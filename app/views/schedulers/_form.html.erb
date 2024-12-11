@@ -1,0 +1,20 @@
+<%= render partial: 'layouts/flash_message' %>
+<%= form_with model: Scheduler.new, url:  environment_test_suite_schedulers_path(@environment, @test_suite), data: { turbo: false } do |f| %>
+  <div class="row g-3">
+    <div class="col-md-3">
+      <%= f.label :number_of_times, 'Number of Times', class: 'form-label fw-bold' %>
+      <%= f.number_field :number_of_times, min: 1, max: 10,  class: 'form-control', required: true, value: 1%>
+    </div>
+    <div class="col-md-3">
+      <%= f.label :browser, 'Browsers', class: 'form-label fw-bold' %>
+      <%= f.select(:browser_id, options_for_select(Browser.where(is_active: true).pluck(:name,:id),''), {}, class: "form-control") %>
+    </div>
+    <div class="col-md-3">
+      <%= f.label :record_session, 'Record Session', class: 'form-label fw-bold' %>
+      <%= f.select(:record_session, options_for_select({'No' => 0, 'Yes' => 1}, 0), {}, class: "form-control") %>
+    </div>
+    <div class="col-md-3">
+      <%= f.submit "Submit", class: "btn btn-primary mt-4" %>
+    </div>
+  </div>
+<% end %>

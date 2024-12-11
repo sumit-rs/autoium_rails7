@@ -5,6 +5,7 @@ class TestSuite < ApplicationRecord
   SUITE_DRAFT_STATUS = 'Draft'
   SUITE_STATUS = [SUITE_DRAFT_STATUS, SUITE_FINAL_STATUS]
   CHROME_PLATFORM = 'CHROME'
+  WEB_PLATFORM = 'WEB'
 
   # -------------------------------------------------------------
   belongs_to :user
@@ -15,6 +16,7 @@ class TestSuite < ApplicationRecord
   has_many  :manual_cases, dependent: :destroy
   has_many  :test_cases, dependent: :destroy
   has_many :assign_manual_test_suites, dependent: :destroy
+  has_many :schedulers, dependent: :destroy
 
   # -------------------------------------------------------------
   attr_accessor :platform
@@ -22,6 +24,7 @@ class TestSuite < ApplicationRecord
   # -------------------------------------------------------------
   validates :name, presence: true
   validates :short_description, presence: true, unless: proc { |suite| suite.platform == CHROME_PLATFORM }
+  validate :check_presence_of_test_plan, unless: proc { |suite| suite.platform == CHROME_PLATFORM }
 
   # -------------------------------------------------------------
   before_save :populate_default_value_based_platform
@@ -32,6 +35,9 @@ class TestSuite < ApplicationRecord
 
   private
 
+  def check_presence_of_test_plan
+    self.errors.add(:base, "Test plan can't be blank") unless self.test_plan.present?
+  end
   def populate_default_value_based_platform
     if platform == TestSuite::CHROME_PLATFORM
       self.short_description = 'Created test suite through chrome.'

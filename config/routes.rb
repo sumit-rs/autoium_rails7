@@ -58,6 +58,9 @@ Rails.application.routes.draw do
           delete :delete_attachment
         end
       end
+
+      resources :schedulers do
+      end
     end
   end
 

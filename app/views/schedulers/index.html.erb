@@ -1,0 +1,70 @@
+<%
+  breadcrumb = {'Home': root_url, 'Environments' => environments_url, 'Test Suites' => environment_test_suites_url(@environment), 'Schedule Test Suite Now' => '#' }
+  btn = []
+%>
+<%= render partial: 'common/breadcrumb', locals: {heading: 'Test Suite Schedulers', breadcrumb: breadcrumb, action_btns: btn} %>
+
+<section class="section min-vh-100">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title">Create New Schedule</p>
+          <%= render partial: 'schedulers/form' %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <p><strong>Environment:</strong> <%= @environment.name %> - <%= @environment.url %></p>
+          <p><strong>Suite:</strong>Test Suite: <%= @test_suite.name %></p>
+
+          <!-- Table with stripped rows -->
+          <table class="table datatable mt-2" id="myTable">
+            <thead>
+            <tr>
+              <th>ID</th>
+              <th>Browser</th>
+              <th>ScheduledAt</th>
+              <th>CompletedAt</th>
+              <th>Tester</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% if @schedulers %>
+              <% @schedulers.each do |scheduler| %>
+                <tr>
+                  <td><%= scheduler.id %></td>
+                  <td><%= scheduler.browser.name  %></td>
+                  <td><%= scheduler.scheduled_date  %></td>
+                  <td><%= scheduler.completed_date  %></td>
+                  <td><%= scheduler.user.full_name  %></td>
+                  <td><%= scheduler.status  %></td>
+                  <td>
+                    <% if scheduler.status.downcase == Scheduler::READY_STATUS.downcase %>
+                      <%= link_to(environment_test_suite_scheduler_url(@environment, @test_suite, scheduler), method: :delete, title: 'Unschedule') do %>
+                        <i class="bi bi-trash"></i>
+                      <% end %>
+                    <% else %>
+                      <button>Load Result</button>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            <% end %>
+            </tbody>
+          </table>
+          <!-- End Table with stripped rows -->
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

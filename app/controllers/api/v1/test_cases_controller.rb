@@ -8,17 +8,17 @@ class Api::V1::TestCasesController < ApplicationApiController
   def show
   end
   def create
-    if (custom_command_id = params.dig('test_case', 'custom_command_id').to_i).present? and custom_command_id > 0
-      custom_command = CustomCommand.where(id: custom_command_id).take
-      param_fields = params.dig('test_case', 'parameters[field]')
-      param_values = params.dig('test_case', 'parameters[value]')
-      custom_command.parameters = []
+    if (custom_command_id = params.dig('test_case', 'custom_command_id').to_i).present? and custom_command_id > 0 and (custom_command = CustomCommand.where(id: custom_command_id).take).present?
+      param_fields = params.dig('test_case', 'fields')
+      param_values = params.dig('test_case', 'values')
+      parameters = []
       param_fields.each_with_index do |field, index|
-        custom_command.parameters << {"field" => field, "value" => param_values[index]}
+        parameters << {"field" => field, "value" => param_values[index]}
       end
     end
-
     @test_case = TestCase.new(automate_test_params)
+    @test_case.parameters = parameters if parameters.present?
+
     @test_case.user = Current.user
     @test_case.test_suite = @test_suite
     @test_case.custom_command = custom_command if custom_command.present?
@@ -41,9 +41,10 @@ class Api::V1::TestCasesController < ApplicationApiController
 
   private
   def get_test_cases
+    return nil unless @test_suite.present?
     @test_case = @test_suite.test_cases.where(id: params[:id]).take
   end
   def automate_test_params
-    params.require(:test_case).permit(:field_name, :field_type, :read_element, :element_class, :input_value, :string, :action, :action_url, :base_url, :sleeps, :xpath, :full_xpath, :new_tab, :need_screenshot, :description, :javascript_conditional, :javascript_conditional_enabled, :enter_action, :custom_command_id)
+    params.require(:test_case).permit(:field_name, :field_type, :read_element, :element_class, :input_value, :string, :action, :action_url, :base_url, :sleeps, :xpath, :full_xpath, :new_tab, :need_screenshot, :description, :javascript_conditional, :javascript_conditional_enabled, :enter_action, :custom_command_id, parameters: [:field, :value])
   end
 end

@@ -20,3 +20,4 @@ json.sleeps test_case.sleeps
 json.read_element test_case.read_element
 json.string test_case.string
 json.xpath test_case.xpath
+json.custom_command_params test_case.parameters

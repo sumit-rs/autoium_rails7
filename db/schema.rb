@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_19_143831) do
+ActiveRecord::Schema[7.2].define(version: 2024_12_11_145840) do
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -50,6 +50,13 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_19_143831) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["test_suite_id"], name: "index_assign_manual_test_suites_on_test_suite_id"
+  end
+
+  create_table "browsers", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.string "name"
+    t.boolean "is_active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "custom_commands", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -131,6 +138,23 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_19_143831) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "schedulers", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "test_suite_id"
+    t.bigint "browser_id"
+    t.integer "number_of_times"
+    t.string "status"
+    t.timestamp "scheduled_date"
+    t.timestamp "completed_date"
+    t.boolean "record_session", default: false
+    t.boolean "dependency", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["browser_id"], name: "index_schedulers_on_browser_id"
+    t.index ["test_suite_id"], name: "index_schedulers_on_test_suite_id"
+    t.index ["user_id"], name: "index_schedulers_on_user_id"
+  end
+
   create_table "test_cases", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "test_suite_id", null: false
@@ -150,6 +174,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_19_143831) do
     t.integer "sleeps"
     t.integer "priority"
     t.text "description"
+    t.text "additional_info"
     t.boolean "need_screenshot", default: false
     t.boolean "dependency", default: false
     t.boolean "new_tab", default: false
@@ -200,7 +225,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_19_143831) do
 
   create_table "test_suites", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.bigint "test_plan_id", null: false
+    t.bigint "test_plan_id"
     t.bigint "environment_id", null: false
     t.integer "base_suite_id"
     t.integer "post_suite_id"
