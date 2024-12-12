@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_12_11_145840) do
+ActiveRecord::Schema[7.2].define(version: 2024_12_12_120106) do
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -134,6 +134,39 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_11_145840) do
     t.text "s3_secret_key"
     t.string "s3_region_name"
     t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "result_cases", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "rd_id"
+    t.integer "test_case_id"
+    t.integer "result_suite_id"
+    t.integer "scheduler_id"
+    t.text "screenshot_file_location"
+    t.text "error_description"
+    t.boolean "email_sent", default: false
+    t.boolean "override_status", default: false
+    t.string "override_comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "result_suites", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "rd_id"
+    t.integer "test_suite_id"
+    t.integer "user_id"
+    t.integer "scheduler_id"
+    t.integer "scheduler_index", default: -1
+    t.string "video_file"
+    t.timestamp "start_time"
+    t.timestamp "end_time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "results_dictionaries", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

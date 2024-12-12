@@ -19,6 +19,7 @@ class TestCasesController < ApplicationController
     @test_case = TestCase.new(automate_test_params)
     @test_case.user = Current.user
     @test_case.test_suite = @test_suite
+    @test_case.priority = @test_suite.test_cases.count + 1
 
     if @test_case.save
       flash[:success] = 'Automate test case created successfully.'

@@ -42,7 +42,7 @@ class Scheduler < ApplicationRecord
   end
 
   def assign_start_date
-    self.scheduled_date = Time.zone.now.strftime('%Y-%m-%d %H:%M')
+    self.scheduled_date = DateTime.now.utc.strftime('%Y-%m-%d %H:%M')
   end
 
   def populate_record_session

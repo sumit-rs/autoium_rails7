@@ -22,7 +22,7 @@ class Api::V1::TestCasesController < ApplicationApiController
     @test_case.user = Current.user
     @test_case.test_suite = @test_suite
     @test_case.custom_command = custom_command if custom_command.present?
-
+    @test_case.priority = @test_suite.test_cases.count + 1
     if @test_case.save
       custom_command.save if custom_command.present?
       render json: { message: 'Test case created!', status: true }, status: :ok

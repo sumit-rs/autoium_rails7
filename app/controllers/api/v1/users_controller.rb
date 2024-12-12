@@ -28,6 +28,7 @@ class Api::V1::UsersController < ApplicationApiController
   end
 
   def logout
+    Current.user = nil
     render(json: {message: 'Successfully logged out!.', status: true, result: true}, status: :ok)
   end
 

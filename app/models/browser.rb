@@ -4,7 +4,12 @@ class Browser < ApplicationRecord
   CHROME = 'CHROME' #id =1
   FIREFOX = 'FIREFOX' #id =2
   SAFARI = 'SAFARI' #id = 3
-  EDGE = 'EDGE' #id = 3
+  EDGE = 'EDGE' #id = 4
+
+  CHROME_ID = 1
+  FIREFOX_ID = 2
+  SAFARI_ID = 3
+  EDGE_ID = 4
   BROWSERS = [CHROME, FIREFOX, EDGE, SAFARI]
 
   # -------------------------------------------------------------

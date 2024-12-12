@@ -11,7 +11,6 @@ class TestCase < ApplicationRecord
 
   # -------------------------------------------------------------
   before_save :check_javascript_conditional
-
   # -------------------------------------------------------------
   private
 
