@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_12_12_120106) do
+ActiveRecord::Schema[7.2].define(version: 2024_12_13_123223) do
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -186,6 +186,15 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_12_120106) do
     t.index ["browser_id"], name: "index_schedulers_on_browser_id"
     t.index ["test_suite_id"], name: "index_schedulers_on_test_suite_id"
     t.index ["user_id"], name: "index_schedulers_on_user_id"
+  end
+
+  create_table "test_case_overrides", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "test_case_id"
+    t.text "error_message"
+    t.text "override_message"
+    t.string "error_hash"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "test_cases", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|

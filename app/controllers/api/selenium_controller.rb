@@ -212,7 +212,8 @@ class Api::SeleniumController < ApplicationApiController
   end
 
   def create_result_case
-    return render_result(false, 'Please provide a valid rd id!') unless params[:rd_id].present? || !ResultsDictionary::STATUS.values.include?(params[:rd_id].to_i)
+    return render_result(false, 'Please provide a valid rd id!') unless params[:rd_id].present? || ResultsDictionary::STATUS.values.include?(params[:rd_id].to_i)
+
     begin
       @result_suite = ResultSuite.where(id: params[:result_suite_id]).take
 
@@ -228,15 +229,16 @@ class Api::SeleniumController < ApplicationApiController
       @result_case.updated_at = DateTime.now.utc
 
       if params[:rd_id] == ResultsDictionary::STATUS.dig(:ERROR) # Error
-        # error_hash = TestCaseOverride.generate_error_hash(params[:error_description])
-        # @override = TestCaseOverride.where(test_case_id: params[:test_case_id], error_hash: error_hash).first
-        #
-        # if @override.present?
-        #   @result_case.rd_id = 1
-        #   @result_case.override_status = true
-        #   @result_case.override_comment = @override.override_message
-        # end
+         error_hash = TestCaseOverride.generate_error_hash(params[:error_description])
+         @override = TestCaseOverride.where(test_case_id: params[:test_case_id], error_hash: error_hash).take
+
+        if @override.present?
+          @result_case.rd_id =  ResultsDictionary::STATUS.dig(:SUCCESS)
+          @result_case.override_status = true
+          @result_case.override_comment = @override.override_message
+        end
       end
+
       if @result_case.save
         render_result(true, 'Result case created successfully!', @result_case, nil, 200)
       else
@@ -249,11 +251,55 @@ class Api::SeleniumController < ApplicationApiController
     end
   end
 
+  def update_scheduler_status
+    return render_result(false, 'Please provide a valid status!')  unless Scheduler::STATUS.include?(params[:status].upcase)
+    begin
+      schedule = Scheduler.where(id: params[:scheduler_id]).take
+      return render_result(false, 'Schedule not found') unless schedule.present?
+
+      schedule.update(status: params[:status], completed_date: DateTime.now.utc)
+      render_result(true, 'Schedule status updated successfully!', schedule, nil, 200)
+    rescue StandardError => error
+      log_exception(error, 'update_scheduler_status')
+      render_result(false, 'Failed to update schedule status!', nil, nil, 500)
+    end
+  end
+
+  def upload_screenshot
+    return render_result(false, 'Please provide a valid file!') unless params[:file].present?
+    begin
+      @result_case = ResultCase.where(id: params[:result_case_id]).take
+      return render_result(false, 'Result case not found!') unless @result_case.present?
+
+      res = @result_case.upload_screenshot(params[:file])
+
+      render_result(true, 'Screenshot uploaded successfully!', res, nil, 200)
+    rescue StandardError => error
+      log_exception(error, 'upload_screenshot')
+      render_result(false, 'Failed to upload screenshot!', nil, nil, 500)
+    end
+  end
+
+  def upload_video
+    return render_result(false, 'Please provide a valid file!') unless params[:file].present?
+    begin
+      @result_suite = ResultSuite.where(id: params[:result_suite_id]).take
+      return render_result(false, 'Result suite not found!') unless @result_suite.present?
+
+      res = @result_suite.upload_video(params[:file])
+      render_result(true, 'Video uploaded successfully!', res, nil, 200)
+    rescue StandardError => error
+      log_exception(error, 'upload_video')
+      render_result(false, 'Failed to upload video!', nil, nil, 500)
+    end
+  end
+
   private
   def log_exception(error, api)
     Rails.logger.info "==========================="
     Rails.logger.info "Error in #{api} api: #{error.inspect}"
     Rails.logger.info "==========================="
+    NotifyMailer.development_team(error.inspect, "API Error in #{api}").deliver_later
   end
 
   def render_result(status = false, message = '', result = nil, _system_message = nil, status_code = 200)

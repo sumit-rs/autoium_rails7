@@ -33,6 +33,13 @@ class TestSuite < ApplicationRecord
     [self.base_suite, self, self.post_suite].compact_blank
   end
 
+  def video_file_url
+    return '' unless self.video_file.present?
+
+    project_id = self.environment.project.id
+    FileUploader.retrieve(project_id, self.environment_id, 'videos', self.video_file)
+  end
+
   private
 
   def check_presence_of_test_plan

@@ -1,0 +1,12 @@
+<% if @data.respond_to?(:each) %>
+  <% @data.each do |item| %>
+    <pre>
+      <%= item.inspect %>
+    </pre>
+    <hr/>
+  <% end %>
+<% else %>
+  <pre>
+    <%= @data.inspect %>
+  </pre>
+<% end %>

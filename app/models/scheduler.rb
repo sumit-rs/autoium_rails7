@@ -7,10 +7,13 @@ class Scheduler < ApplicationRecord
   COMPLETE_STATUS = 'COMPLETE'
   SUCCESS_STATUS = 'SUCCESS'
 
+  STATUS = [READY_STATUS, ERROR_STATUS, RUNNING_STATUS, SUCCESS_STATUS]
+
   # -------------------------------------------------------------
   belongs_to :user
   belongs_to :test_suite
   belongs_to :browser
+  has_many :result_suites
 
   # -------------------------------------------------------------
   validate :check_test_suite_type
@@ -62,5 +65,20 @@ class Scheduler < ApplicationRecord
     Dir.chdir(file_directory) do
       Process.fork { system("#{tester_path} #{mode} #{self.id}") }
     end
+  end
+
+  def video_file
+    return nil unless self.record_session.present?
+
+    self.result_suites.where.not(video_file: nil).pluck(:video_file).last
+  end
+
+  def video_file_url
+    _file_name = self.video_file
+    return '' unless _file_name.present?
+
+    environment = self.test_suite.environment
+    project = environment.project
+    FileUploader.retrieve(project.id, environment.id, 'videos', _file_name)
   end
 end
