@@ -102,6 +102,7 @@ Rails.application.routes.draw do
   end
 
   resources :suite_reports, only:[:index, :show]
+  resources :software_versions
 
   # Defines the root path route ("/")
   root "home#index"

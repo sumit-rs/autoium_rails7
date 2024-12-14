@@ -1,0 +1,62 @@
+<%
+  breadcrumb = {'Home': root_url, 'Manage Autoium Version' => software_versions_url }
+  btn = [{name: 'Add New Version', url: new_software_version_url, class: 'btn btn-primary rounded-pill btn-sm float-right'}] if Current.user.admin
+%>
+<%= render partial: 'common/breadcrumb', locals: {heading: 'Manage Autoium Version', breadcrumb: breadcrumb, action_btns: btn} %>
+
+<section class="section min-vh-100">
+
+  <%= render partial: 'layouts/flash_message' %>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <!-- Table with stripped rows -->
+          <table class="table datatable mt-2" id="myTable">
+            <thead>
+            <tr>
+              <th>Name</th>
+              <th>Release Date</th>
+              <th>Platform</th>
+              <th>Description</th>
+              <th>Download</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% if @versions %>
+              <% @versions.each do |version| %>
+                <tr>
+                  <td><%= version.name  %></td>
+                  <td><%= version.release_date%></td>
+                  <td><%= version.software_type %></td>
+                  <td><%= version.description %></td>
+                  <td>Download Link</td>
+                  <td>
+                    <%= link_to(project_team_members_path(project), title: 'Project Team Members') do %>
+                      <i class="bi bi-person-plus-fill"></i>
+                    <% end %>
+                    <% if Current.user.admin %>
+                      <%= link_to(edit_software_version_path(version), title: 'Edit') do %>
+                        | <i class="bi bi-pencil-fill"></i> |
+                      <% end %>
+
+                      <%= link_to(software_version_path(version), method: :delete, data: {confirm: 'Are you sure?'}, title: 'Delete Version') do %>
+                        <i class="bi bi-trash"></i>
+                      <% end %>
+                    <% end %>
+
+                  </td>
+                </tr>
+              <% end %>
+            <% end %>
+            </tbody>
+          </table>
+          <!-- End Table with stripped rows -->
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

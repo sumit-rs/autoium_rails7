@@ -1,7 +1,7 @@
 <%= render partial: 'layouts/flash_message' %>
 <%= form_with model: @test_case, url: @test_case.new_record? ? environment_test_suite_test_cases_path(@environment, @test_suite) : environment_test_suite_test_case_path(@environment, @test_suite, @test_case), data: { turbo: false } do |f| %>
   <div class="row g-3">
-    <%= render partial: 'test_cases/common_content_frm', locals: {f: f} %>
+    <%= render partial: 'test_cases/common_content_frm', locals: {f: f, is_selenium_frm: true} %>
     <div class="col-md-12">
       <%= f.submit "Submit", class: "btn btn-primary" %>
     </div>

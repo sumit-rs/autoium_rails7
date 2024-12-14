@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_12_13_123223) do
+ActiveRecord::Schema[7.2].define(version: 2024_12_14_054337) do
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -188,6 +188,15 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_13_123223) do
     t.index ["user_id"], name: "index_schedulers_on_user_id"
   end
 
+  create_table "software_versions", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.date "release_date", null: false
+    t.integer "software_type", default: 1, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "test_case_overrides", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "test_case_id"
     t.text "error_message"
@@ -298,6 +307,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_13_123223) do
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.integer "sign_in_count", default: 0, null: false
+    t.boolean "admin", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true

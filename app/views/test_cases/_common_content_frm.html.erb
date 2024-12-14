@@ -26,12 +26,12 @@
 
 <div class="col-md-6">
   <%= f.label :new_tab, 'New Tab', class: 'form-label fw-bold' %>
-  <%= f.select(:new_tab, options_for_select([['Yes', 1],['No', 1]]), {}, class: "form-control") %>
+  <%= f.select(:new_tab, options_for_select([['No', 1],['Yes', 1]]), {}, class: "form-control") %>
 </div>
 
 <div class="col-md-6">
   <%= f.label :need_screenshot, 'Need Screenshot', class: 'form-label fw-bold' %>
-  <%= f.select(:need_screenshot, options_for_select([['Yes', 1],['No', 1]]), {}, class: "form-control") %>
+  <%= f.select(:need_screenshot, options_for_select([['No', 1],['Yes', 1]]), {}, class: "form-control") %>
 </div>
 
 <div class="col-md-6">
@@ -49,12 +49,22 @@
   <label class="form-check-label" for="flexSwitchCheckChecked">Enable js condition</label>
 </div>
 
+<% if @test_case.field_type == 'SELENIUM_CODE' %>
+<div class="col-md-6">
+  <%= f.label :custom_selenium_js, 'Custom selenium javascript', class: 'form-label fw-bold' %>
+  <%= f.text_area :custom_selenium_js, class: "form-control #{error_class(@test_case, :custom_selenium_js)}" %>
+</div>
+<% end %>
+
 <div class="col-md-6" id="javaScriptConditional" style="display: none">
   <%= f.label :javascript_conditional, 'Javascript Conditional', class: 'form-label fw-bold' %>
   <%= f.text_area :javascript_conditional, class: "form-control #{error_class(@test_case, :javascript_conditional)}" %>
 </div>
 
 <script type="text/javascript">
+  <% if @test_case.javascript_conditional_enabled %>
+  $("#javaScriptConditional").show();
+  <% end %>
     $('#javascript_conditional_enabled').click(function() {
         $("#javaScriptConditional").hide();
         if ($(this).is(':checked')) {

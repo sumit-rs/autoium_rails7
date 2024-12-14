@@ -123,10 +123,10 @@
   </li><!-- End Contact Page Nav -->
 
   <li class="nav-item">
-    <a class="nav-link collapsed" href="pages-register.html">
+    <%= link_to(software_versions_path, class: ['software_versions'].include?(params[:controller]) ? 'active nav-link' : 'nav-link collapsed') do %>
       <i class="bi bi-download"></i>
       <span>Software Version</span>
-    </a>
+    <% end %>
   </li><!-- End Register Page Nav -->
 
   <li class="nav-item">

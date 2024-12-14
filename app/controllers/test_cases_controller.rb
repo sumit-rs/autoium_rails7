@@ -9,10 +9,14 @@ class TestCasesController < ApplicationController
 
   def new
     @test_case = TestCase.new
+    @test_case.javascript_conditional = TestCase::DEFAULT_JAVASCRIPT_CONDITIONAL
   end
 
   def selenium_custom_code
     @test_case = TestCase.new
+    @test_case.field_type = TestCase::SELENIUM_FIELD_TYPE
+    @test_case.javascript_conditional = TestCase::DEFAULT_JAVASCRIPT_CONDITIONAL
+    @test_case.custom_selenium_js = TestCase::DEFAULT_CUSTOM_SELENIUM_CODE
   end
 
   def create
@@ -26,11 +30,16 @@ class TestCasesController < ApplicationController
       redirect_to environment_test_suite_test_cases_path(@environment, @test_suite)
     else
       flash.now[:errors] = @test_case.errors.full_messages
-      render :new
+      if @test_case.field_type == TestCase::SELENIUM_FIELD_TYPE
+        render :selenium_custom_code
+      else
+        render :new
+      end
     end
   end
 
   def edit
+    @test_case.custom_selenium_js = @test_case.get_selenium_file_content
   end
 
   def update
@@ -67,6 +76,6 @@ class TestCasesController < ApplicationController
     @test_case = @test_suite.test_cases.where(id: params[:id]).take
   end
   def automate_test_params
-    params.require(:test_case).permit(:field_name, :field_type, :read_element, :element_class, :input_value, :string, :action, :action_url, :base_url, :sleeps, :xpath, :full_xpath, :new_tab, :need_screenshot, :description, :javascript_conditional, :javascript_conditional_enabled, :enter_action)
+    params.require(:test_case).permit(:field_name, :field_type, :read_element, :element_class, :input_value, :string, :action, :action_url, :base_url, :sleeps, :xpath, :full_xpath, :new_tab, :need_screenshot, :description, :javascript_conditional, :javascript_conditional_enabled, :enter_action, :custom_selenium_js)
   end
 end
