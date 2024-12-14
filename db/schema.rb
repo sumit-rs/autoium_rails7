@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_12_14_054337) do
+ActiveRecord::Schema[7.2].define(version: 2024_12_14_144536) do
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -220,7 +220,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_14_054337) do
     t.string "base_url"
     t.string "xpath"
     t.string "selenium_file"
-    t.string "element_class"
+    t.text "element_class"
     t.string "full_xpath"
     t.integer "sleeps"
     t.integer "priority"
