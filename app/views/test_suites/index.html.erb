@@ -61,16 +61,6 @@
                       <i class="bi bi-briefcase"></i> |
                     <% end %>
 
-                    <% if test_suite.manual_cases.present? %>
-                      <%= link_to(assign_users_environment_test_suite_path(test_suite.environment, test_suite), title: 'Assign suites to users', remote: true) do %>
-                        <i class="bi bi-person-check"></i> |
-                      <% end %>
-                    <% else %>
-                      <%= link_to "javascript:void(0)", title: 'Assign suites to users', data: { confirm: "There is no manual case(s) have created for the suite. Kindly create the suite first before user assignment." } do %>
-                        <i class="bi bi-person-check"></i> |
-                      <% end %>
-                     <% end %>
-
                     <%= link_to(edit_environment_test_suite_url(test_suite.environment, test_suite), title: 'Schedule Suite') do %>
                       <i class="bi bi-pencil-fill"></i>
                     <% end %>
@@ -78,6 +68,16 @@
                     <% if test_suite.is_automated? %>
                       <%= link_to(environment_test_suite_schedulers_path(test_suite.environment, test_suite), title: 'Schedule Now') do %>
                         | <i class="bi bi-calendar-month"></i>
+                      <% end %>
+                    <% else %>
+                      <% if test_suite.manual_cases.present? %>
+                        <%= link_to(assign_users_environment_test_suite_path(test_suite.environment, test_suite), title: 'Assign suites to users', remote: true) do %>
+                          | <i class="bi bi-calendar-month"></i>
+                        <% end %>
+                      <% else %>
+                        <%= link_to "javascript:void(0)", title: 'Assign suites to users', data: { confirm: "There is no manual case(s) have created for the suite. Kindly create the suite first before user assignment." } do %>
+                          | <i class="bi bi-calendar-month"></i>
+                        <% end %>
                       <% end %>
                     <% end %>
 

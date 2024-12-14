@@ -1,6 +1,7 @@
 class SoftwareVersionsController < ApplicationController
 
   before_action :get_software_version, only: %i[show edit update destroy]
+  before_action :redirect_if_not_admin, except: %i[index]
   def index
     @versions = SoftwareVersion.all
   end
@@ -43,6 +44,10 @@ class SoftwareVersionsController < ApplicationController
 
   private
 
+  def redirect_if_not_admin
+    flash[:errors] = "You are not allowed to perform this action."
+    redirect_to edit_environment_path(@environment)
+  end
   def get_software_version
     @version = SoftwareVersion.find(params[:id])
   end
