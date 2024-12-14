@@ -46,8 +46,6 @@ return execute();'
   def self.get_file_path(file_name)
     folder_name = "#{ENV['STORAGE_PATH']}/scripts/"
     Dir.mkdir folder_name unless Dir.exist? folder_name
-    puts "==============="
-    puts "#{folder_name}#{file_name}"
     "#{folder_name}#{file_name}"
   end
 
@@ -59,8 +57,8 @@ return execute();'
       file_name = "#{SecureRandom.uuid}.js"
       file_path = get_file_path(file_name)
     end
-    File.write(file_path, content)
 
+    File.write(file_path, content)
     file_name
   end
 

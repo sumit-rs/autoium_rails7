@@ -1,0 +1,30 @@
+<%= render partial: 'layouts/flash_message' %>
+<%= form_with model: @version, data: { turbo: false } do |f| %>
+  <div class="row g-3">
+    <div class="col-md-4">
+      <%= f.label :name, class: "form-label fw-bold" %>
+      <%= f.text_field :name, placeholder: "Enter Version Name", class: 'form-control' %>
+    </div>
+
+    <div class="col-md-4">
+      <%= f.label :release_date, class: "form-label fw-bold" %>
+      <%= f.text_field :release_date, placeholder: "Enter Release Date format - DD/MM/YYYY", class: 'form-control' %>
+    </div>
+
+    <div class="col-md-4">
+      <%= f.label :software_type, 'Software Type', class: 'form-label fw-bold' %>
+      <%= f.select(:software_type, options_for_select(SoftwareVersion::SOFTWARE_TYPES.to_a), {}, class: "form-control") %>
+    </div>
+
+    <div class="col-md-12">
+      <%= f.label :description, class: "form-label fw-bold" %>
+      <%= f.text_area :description, placeholder: "Enter Version Description", class: 'form-control tinymce' %>
+    </div>
+
+    <div class="col-md-12">
+      <%= f.submit "Submit", class:"btn btn-primary" %>
+    </div>
+
+
+  </div>
+<% end %>
