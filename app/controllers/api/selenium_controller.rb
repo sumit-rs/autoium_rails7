@@ -131,6 +131,7 @@ class Api::SeleniumController < ApplicationApiController
     begin
       @scheduler = Scheduler.includes(:test_suite).where(id: params[:scheduler_id], 'test_suites.is_automated': true).take
       return render_result(false, 'Scheduler not found!') unless @scheduler.present?
+      render_result(true, 'Scheduler retrieved successfully!', @scheduler, nil, 200)
     rescue StandardError => error
       log_exception(error, 'get_scheduler')
       render_result(false, 'Failed to retrieve scheduler detail!', nil, nil, 500)
