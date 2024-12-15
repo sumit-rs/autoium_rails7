@@ -183,7 +183,7 @@ class Api::SeleniumController < ApplicationApiController
   end
 
   def create_result_suite
-    return render_result(false, 'Please provide a valid rd id!') unless params[:rd_id].present? || !ResultsDictionary::STATUS.values.include?(params[:rd_id])
+    #return render_result(false, 'Please provide a valid rd id!') unless params[:rd_id].present? || !ResultsDictionary::STATUS.values.include?(params[:rd_id])
 
     begin
       test_suite = TestSuite.where(id: params[:test_suite_id]).take

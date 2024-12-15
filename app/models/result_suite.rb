@@ -1,6 +1,6 @@
 class ResultSuite < ApplicationRecord
   # -------------------------------------------------------------
-  belongs_to :results_dictionary, foreign_key: :rd_id
+  belongs_to :results_dictionary, foreign_key: :rd_id, optional: true
   belongs_to :test_suite
   belongs_to :user
   belongs_to :scheduler
