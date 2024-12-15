@@ -78,6 +78,11 @@ Rails.application.routes.draw do
         post :assign_users
       end
 
+      collection do
+        get :import
+        post :import
+      end
+
       resources :test_cases do
         collection do
           get :selenium_custom_code
