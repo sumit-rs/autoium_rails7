@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   namespace :api do
 
-    scope '/java' do
+    scope '/java', defaults: { format: :json } do
       post 'login_user', to: 'selenium#login_user'
       get 'get_scheduler', to: 'selenium#get_scheduler'
       get 'software_version', to: 'selenium#software_version'

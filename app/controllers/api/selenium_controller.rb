@@ -97,7 +97,7 @@ class Api::SeleniumController < ApplicationApiController
   end
 
   def get_test_suites
-    return render_result(false, 'Please provide a valid environment id!') if params[:environment_id].blank?
+    return render_result(false, 'Please provide a valid environment id!') unless params[:environment_id].present?
     begin
       @test_suites = TestSuite.where(environment_id: params[:environment_id], is_automated: 1)
     rescue StandardError => error
@@ -107,7 +107,7 @@ class Api::SeleniumController < ApplicationApiController
   end
 
   def get_test_suite
-    return render_result(false, 'Please provide a valid test suite id!') if params[:test_suite_id].blank?
+    return render_result(false, 'Please provide a valid test suite id!') unless params[:test_suite_id].present?
     begin
       @test_suite = TestSuite.where(id: params[:test_suite_id]).take
       return render_result(false, 'Test suite not found!') unless @test_suite.present?
