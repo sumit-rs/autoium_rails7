@@ -8,25 +8,28 @@ Rails.application.routes.draw do
   namespace :api do
 
     scope '/java' do
+      post 'login_user', to: 'selenium#login_user'
       get 'get_scheduler', to: 'selenium#get_scheduler'
-      get 'get_test_suite', to: 'selenium#get_test_suite'
-      get 'get_all_test_cases', to: 'selenium#get_test_cases'
-      get 'get_custom_command', to: 'selenium#get_custom_commands'
+      get 'software_version', to: 'selenium#software_version'
+
+      get 'get_projects', to: 'selenium#get_projects'
+      get 'get_environments', to: 'selenium#get_environments'
       get 'get_environment', to: 'selenium#get_environment'
+      get 'get_custom_command', to: 'selenium#get_custom_commands'
+
+      get 'get_test_suites', to: 'selenium#get_test_suites'
+      get 'get_test_suite', to: 'selenium#get_test_suite'
+      post 'schedule_test_suite', to: 'selenium#schedule_test_suite'
+      get 'unschedule_test_suite', to: 'selenium#unschedule_test_suite'
+
+      get 'get_all_test_cases', to: 'selenium#get_test_cases'
+
       post 'create_result_suite', to: 'selenium#create_result_suite'
-      post 'update_result_suite', to: 'selenium#update_result_suite'
       post 'create_result_case', to: 'selenium#create_result_case'
+      post 'update_result_suite', to: 'selenium#update_result_suite'
       post 'update_scheduler_status', to: 'selenium#update_scheduler_status'
       post 'upload_video', to: 'selenium#upload_video'
       post 'upload_screenshot', to: 'selenium#upload_screenshot'
-
-      post 'login_user', to: 'selenium#login_user'
-      get 'get_projects', to: 'selenium#get_projects'
-      get 'get_environments', to: 'selenium#get_environments'
-      get 'get_test_suites', to: 'selenium#get_test_suites'
-      get 'unschedule_test_suite', to: 'selenium#unschedule_test_suite'
-      post 'schedule_test_suite', to: 'selenium#schedule_test_suite'
-      get 'software_version', to: 'selenium#software_version'
     end
 
     namespace :v1 do

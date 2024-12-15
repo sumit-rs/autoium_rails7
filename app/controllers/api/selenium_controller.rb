@@ -19,6 +19,23 @@ class Api::SeleniumController < ApplicationApiController
     end
   end
 
+  def software_version
+    version = params[:version]
+    return render_result(false, 'Please provide a valid version!') unless version.present?
+    begin
+      @software_version = SoftwareVersion.where(name: version, software_type: SoftwareVersion::SOFTWARE_TYPES[:JAVA]).select(
+        :id, :name, :description
+      ).take
+
+      return render_result(false, 'Release notes not found!') unless @software_version.present?
+
+      render_result(true, 'Release notes retrieved successfully!', @software_version, nil, 200)
+    rescue StandardError => error
+      log_exception(error, 'software_version')
+      render_result(false, 'Failed to retrieve release notes!', nil, nil, 500)
+    end
+  end
+
   def get_projects
     begin
       @projects = Current.user.assign_projects.select(:id, :name).as_json
@@ -131,7 +148,7 @@ class Api::SeleniumController < ApplicationApiController
     begin
       @scheduler = Scheduler.includes(:test_suite).where(id: params[:scheduler_id], 'test_suites.is_automated': true).take
       return render_result(false, 'Scheduler not found!') unless @scheduler.present?
-      render_result(true, 'Scheduler retrieved successfully!', @scheduler, nil, 200)
+
     rescue StandardError => error
       log_exception(error, 'get_scheduler')
       render_result(false, 'Failed to retrieve scheduler detail!', nil, nil, 500)
