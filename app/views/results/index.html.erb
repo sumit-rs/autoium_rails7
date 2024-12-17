@@ -6,6 +6,7 @@
 <% result_dictionay = ResultsDictionary.status %>
 
 <section class="section min-vh-100">
+  <%= render partial: 'layouts/flash_message' %>
   <div class="row">
     <div class="col-lg-12">
       <div class="card">
@@ -46,7 +47,7 @@
             <table class="table datatable mt-2" id="myTable">
               <thead>
               <tr>
-                <th>Sequence</th>
+                <th>Sq.</th>
                 <th>Error</th>
                 <th>Ended</th>
                 <th>Status</th>
@@ -60,11 +61,15 @@
                   <tr>
                     <td><%= result_case.test_case.priority %></td>
                     <td>
-                      <span class="text-info"></span><%= result_case.error_description   %></td>
+                      <%= result_case.error_description %>
+                    </td>
                     </td>
                     <td><%= result_case.updated_at.strftime('%d-%m-%Y %H:%M')  %></td>
                     <td>
                       <%= status_image(result_dictionay[result_case.rd_id].upcase.to_s).html_safe %>
+                      <% if result_case.rd_id != ResultsDictionary::STATUS[:SUCCESS] %>
+                        <%= link_to "Override Status", status_override_environment_test_suite_scheduler_result_path(@environment, @test_suite, @scheduler, result_case), class: 'badge bg-info', remote: true %>
+                      <% end %>
                     </td>
                     <td><%= result_case.override_comment  %></td>
                     <td>
@@ -89,3 +94,15 @@
   </div>
   </div>
 </section>
+<div class="modal fade" id="status-override-content" tabindex="-1" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Test case Override Status</h5>
+        <button type="button" class="btn-close" id="dismiss_model" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body status-override-frm-content">
+      </div>
+    </div>
+  </div>
+</div>

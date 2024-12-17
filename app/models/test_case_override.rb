@@ -1,25 +1,20 @@
 class TestCaseOverride < ApplicationRecord
   # -------------------------------------------------------------
   belongs_to :test_case
-  before_save :set_error_hash
+  #before_save :set_error_hash
 
   # -------------------------------------------------------------
   def set_error_hash
     self.error_hash = TestCaseOverride.generate_error_hash(self.error_message)
   end
 
-  def self.create_override(test_case_id, error_message, override_message)
+  def self.create_override(test_case, error_message, override_message)
     error_hash = generate_error_hash(error_message)
-    override_exists = TestCaseOverride.where(test_case_id: test_case_id, error_hash: error_hash).count.positive?
-
-    unless override_exists
-      override = TestCaseOverride.new
-      override.test_case_id = test_case_id
-      override.error_message = error_message
-      override.override_message = override_message
-      override.save!
-    end
-    true
+    test_case_override = TestCaseOverride.find_or_initialize_by(test_case: test_case, error_hash: error_hash)
+    test_case_override.error_message = error_message
+    test_case_override.override_message = override_message
+    puts test_case_override.inspect
+    test_case_override.save
   end
 
   def self.generate_error_hash(error_message)

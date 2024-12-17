@@ -96,8 +96,10 @@ Rails.application.routes.draw do
       end
 
       resources :schedulers do
-        resources :results, only: [:index] do
-
+        resources :results, only: [:index, :update] do
+          member do
+            get :status_override
+          end
         end
       end
     end

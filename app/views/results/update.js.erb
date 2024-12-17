@@ -1,0 +1,3 @@
+<% if @error %>
+$('#error').html('<%=j(render(partial: 'layouts/flash_message')) %>');
+<% end %>
