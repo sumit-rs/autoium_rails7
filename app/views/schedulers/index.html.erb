@@ -45,14 +45,25 @@
                   <td><%= scheduler.scheduled_date  %></td>
                   <td><%= scheduler.completed_date  %></td>
                   <td><%= scheduler.user.full_name  %></td>
-                  <td><%= scheduler.status  %></td>
+                  <td>
+                    <% if scheduler.status.upcase == Scheduler::SUCCESS_STATUS  %>
+                      <% status = scheduler.status.upcase == Scheduler::COMPLETE_STATUS ? 'Completed' : 'Pass' %>
+                      <span class="badge bg-success"><i class="bi bi-check-circle me-1"></i><%= status %></span>
+                    <% elsif scheduler.status.upcase == Scheduler::ERROR_STATUS %>
+                      <span class="badge bg-danger"><i class="bi bi-x-circle me-1"></i>Fail</span>
+                    <% elsif scheduler.status.upcase == Scheduler::READY_STATUS %>
+                      <span class="badge bg-secondary"><i class="bi bi-truck me-1"></i>Ready</span>
+                    <% elsif scheduler.status.upcase == Scheduler::RUNNING_STATUS %>
+                      <span class="badge bg-info"><i class="bi bi-clock me-1"></i>Running</span>
+                    <% end %>
+                  </td>
                   <td>
                     <% if scheduler.status.downcase == Scheduler::READY_STATUS.downcase %>
                       <%= link_to(environment_test_suite_scheduler_url(@environment, @test_suite, scheduler), method: :delete, title: 'Unschedule') do %>
                         <i class="bi bi-trash"></i>
                       <% end %>
                     <% else %>
-                      <button>Load Result</button>
+                      <%= link_to "Result", environment_test_suite_scheduler_results_path(@environment, @test_suite, scheduler), target: '_blank', class: 'btn small btn-outline-secondary' %>
                     <% end %>
                   </td>
                 </tr>

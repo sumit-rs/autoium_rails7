@@ -96,6 +96,9 @@ Rails.application.routes.draw do
       end
 
       resources :schedulers do
+        resources :results, only: [:index] do
+
+        end
       end
     end
   end

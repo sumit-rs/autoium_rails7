@@ -1,0 +1,91 @@
+<%
+  breadcrumb = {'Home': root_url, "#{@test_suite.name || 'Test Suite'}" => "#", 'Scheduler' => environment_test_suite_schedulers_path(@environment, @test_suite), 'Result' => '#' }
+  btn = []
+%>
+<%= render partial: 'common/breadcrumb', locals: {heading: 'Test Suite Result', breadcrumb: breadcrumb, action_btns: btn} %>
+<% result_dictionay = ResultsDictionary.status %>
+
+<section class="section min-vh-100">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title">Result Summary</p>
+          <%#= render partial: 'schedulers/form' %>
+          <div class="row">
+            <div class="col-2"><strong>Environment:</strong></div>
+            <div class="col-4"><%= @environment.name %></div>
+
+            <div class="col-2"><strong>Test Suite:</strong></div>
+            <div class="col-4"><%= @test_suite.name %></div>
+
+            <div class="col-2"><strong>Result Suite Status:</strong></div>
+            <div class="col-4"><%= status_image(result_dictionay[@result_suite.rd_id].upcase.to_s).html_safe %></div>
+
+            <div class="col-2"><strong>Result:</strong></div>
+            <%
+              _pass = @result_cases.collect{|result_case| result_case if result_case.rd_id == ResultsDictionary::STATUS.dig(:SUCCESS)}.compact
+              _fail = @result_cases.collect{|result_case| result_case if result_case.rd_id == ResultsDictionary::STATUS.dig(:ERROR)}.compact
+            %>
+            <div class="col-4"><strong><span class="small text-danger">Fail: <%= _fail.count %></span> | <span class="small text-success">Pass: <%= _pass.count %></span></strong></div>
+
+            <div class="col-2"><strong>Tester:</strong></div>
+            <div class="col-4"><%= @result_suite.user.full_name %></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <!-- Table with stripped rows -->
+          <div class=table-responsive">
+            <table class="table datatable mt-2" id="myTable">
+              <thead>
+              <tr>
+                <th>Sequence</th>
+                <th>Error</th>
+                <th>Ended</th>
+                <th>Status</th>
+                <th>Override</th>
+                <th>Screenshot</th>
+              </tr>
+              </thead>
+              <tbody>
+              <% if @result_cases %>
+                <% @result_cases.each do |result_case| %>
+                  <tr>
+                    <td><%= result_case.test_case.priority %></td>
+                    <td>
+                      <span class="text-info"></span><%= result_case.error_description   %></td>
+                    </td>
+                    <td><%= result_case.updated_at.strftime('%d-%m-%Y %H:%M')  %></td>
+                    <td>
+                      <%= status_image(result_dictionay[result_case.rd_id].upcase.to_s).html_safe %>
+                    </td>
+                    <td><%= result_case.override_comment  %></td>
+                    <td>
+                      <% if result_case.screenshot_file_location.present? %>
+                        <%= link_to(result_case.get_screenshot_url, title: 'View Error Screenshot') do %>
+                          <i class="bi bi-eye-fill me-1"></i>
+                        <% end %>
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+              <% end %>
+              </tbody>
+            </table>
+          </div>
+          <!-- End Table with stripped rows -->
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+  </div>
+</section>

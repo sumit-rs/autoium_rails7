@@ -189,7 +189,7 @@ class Api::SeleniumController < ApplicationApiController
       test_suite = TestSuite.where(id: params[:test_suite_id]).take
       scheduler = Scheduler.where(id: params[:scheduler_id]).take
 
-      result_suite_params = {rd_id: params[:rd_id], scheduler_index: params[:scheduler_index], start_time: params[:created_at] }
+      result_suite_params = {rd_id: params[:rd_id], scheduler_index: params[:scheduler_index], start_time: DateTime.now.utc }
       result_suite = ResultSuite.new(result_suite_params)
       result_suite.user = Current.user
       result_suite.test_suite = test_suite
@@ -275,7 +275,7 @@ class Api::SeleniumController < ApplicationApiController
       schedule = Scheduler.where(id: params[:scheduler_id]).take
       return render_result(false, 'Schedule not found') unless schedule.present?
 
-      schedule.update(status: params[:status], completed_date: DateTime.now.utc)
+      schedule.update(status: params[:status].upcase, completed_date: DateTime.now.utc)
       render_result(true, 'Schedule status updated successfully!', schedule, nil, 200)
     rescue StandardError => error
       log_exception(error, 'update_scheduler_status')

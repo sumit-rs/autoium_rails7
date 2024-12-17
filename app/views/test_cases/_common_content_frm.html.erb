@@ -25,18 +25,18 @@
 </div>
 
 <div class="col-md-6">
-  <%= f.label :new_tab, 'New Tab', class: 'form-label fw-bold' %>
-  <%= f.select(:new_tab, options_for_select([['No', 1],['Yes', 1]]), {}, class: "form-control") %>
-</div>
-
-<div class="col-md-6">
-  <%= f.label :need_screenshot, 'Need Screenshot', class: 'form-label fw-bold' %>
-  <%= f.select(:need_screenshot, options_for_select([['No', 1],['Yes', 1]]), {}, class: "form-control") %>
-</div>
-
-<div class="col-md-6">
   <%= f.label :description, 'Description', class: 'form-label fw-bold' %>
   <%= f.text_area :description, class: "form-control tinymce #{error_class(@test_case, :description)}" %>
+</div>
+
+<div class="col-md-6 form-check form-switch">
+  <%= f.check_box 'new_tab', class: 'form-check-input' %>
+  <label class="form-check-label" for="test_case_new_tab">New Tab</label>
+</div>
+
+<div class="col-md-6 form-check form-switch">
+  <%= f.check_box 'need_screenshot', class: 'form-check-input' %>
+  <label class="form-check-label" for="test_case_need_screenshot">Need Screenshot</label>
 </div>
 
 <div class="col-md-6 form-check form-switch">
