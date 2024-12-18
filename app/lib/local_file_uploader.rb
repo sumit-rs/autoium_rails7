@@ -25,7 +25,7 @@ class LocalFileUploader
   end
 
   def self.local_dir_path(project_id, environment_id, folder_path)
-    local_dir_path = Rails.root.join(ENV["STORAGE_PATH"], "project_#{project_id}", "environment_#{environment_id}", folder_path)
+    local_dir_path = Rails.root.join('public',ENV["STORAGE_PATH"], "project_#{project_id}", "environment_#{environment_id}", folder_path)
     FileUtils.mkdir_p(local_dir_path) unless File.directory?(local_dir_path)
     local_dir_path
   end
