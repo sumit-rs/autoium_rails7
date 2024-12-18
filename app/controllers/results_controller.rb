@@ -43,6 +43,32 @@ class ResultsController < ApplicationController
     send_file generate_xls, type: "application/xlsx", filename: "#{@test_suite.name}-reults-#{Time.now.to_i}.xlsx"
   end
 
+  def upload_recording
+    _upload_file = params.dig(:result_suite, :upload_suite_recording)
+    errors =  []
+    errors << 'Video recording file cant be blank.' unless _upload_file.present?
+    @result_suite.upload_suite_recording =  _upload_file
+
+    if !errors.present? and @result_suite.save
+      flash[:success] = "Recording has been uploaded successfully!"
+    else
+      flash[:errors] = [errors, @result_suite.errors.full_messages].flatten
+    end
+    redirect_to environment_test_suite_scheduler_results_path(@environment, @test_suite, @scheduler)
+  end
+
+  def delete_recording
+    @result_suite.video_file = ''
+    errors =  []
+    errors << 'You are not authorize to delete recording.' unless @result_suite.user == Current.user
+    if !errors.present? and @result_suite.save
+      flash[:success] = "Recording has been deleted successfully!"
+    else
+      flash[:errors] = [errors, @result_suite.errors.full_messages].flatten
+    end
+    redirect_to environment_test_suite_scheduler_results_path(@environment, @test_suite, @scheduler)
+  end
+
   private
   def get_environment
     @environment = Environment.where(id: params[:environment_id]).take
@@ -58,4 +84,5 @@ class ResultsController < ApplicationController
   def get_result_suite
     @result_suite = ResultSuite.where(test_suite: @test_suite, scheduler: @scheduler).order('id DESC').take
   end
+
 end

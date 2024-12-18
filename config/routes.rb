@@ -103,6 +103,8 @@ Rails.application.routes.draw do
           collection do
             get :mark_as_demo_video
             get :download_results
+            post :upload_recording
+            get :delete_recording
           end
         end
       end
