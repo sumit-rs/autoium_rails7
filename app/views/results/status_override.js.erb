@@ -1,3 +1,4 @@
 $('.status-override-frm-content').html('<%= j(render partial: 'results/status_override_frm', format: :html) %>');
+$('.results-modal-title').html('Override Result Test Case Status');
 var user_assignment_modal = new bootstrap.Modal(document.getElementById('status-override-content'))
 user_assignment_modal.show();

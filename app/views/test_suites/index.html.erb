@@ -42,7 +42,12 @@
                     <% end %>
                   </td>
                   <td><%= test_suite.name  %></td>
-                  <td><%= test_suite.short_description  %></td>
+                  <td>
+                    <%= truncate test_suite.short_description, length: 50 %>
+                    <% if test_suite.short_description.length > 50 %>
+                      <span class="badge text-dark" data-bs-toggle="tooltip" data-bs-placement="bottom" title="<%= test_suite.short_description %>"><i class="bi bi-info-circle me-1"></i></span>
+                    <% end %>
+                  </td>
                   <td><%= test_suite.test_plan.try(&:name)  %></td>
                   <td><%= test_suite.is_stale ? "Yes" : "No" %></td>
                   <td>

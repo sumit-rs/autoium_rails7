@@ -10,7 +10,10 @@ import "jquery_ujs";
 import "./jquery-ui.min";
 import "./tinymce";
 
-
+var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl)
+})
 $( document ).ready(function() {
     if (typeof tinyMCE != 'undefined') {
         tinyMCE.init({

@@ -13,7 +13,6 @@ class TestCaseOverride < ApplicationRecord
     test_case_override = TestCaseOverride.find_or_initialize_by(test_case: test_case, error_hash: error_hash)
     test_case_override.error_message = error_message
     test_case_override.override_message = override_message
-    puts test_case_override.inspect
     test_case_override.save
   end
 

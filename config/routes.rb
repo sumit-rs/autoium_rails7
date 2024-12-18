@@ -100,6 +100,10 @@ Rails.application.routes.draw do
           member do
             get :status_override
           end
+          collection do
+            get :mark_as_demo_video
+            get :download_results
+          end
         end
       end
     end
@@ -120,9 +124,10 @@ Rails.application.routes.draw do
   resources :suite_reports, only:[:index, :show]
   resources :software_versions
 
-  # Defines the root path route ("/")
-  root "home#index"
+  match "load_image", to: "file_handler#load_image", via: [:get]
   match "fetch-team-members", to: "team_members#fetch_team_members", via: [:get, :post]
   match "privacy_policy", to: "home#privacy_policy", via: :all
   match "project_roles", to: "roles#project_roles", via: :get, as: "access_roles"
+  # Defines the root path route ("/")
+  root "home#index"
 end

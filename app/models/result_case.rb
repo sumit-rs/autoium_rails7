@@ -15,7 +15,7 @@ class ResultCase < ApplicationRecord
   validates :override_comment, presence: true, if: proc { |record| record.mark_override.present? }
 
   # -------------------------------------------------------------
-  after_save :populate_test_create_override, if: proc { |record| record.override_status_permanently.present? }
+  after_save :populate_test_create_override, if: proc { |record| record.override_status_permanently }
   after_save :update_test_suite_and_scheduler_status, if: proc { |record| record.mark_override.present? }
 
   # -------------------------------------------------------------
@@ -49,6 +49,8 @@ class ResultCase < ApplicationRecord
   private
 
   def populate_test_create_override
+    #Todo: it should call only when override status marked permanently
+    puts self.override_status_permanently.inspect
     TestCaseOverride.create_override(self.test_case, self.error_description, self.override_comment)
   end
   def update_test_suite_and_scheduler_status

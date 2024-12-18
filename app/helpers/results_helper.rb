@@ -1,11 +1,11 @@
 module ResultsHelper
   def status_image(status)
     if status == 'SUCCESS'
-      '<span class="badge bg-success"><i class="bi bi-check-circle me-1"></i>Pass</span>'
+      '<i class="bi bi-hand-thumbs-up-fill me-1 text-success" title="PASS" alt="PASS"></i>'
     elsif status == 'ERROR'
-      '<span class="badge bg-danger"><i class="bi bi-x-circle me-1"></i>Fail</span>'
+      '<i class="bi bi-hand-thumbs-down-fill me-1 text-danger" title="FAIL" alt="FAIL"></i>'
     elsif status == 'PENDING'
-      '<span class="badge bg-secondary"><i class="bi bi-truck me-1"></i>Pending</span>'
+      '<i class="bi bi-truck me-1 text-secondary" title="PENDING" alt="PENDING"></i>'
     end
   end
 end

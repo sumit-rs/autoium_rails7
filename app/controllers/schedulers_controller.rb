@@ -2,7 +2,7 @@ class SchedulersController < ApplicationController
   before_action :get_environment
   before_action :get_test_suite
   def index
-    @schedulers = Scheduler.where(test_suite: @test_suite)
+    @schedulers = Scheduler.where(test_suite: @test_suite).order(id: :desc)
   end
 
   def create
