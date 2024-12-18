@@ -40,9 +40,8 @@
                 <% if @result_suite.video_file.present? and @test_suite.video_file != @result_suite.video_file %>
                   <a href="<%= mark_as_demo_video_environment_test_suite_scheduler_results_path(@environment, @test_suite, @scheduler) %>" target="_blank" class="btn btn-secondary"><i class="bi bi-file-earmark-check me-1"></i>Mark As Demo Video</a>
                 <% end %>
-                <a href="<%= download_results_environment_test_suite_scheduler_results_path(@environment, @test_suite, @scheduler) %>" target="_blank" class="btn btn-warning"><i class="bi bi-download me-1"></i>Download Results</a>
-
-            <% end %>
+              <% end %>
+              <a href="<%= download_results_environment_test_suite_scheduler_results_path(@environment, @test_suite, @scheduler) %>" target="_blank" class="btn btn-warning"><i class="bi bi-download me-1"></i>Download Results</a>
             </div>
           </div>
         </div>
