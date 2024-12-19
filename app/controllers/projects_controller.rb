@@ -43,6 +43,10 @@ class ProjectsController < ApplicationController
     redirect_to projects_path
   end
 
+  def get_environments
+    @environments = Environment.where(project_id: params.dig(:user,:prefer_project))
+  end
+
   private
 
   def get_project

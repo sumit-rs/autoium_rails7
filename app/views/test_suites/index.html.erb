@@ -9,11 +9,11 @@
 
 <section class="section min-vh-100">
   <%= render partial: 'layouts/flash_message' %>
+  <%= render partial: 'users/user_prefrence_project_environment_frm' %>
   <div class="row">
     <div class="col-lg-12">
       <div class="card">
         <div class="card-body">
-          <p class="card-title">Environment: <%= @environment.name %> - <%= @environment.url %></p>
 
           <!-- Table with stripped rows -->
           <table class="table datatable mt-2" id="myTable">
@@ -43,8 +43,8 @@
                   </td>
                   <td><%= test_suite.name  %></td>
                   <td>
-                    <%= truncate test_suite.short_description, length: 50 %>
-                    <% if test_suite.short_description.length > 50 %>
+                    <%= truncate test_suite.short_description, length: 40 %>
+                    <% if test_suite.short_description.length > 40 %>
                       <span class="badge text-dark" data-bs-toggle="tooltip" data-bs-placement="bottom" title="<%= test_suite.short_description %>"><i class="bi bi-info-circle me-1"></i></span>
                     <% end %>
                   </td>
@@ -67,7 +67,7 @@
                       <i class="bi bi-briefcase"></i> |
                     <% end %>
 
-                    <%= link_to(edit_environment_test_suite_url(test_suite.environment, test_suite), title: 'Schedule Suite') do %>
+                    <%= link_to(edit_environment_test_suite_url(test_suite.environment, test_suite), title: 'Edit Suite') do %>
                       <i class="bi bi-pencil-fill"></i>
                     <% end %>
 

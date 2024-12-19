@@ -7,56 +7,47 @@
     </a>
   </li><!-- End Dashboard Nav -->
 
-  <% _show = ['projects', 'environments', 'team_members', 'custom_commands', 'test_plans', 'test_roles', 'test_suites', 'manual_test_cases'].include?(params[:controller]) ? 'show' : '' %>
   <li class="nav-item">
-    <a class="nav-link <%= _show.present? ? '' : 'collapsed' %>" data-bs-target="#projects-nav" data-bs-toggle="collapse" href="#">
-      <i class="bi bi-menu-button-wide"></i><span>Manage Projects</span><i class="bi bi-chevron-down ms-auto"></i>
+    <a class="nav-link <%= ['projects', 'team_members', 'custom_commands'].include?(params[:controller]) ? '' : 'collapsed' %>" href="<%= projects_path %>">
+      <i class="bi bi-menu-button-wide"></i><span>Manage Projects</span>
     </a>
-    <ul id="projects-nav" class="nav-content collapse <%=_show %>" data-bs-parent="#sidebar-nav">
-      <li>
-        <%= link_to(projects_path, class: ['projects', 'team_members', 'custom_commands'].include?(params[:controller]) ? 'active' : '') do %>
-          <i class="bi bi-circle"></i>
-          <span>Projects</span>
-        <% end %>
-      </li>
+  </li>
 
-      <li class="nav-item">
-        <% clss = ['environments','test_plans', 'test_roles', 'test_suites', 'manual_test_cases'].include?(params[:controller]) ? 'active ' : '' %>
-        <a class="nav-link <%= clss %>" data-bs-target="#env-nav" href="<%= environments_path %>">
-          <i class="bi bi-circle"></i><span>Environments</span>
-        </a>
-        <% if params[:environment_id].present? %>
-        <ul id="env-nav" class="nav-content ms-3" data-bs-parent="#env-nav">
-          <li>
-            <%= link_to(environment_test_roles_path(get_environment), class: ['test_roles'].include?(params[:controller]) ? 'active' : '') do %>
-              <i class="bi bi-circle"></i>
-              <span>Test Roles</span>
-            <% end %>
-          </li>
-          <li>
-            <%= link_to(environment_test_plans_path(get_environment), class: ['test_plans'].include?(params[:controller]) ? 'active' : '') do %>
-              <i class="bi bi-circle"></i>
-              <span>Test Plan</span>
-            <% end %>
-          </li>
-          <li>
-            <%= link_to(environment_test_suites_path(get_environment), class: ['test_suites', 'manual_test_cases'].include?(params[:controller]) ? 'active' : '') do %>
-              <i class="bi bi-circle"></i>
-              <span>Test Suites</span>
-            <% end %>
-          </li>
-        </ul>
-        <% end %>
-      </li>
+  <li class="nav-item">
+    <% clss = ['environments','test_plans', 'test_roles'].include?(params[:controller])  ? 'show' : '' %>
+    <a class="nav-link <%= clss.present? ? '' : 'collapsed' %>" data-bs-target="#env-nav" href="<%= environments_path %>">
+      <i class="bi bi-cloud-plus"></i><span>Environments</span>
+    </a>
+    <% if params[:environment_id].present? and ['environments','test_plans', 'test_roles'].include?(params[:controller])  %>
+      <ul id="env-nav" class="nav-content ms-3 collapse show" data-bs-parent="#env-nav">
+        <li>
+          <%= link_to(environment_test_roles_path(get_environment), class: ['test_roles'].include?(params[:controller]) ? 'active' : '') do %>
+            <i class="bi bi-circle"></i>
+             <span>Test Roles</span>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to(environment_test_plans_path(get_environment), class: ['test_plans'].include?(params[:controller]) ? 'active' : '') do %>
+            <i class="bi bi-circle"></i>
+            <span>Test Plan</span>
+          <% end %>
+        </li>
+      </ul>
+    <% end %>
+  </li>
 
-    </ul>
-  </li><!-- End Components Nav -->
+
+  <li class="nav-item">
+    <a class="<%= ['test_suites', 'manual_test_cases','test_cases','schedulers','results'].include?(params[:controller]) ? 'active nav-link' : 'nav-link collapsed' %>" href="<%= suites_path %>">
+      <i class="bi bi-paperclip"></i><span>Manage Suites</span>
+    </a>
+  </li>
 
   <li class="nav-item">
     <%= link_to(manual_assign_suites_path, class: ['assign_suites'].include?(params[:controller]) ? 'active nav-link' : 'nav-link collapsed') do %>
-      <i class="bi bi-journal-text"></i><span>Assigned Suites</span>
+      <i class="bi bi-journal-text"></i><span>Work Items</span>
     <% end %>
-  </li><!-- End Forms Nav -->
+  </li>
 
 
   <li class="nav-item">

@@ -10,8 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_12_14_144536) do
-  create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+ActiveRecord::Schema[7.2].define(version: 2024_12_19_170314) do
+  create_table "active_storage_attachments", charset: "utf8mb3", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
     t.bigint "record_id", null: false
@@ -21,7 +21,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_14_144536) do
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
 
-  create_table "active_storage_blobs", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "active_storage_blobs", charset: "utf8mb3", force: :cascade do |t|
     t.string "key", null: false
     t.string "filename", null: false
     t.string "content_type"
@@ -33,13 +33,13 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_14_144536) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "active_storage_variant_records", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "active_storage_variant_records", charset: "utf8mb3", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "assign_manual_test_suites", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "assign_manual_test_suites", charset: "utf8mb3", force: :cascade do |t|
     t.integer "assign_to", null: false
     t.bigint "test_suite_id", null: false
     t.integer "assign_number"
@@ -52,14 +52,14 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_14_144536) do
     t.index ["test_suite_id"], name: "index_assign_manual_test_suites_on_test_suite_id"
   end
 
-  create_table "browsers", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "browsers", charset: "utf8mb3", force: :cascade do |t|
     t.string "name"
     t.boolean "is_active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "custom_commands", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "custom_commands", charset: "utf8mb3", force: :cascade do |t|
     t.integer "environment_id", null: false
     t.string "name", null: false
     t.string "command", null: false
@@ -68,7 +68,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_14_144536) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "environments", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "environments", charset: "utf8mb3", force: :cascade do |t|
     t.string "name", null: false
     t.string "url", null: false
     t.integer "project_id", null: false
@@ -94,7 +94,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_14_144536) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "manual_case_results", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "manual_case_results", charset: "utf8mb3", force: :cascade do |t|
     t.bigint "assign_manual_test_suite_id", null: false
     t.bigint "manual_case_id", null: false
     t.integer "assign_to", null: false
@@ -106,7 +106,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_14_144536) do
     t.index ["manual_case_id"], name: "index_manual_case_results_on_manual_case_id"
   end
 
-  create_table "manual_cases", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "manual_cases", charset: "utf8mb3", force: :cascade do |t|
     t.bigint "test_suite_id", null: false
     t.string "name"
     t.text "description"
@@ -117,14 +117,14 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_14_144536) do
     t.index ["test_suite_id"], name: "index_manual_cases_on_test_suite_id"
   end
 
-  create_table "project_team_members", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "project_team_members", charset: "utf8mb3", force: :cascade do |t|
     t.integer "project_id", null: false
     t.integer "team_member_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "projects", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "projects", charset: "utf8mb3", force: :cascade do |t|
     t.string "name", null: false
     t.text "description"
     t.integer "created_by", null: false
@@ -138,7 +138,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_14_144536) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "result_cases", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "result_cases", charset: "utf8mb3", force: :cascade do |t|
     t.integer "rd_id"
     t.integer "test_case_id"
     t.integer "result_suite_id"
@@ -152,7 +152,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_14_144536) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "result_suites", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "result_suites", charset: "utf8mb3", force: :cascade do |t|
     t.integer "rd_id"
     t.integer "test_suite_id"
     t.integer "user_id"
@@ -165,13 +165,13 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_14_144536) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "results_dictionaries", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "results_dictionaries", charset: "utf8mb3", force: :cascade do |t|
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "schedulers", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "schedulers", charset: "utf8mb3", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "test_suite_id"
     t.bigint "browser_id"
@@ -188,7 +188,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_14_144536) do
     t.index ["user_id"], name: "index_schedulers_on_user_id"
   end
 
-  create_table "software_versions", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "software_versions", charset: "utf8mb3", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.date "release_date", null: false
@@ -197,7 +197,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_14_144536) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "test_case_overrides", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "test_case_overrides", charset: "utf8mb3", force: :cascade do |t|
     t.integer "test_case_id"
     t.text "error_message"
     t.text "override_message"
@@ -206,7 +206,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_14_144536) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "test_cases", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "test_cases", charset: "utf8mb3", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "test_suite_id", null: false
     t.integer "custom_command_id"
@@ -238,7 +238,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_14_144536) do
     t.index ["user_id"], name: "index_test_cases_on_user_id"
   end
 
-  create_table "test_plan_steps", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "test_plan_steps", charset: "utf8mb3", force: :cascade do |t|
     t.integer "test_plan_id", null: false
     t.string "name", null: false
     t.text "description"
@@ -246,7 +246,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_14_144536) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "test_plans", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "test_plans", charset: "utf8mb3", force: :cascade do |t|
     t.integer "environment_id", null: false
     t.integer "user_id", null: false
     t.string "name", null: false
@@ -258,13 +258,13 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_14_144536) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "test_plans_roles", id: false, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "test_plans_roles", id: false, charset: "utf8mb3", force: :cascade do |t|
     t.bigint "test_plan_id", null: false
     t.bigint "test_role_id", null: false
     t.index ["test_plan_id", "test_role_id"], name: "index_test_plans_roles_on_test_plan_id_and_test_role_id"
   end
 
-  create_table "test_roles", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "test_roles", charset: "utf8mb3", force: :cascade do |t|
     t.string "user_id", null: false
     t.string "environment_id", null: false
     t.string "name", null: false
@@ -274,7 +274,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_14_144536) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "test_suites", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "test_suites", charset: "utf8mb3", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "test_plan_id"
     t.bigint "environment_id", null: false
@@ -298,7 +298,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_14_144536) do
     t.index ["user_id"], name: "index_test_suites_on_user_id"
   end
 
-  create_table "users", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "users", charset: "utf8mb3", force: :cascade do |t|
     t.string "first_name", null: false
     t.string "last_name", null: false
     t.string "email", default: "", null: false
@@ -308,6 +308,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_14_144536) do
     t.datetime "remember_created_at"
     t.integer "sign_in_count", default: 0, null: false
     t.boolean "admin", default: false, null: false
+    t.string "role", default: "USER", null: false
+    t.text "additional_info"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true

@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
   devise_scope :user do
     get 'users/settings', to: 'users#settings'
+    post 'users/settings', to: 'users#settings'
   end
   # get 'home/index'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -53,6 +54,9 @@ Rails.application.routes.draw do
   #end of api namespace
 
   resources :projects do
+    collection do
+      get :get_environments
+    end
     resources :team_members do
       collection do
         post :assign_existing_member
@@ -126,6 +130,7 @@ Rails.application.routes.draw do
   resources :suite_reports, only:[:index, :show]
   resources :software_versions
 
+  match "suites", to: "test_suites#suites", via: [:get]
   match "load_image", to: "file_handler#load_image", via: [:get]
   match "fetch-team-members", to: "team_members#fetch_team_members", via: [:get, :post]
   match "privacy_policy", to: "home#privacy_policy", via: :all

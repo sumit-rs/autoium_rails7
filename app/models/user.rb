@@ -13,6 +13,9 @@ class User < ApplicationRecord
   attr_accessor :project_id, :allow_generate_password
 
   # -------------------------------------------------------------
+  store :additional_info, accessors: [:prefer_project, :prefer_environment], coder: JSON
+
+  # -------------------------------------------------------------
   has_many :projects, class_name: 'Project', foreign_key: 'created_by', dependent: :destroy
   has_many :project_team_members, dependent: :destroy, foreign_key: 'team_member_id'
   #this return project roles where user belongs to different - 2 projects

@@ -1,5 +1,5 @@
 <%
-  breadcrumb = {'Home': root_url, 'Environments' => environments_url, 'Manual Test Cases' => environment_test_suite_manual_test_cases_path(@environment, @test_suite) }
+  breadcrumb = {'Home': root_url, 'Environments' => environments_url, 'Test Suites' => environment_test_suites_path(@environment),  'Manual Test Cases' => environment_test_suite_manual_test_cases_path(@environment, @test_suite) }
   btn = [
     { name: 'Create Manual Case', url: new_environment_test_suite_manual_test_case_path(@environment, @test_suite), class: 'btn btn-primary rounded-pill btn-sm float-right'}
   ]

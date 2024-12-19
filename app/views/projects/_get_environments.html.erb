@@ -1,0 +1,2 @@
+<label class="form-label fw-bold" for="user_prefer_environment">Environments:</label>
+<%= select_tag "user[prefer_environment]", options_from_collection_for_select(@environments, "id", "name"), class: 'form-control'  %>

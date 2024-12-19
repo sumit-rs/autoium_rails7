@@ -22,7 +22,7 @@
             </tr>
             </thead>
             <tbody>
-            <% if @test_roles %>
+            <% if @test_roles.present? %>
               <% @test_roles.each do |test_role| %>
                 <tr>
                   <td><%= test_role.name  %></td>
@@ -35,6 +35,8 @@
                   </td>
                 </tr>
               <% end %>
+            <% else %>
+            <tr><td colspan="4">No test role(s) have created yet.</td></tr>
             <% end %>
             </tbody>
           </table>

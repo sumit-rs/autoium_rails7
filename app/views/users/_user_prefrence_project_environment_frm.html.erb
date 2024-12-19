@@ -1,0 +1,38 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-body">
+        <%= form_for Current.user, url: users_settings_path, method: :post, data: { turbo: false } do |f| %>
+          <div class="row g-3 mt-2">
+
+            <div class="col-md-5">
+              <label class="form-label fw-bold" for="user_prefer_project">Projects:</label>
+              <%= select_tag(
+                    "user[prefer_project]",
+                    options_for_select(@projects, Current.user.prefer_project),
+                    prompt: "Select Project",
+                    class: 'form-control',
+                    data: {
+                      remote: true,
+                      url: get_environments_projects_path,
+                      method: 'get'
+                    },
+                  ) %>
+            </div>
+
+
+            <div class="col-md-5 prefer_environments">
+              <label class="form-label fw-bold" for="user_prefer_environment">Environments:</label>
+              <%= f.select(:prefer_environment, @environments, { :prompt => 'Select Environment' }, class: 'form-control') %>
+            </div>
+
+            <div class="col-md-2">
+              <input type="hidden" name="redirect" value="<%= params[:redirect] || @section %>"/>
+              <%= f.submit "Save Your Preference", class: "btn btn-secondary mt-4" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

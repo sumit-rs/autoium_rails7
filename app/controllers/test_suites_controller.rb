@@ -1,9 +1,17 @@
 class TestSuitesController < ApplicationController
+  before_action :user_projects_and_environments, only: [:index]
   before_action :get_environment
   before_action :get_test_suite, only: [:show, :edit, :update, :destroy, :assign_users]
 
   def index
-    @test_suites = @environment.test_suites
+    @section = 'suites'
+    @test_suites = @environment.present? ? @environment.test_suites : []
+  end
+
+  def suites
+    redirect_to environment_test_suites_path(Current.user.prefer_environment) and return if Current.user.prefer_environment.present?
+    flash[:notice] = 'Please save your preference first.'
+    redirect_to users_settings_path(redirect: 'suites')
   end
 
   def new

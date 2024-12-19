@@ -1,5 +1,5 @@
 <%
-  breadcrumb = {'Home': root_url, 'Environments' => environments_url, 'Manual Test Cases' => environment_test_suite_manual_test_cases_path(@environment, @test_suite) }
+  breadcrumb = {'Home': root_url, 'Environments' => environments_url, 'Test Suites' => environment_test_suites_path(@environment), 'Manual Test Cases' => environment_test_suite_manual_test_cases_path(@environment, @test_suite) }
   btns = []
 %>
 <%= render partial: 'common/breadcrumb', locals: {heading: 'Create Manual Test Case', breadcrumb: breadcrumb, action_btns: btns} %>
