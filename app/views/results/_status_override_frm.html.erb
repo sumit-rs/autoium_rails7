@@ -6,8 +6,8 @@
     <%= f.text_area :override_comment, class: 'form-control' %>
   </div>
 
-  <div class="col-md-6 form-check form-switch">
-    <%= f.check_box :override_status_permanently, class: 'form-check-input' %>
+  <div class="col-md-6 form-check form-switchs">
+    <%= check_box_tag 'result_case[override_status_permanently]', class: 'form-check-input' %>
     <label class="form-check-label" for="result_case_override_status_permanently">Override error permanently</label>
   </div>
 

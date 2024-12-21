@@ -49,8 +49,6 @@ class ResultCase < ApplicationRecord
   private
 
   def populate_test_create_override
-    #Todo: it should call only when override status marked permanently
-    puts self.override_status_permanently.inspect
     TestCaseOverride.create_override(self.test_case, self.error_description, self.override_comment)
   end
   def update_test_suite_and_scheduler_status

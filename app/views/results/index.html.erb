@@ -96,7 +96,7 @@
               <% if @result_cases %>
                 <% @result_cases.each do |result_case| %>
                   <tr>
-                    <td><%= result_case.test_case.try(:priority) || result_case.id %></td>
+                    <td><%= result_case.test_case.try(:priority) || 0 %></td>
                     <td>
                       <%= truncate result_case.error_description, length: 60 %>
                       <% if result_case.error_description.try(:length) > 60 %>

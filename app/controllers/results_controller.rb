@@ -16,8 +16,7 @@ class ResultsController < ApplicationController
       @result_case.override_status = true
       @result_case.mark_override = true
       @result_case.override_status_permanently = params.dig("result_case", "override_status_permanently")
-      puts "-------s"
-      puts @result_case.override_status_permanently.inspect
+
       if @result_case.save
         flash[:success] = "Result Case sequence #{@result_case.test_case.priority} - override status has been marked successfully!"
         render js: "window.location.href =' #{environment_test_suite_scheduler_results_path(@environment, @test_suite, @scheduler)}'"
