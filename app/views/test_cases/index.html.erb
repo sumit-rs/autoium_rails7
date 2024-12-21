@@ -38,7 +38,7 @@
                   <td><%= test_case.input_value  %></td>
                   <td><%= test_case.action %></td>
                   <td><%= test_case.xpath %></td>
-                  <td class="wrap"><%= test_case.full_xpath %></td>
+                  <td class="wrap"><%= test_case.description %></td>
                   <td>
                     <%= link_to(edit_environment_test_suite_test_case_url(@environment, @test_suite, test_case), title: 'Edit Suite') do %>
                       <i class="bi bi-pencil-fill"></i>
