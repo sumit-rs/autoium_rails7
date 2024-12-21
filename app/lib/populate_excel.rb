@@ -51,7 +51,7 @@ class PopulateExcel
       mandatory_header: true,
     },
     rd_id: {
-      label: 'Scheduler',
+      label: 'Status',
       proc: proc { |record| ResultsDictionary.status.dig(record.rd_id).to_s },
       mandatory_header: true,
     },
@@ -79,7 +79,7 @@ class PopulateExcel
       mandatory_header: true,
     },
     rd_id: {
-      label: 'Scheduler',
+      label: 'Status',
       proc: proc { |record| ResultsDictionary.status.dig(record.rd_id).to_s },
       mandatory_header: true,
     },
@@ -110,12 +110,21 @@ class PopulateExcel
     workbook = package.workbook
     text_style = workbook.styles.add_style(sz: 12, font_name: 'Helvetica', alignment: { horizontal: :left, wrap_text: false })
 
-    workbook.add_worksheet(name: "Result-Suite") do |wb_sheet|
-      headers = PopulateExcel::TEST_SUITE_FIELDS_MAPPING.merge(PopulateExcel::RESULT_SUITE_FIELDS_MAPPING)
+    workbook.add_worksheet(name: "Test-Suite") do |wb_sheet|
+      headers = PopulateExcel::TEST_SUITE_FIELDS_MAPPING
       generate_header(wb_sheet, headers, text_style)
       data = []
       (result_suites || {}).each_with_index do |result_suite, index|
         data << PopulateExcel::TEST_SUITE_FIELDS_MAPPING.values.collect { |_hash| _hash[:proc].call(result_suite.test_suite) }
+        wb_sheet.add_row(data.flatten, style: text_style)
+      end
+    end
+
+    workbook.add_worksheet(name: "Result-Suite") do |wb_sheet|
+      headers = PopulateExcel::RESULT_SUITE_FIELDS_MAPPING
+      generate_header(wb_sheet, headers, text_style)
+      data = []
+      (result_suites || {}).each_with_index do |result_suite, index|
         data << PopulateExcel::RESULT_SUITE_FIELDS_MAPPING.values.collect { |_hash| _hash[:proc].call(result_suite) }
         wb_sheet.add_row(data.flatten, style: text_style)
       end
