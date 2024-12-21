@@ -123,20 +123,16 @@ class PopulateExcel
     workbook.add_worksheet(name: "Result-Suite") do |wb_sheet|
       headers = PopulateExcel::RESULT_SUITE_FIELDS_MAPPING
       generate_header(wb_sheet, headers, text_style)
-      data = []
       (result_suites || {}).each_with_index do |result_suite, index|
-        data << PopulateExcel::RESULT_SUITE_FIELDS_MAPPING.values.collect { |_hash| _hash[:proc].call(result_suite) }
-        wb_sheet.add_row(data.flatten, style: text_style)
+        wb_sheet.add_row(PopulateExcel::RESULT_SUITE_FIELDS_MAPPING.values.collect { |_hash| _hash[:proc].call(result_suite) }, style: text_style)
       end
     end
 
     workbook.add_worksheet(name: "Test-Result-Cases") do |wb_sheet|
       headers = PopulateExcel::RESULT_CASES_FIELDS_MAPPING
       generate_header(wb_sheet, headers, text_style)
-      data = []
       (result_suites.first.result_cases || {}).each_with_index do |result_case, index|
-        data << PopulateExcel::RESULT_CASES_FIELDS_MAPPING.values.collect { |_hash| _hash[:proc].call(result_case) }
-        wb_sheet.add_row(data.flatten, style: text_style)
+        wb_sheet.add_row(PopulateExcel::RESULT_CASES_FIELDS_MAPPING.values.collect { |_hash| _hash[:proc].call(result_case) }, style: text_style)
       end
     end
 
