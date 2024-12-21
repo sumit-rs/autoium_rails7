@@ -96,10 +96,10 @@
               <% if @result_cases %>
                 <% @result_cases.each do |result_case| %>
                   <tr>
-                    <td><%= result_case.test_case.priority %></td>
+                    <td><%= result_case.test_case.try(:priority) %></td>
                     <td>
                       <%= truncate result_case.error_description, length: 60 %>
-                      <% if result_case.error_description.length > 60 %>
+                      <% if result_case.error_description.try(:length) > 60 %>
                         <span class="badge text-dark" data-bs-toggle="tooltip" data-bs-placement="bottom" title="<%= result_case.error_description %>"><i class="bi bi-info-circle me-1"></i></span>
                       <% end %>
                       <% if result_case.screenshot_file_location.present? %>
