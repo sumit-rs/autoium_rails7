@@ -2,7 +2,7 @@
   breadcrumb = {'Home': root_url, 'Manage Software Version' => software_versions_url }
   btn_hash = {}
   btn = []
-  btn_hash = btn_hash.merge({name: 'Add New Version', url: new_software_version_url, class: 'btn btn-primary rounded-pill btn-sm float-right'}) if Current.user.admin?
+  btn_hash = btn_hash.merge({name: 'Add New Version', url: new_software_version_url, class: 'btn btn-primary btn-sm float-right'}) if Current.user.admin?
   btn << btn_hash if btn_hash.present?
 %>
 <%= render partial: 'common/breadcrumb', locals: {heading: 'Manage Autoium Version', breadcrumb: breadcrumb, action_btns: btn} %>

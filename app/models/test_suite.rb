@@ -82,7 +82,7 @@ class TestSuite < ApplicationRecord
 
         CSV.foreach(self.import_suite_cases, headers: true) do |row|
           test_case = row.to_h
-          test_case = test_case.merge("priority" => test_case["sequence"], user_id: self.user.id)
+          test_case = test_case.merge("priority" => (test_case["sequence"] || test_case["priority"]), user_id: self.user.id)
           test_case.delete("sequence")
           _test_case = TestCase.new(test_case)
           _test_case.test_suite = self

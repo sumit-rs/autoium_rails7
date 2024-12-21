@@ -90,6 +90,7 @@ Rails.application.routes.draw do
       resources :test_cases do
         collection do
           get :selenium_custom_code
+          get :export
         end
       end
 

@@ -1,6 +1,6 @@
 <%
   breadcrumb = {'Home': root_url, 'Manage Environments' => environments_url }
-  btn = [{name: 'Create Environment', url: new_environment_url, class: 'btn btn-primary rounded-pill btn-sm float-right'}]
+  btn = [{name: 'Create Environment', url: new_environment_url, class: 'btn btn-primary btn-sm float-right'}]
 %>
 <%= render partial: 'common/breadcrumb', locals: {heading: 'Manage Environments', breadcrumb: breadcrumb, action_btns: btn} %>
 

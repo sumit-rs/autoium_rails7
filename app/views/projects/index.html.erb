@@ -1,6 +1,6 @@
 <%
   breadcrumb = {'Home': root_url, 'Manage Projects' => projects_url }
-  btn = [{name: 'Create Projects', url: new_project_url, class: 'btn btn-primary rounded-pill btn-sm float-right'}]
+  btn = [{name: 'Create Projects', url: new_project_url, class: 'btn btn-primary btn-sm float-right'}]
 %>
 <%= render partial: 'common/breadcrumb', locals: {heading: 'Manage Projects', breadcrumb: breadcrumb, action_btns: btn} %>
 

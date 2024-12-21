@@ -1,8 +1,10 @@
 <%
   breadcrumb = {'Home': root_url, 'Environments' => environments_url, 'Test Suites' => environment_test_suites_path(@environment), 'Automate Test Cases' => environment_test_suite_manual_test_cases_path(@environment, @test_suite) }
   btn = [
-    { name: 'Add Selenium Code', url: selenium_custom_code_environment_test_suite_test_cases_path(@environment, @test_suite), class: 'btn btn-info rounded-pill btn-sm float-right'},
-    { name: 'Create Automate Case', url: new_environment_test_suite_test_case_path(@environment, @test_suite), class: 'btn btn-primary rounded-pill btn-sm float-right'}
+    { name: 'Add Selenium Code', url: selenium_custom_code_environment_test_suite_test_cases_path(@environment, @test_suite), class: 'btn btn-info btn-sm float-right'},
+    { name: 'Create Automate Case', url: new_environment_test_suite_test_case_path(@environment, @test_suite), class: 'btn btn-primary btn-sm float-right'},
+    { name: 'Export', url: export_environment_test_suite_test_cases_path(@environment, @test_suite), class: 'btn btn-warning btn-sm float-right'},
+
   ]
 %>
 <%= render partial: 'common/breadcrumb', locals: {heading: 'Manage Automate Test Cases', breadcrumb: breadcrumb, action_btns: btn} %>
@@ -24,7 +26,7 @@
               <th scope="col">InputValue</th>
               <th scope="col">Action</th>
               <th scope="col">XPATH</th>
-              <th scope="col">FullPath</th>
+              <th scope="col">Description</th>
               <th>Action</th>
             </tr>
             </thead>

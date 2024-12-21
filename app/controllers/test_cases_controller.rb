@@ -65,6 +65,12 @@ class TestCasesController < ApplicationController
     end
   end
 
+  def export
+    test_cases = @test_suite.test_cases
+    data = PopulateCsv.new.populate_test_cases_csv(test_cases)
+    send_data data, filename: "#{@test_suite.name}-#{Date.today}.csv"
+  end
+
   private
   def get_environment
     @environment = Environment.where(id: params[:environment_id]).take

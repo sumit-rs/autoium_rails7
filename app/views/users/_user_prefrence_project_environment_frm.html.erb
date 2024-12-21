@@ -26,9 +26,9 @@
               <%= f.select(:prefer_environment, @environments, { :prompt => 'Select Environment' }, class: 'form-control') %>
             </div>
 
-            <div class="col-md-2">
+            <div class="col-md-2 mt-5">
               <input type="hidden" name="redirect" value="<%= params[:redirect] || @section %>"/>
-              <%= f.submit "Save Your Preference", class: "btn btn-secondary mt-4" %>
+              <%= f.submit "Save Your Preference", class: "btn btn-secondary btn-sm" %>
             </div>
           </div>
         <% end %>

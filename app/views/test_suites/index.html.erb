@@ -1,8 +1,8 @@
 <%
   breadcrumb = {'Home': root_url, 'Environments' => environments_url, 'Test Suites' => environment_test_suites_url(@environment) }
   btn = [
-    { name: 'Create Test Suite', url: new_environment_test_suite_path(@environment), class: 'btn btn-primary rounded-pill btn-sm float-right'},
-    { name: 'Import Suite & Cases', url: import_environment_test_suites_path(@environment), class: 'btn btn-info rounded-pill btn-sm float-right'}
+    { name: 'Create Test Suite', url: new_environment_test_suite_path(@environment), class: 'btn btn-primary btn-sm float-right'},
+    { name: 'Import Suite & Cases', url: import_environment_test_suites_path(@environment), class: 'btn btn-info btn-sm float-right'}
   ]
 %>
 <%= render partial: 'common/breadcrumb', locals: {heading: 'Manage Test Suite', breadcrumb: breadcrumb, action_btns: btn} %>

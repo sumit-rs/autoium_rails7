@@ -54,7 +54,8 @@
 <script>
   if($('#myTable').length > 0){
       new simpleDatatables.DataTable('#myTable', {
-          perPageSelect: [5, 10, 15, ["All", -1]],
+          perPageSelect: [5, 10, 20, 30, 40, 50, 100, ["All", -1]],
+          perPage: 50,
           columns: [{
               select: 2,
               sortSequence: ["desc", "asc"]

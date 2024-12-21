@@ -52,13 +52,13 @@
 <% if @test_case.field_type == 'SELENIUM_CODE' %>
 <div class="col-md-6">
   <%= f.label :custom_selenium_js, 'Custom selenium javascript', class: 'form-label fw-bold' %>
-  <%= f.text_area :custom_selenium_js, class: "form-control #{error_class(@test_case, :custom_selenium_js)}" %>
+  <%= f.text_area :custom_selenium_js, class: "form-control #{error_class(@test_case, :custom_selenium_js)}", rows:10 %>
 </div>
 <% end %>
 
 <div class="col-md-6" id="javaScriptConditional" style="display: none">
   <%= f.label :javascript_conditional, 'Javascript Conditional', class: 'form-label fw-bold' %>
-  <%= f.text_area :javascript_conditional, class: "form-control #{error_class(@test_case, :javascript_conditional)}" %>
+  <%= f.text_area :javascript_conditional, class: "form-control #{error_class(@test_case, :javascript_conditional)}",rows:10 %>
 </div>
 
 <script type="text/javascript">
