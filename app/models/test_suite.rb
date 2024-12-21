@@ -33,7 +33,7 @@ class TestSuite < ApplicationRecord
 
     # -------------------------------------------------------------
     before_save :populate_test_cases_import
-    after_save :populate_default_short_desc_based_platform
+    before_save :populate_default_short_desc_based_platform
 
     def include_base_post_suite
       [self.base_suite, self, self.post_suite].compact_blank
@@ -69,7 +69,7 @@ class TestSuite < ApplicationRecord
     end
 
     def populate_default_short_desc_based_platform
-      if platform == TestSuite::CHROME_PLATFORM
+      if self.platform == TestSuite::CHROME_PLATFORM
         self.short_description = 'Created test suite through chrome.'
         self.is_automated = true
         self.status = TestSuite::SUITE_DRAFT_STATUS

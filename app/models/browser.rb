@@ -10,15 +10,15 @@ class Browser < ApplicationRecord
   FIREFOX_ID = 2
   SAFARI_ID = 3
   EDGE_ID = 4
-  BROWSERS = [CHROME, FIREFOX, EDGE, SAFARI]
+  BROWSERS = {CHROME => CHROME_ID, FIREFOX => FIREFOX_ID, SAFARI => SAFARI_ID, EDGE => EDGE_ID}
 
   # -------------------------------------------------------------
   validates :name, presence: true
 
   # -------------------------------------------------------------
   def self.populate_default_data
-    BROWSERS.each do |browser|
-      Browser.create(name: browser, is_active: true)
+    BROWSERS.keys.each do |browser|
+      Browser.create(id: BROWSERS[browser] , name: browser, is_active: true)
     end
   end
 end

@@ -44,7 +44,7 @@
                   <td><%= test_suite.name  %></td>
                   <td>
                     <%= truncate test_suite.short_description, length: 40 %>
-                    <% if test_suite.short_description.length > 40 %>
+                    <% if (test_suite.short_description || '').length > 40 %>
                       <span class="badge text-dark" data-bs-toggle="tooltip" data-bs-placement="bottom" title="<%= test_suite.short_description %>"><i class="bi bi-info-circle me-1"></i></span>
                     <% end %>
                   </td>
