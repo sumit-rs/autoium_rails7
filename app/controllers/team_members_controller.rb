@@ -1,8 +1,9 @@
 class TeamMembersController < ApplicationController
   before_action :get_project, except: [:fetch_team_members]
-  before_action :get_user, only: %i[show edit update destroy]
+  before_action :get_user, only: %i[show edit update]
+
   def index
-    @project_users = User.joins(:project_team_members).where('project_team_members.project_id': params[:project_id]).uniq
+    @project_users = User.joins(:project_team_members).select('users.*,project_team_members.id as ptm').where('project_team_members.project_id': params[:project_id]).uniq
   end
 
   def new
@@ -34,10 +35,11 @@ class TeamMembersController < ApplicationController
     end
   end
   def destroy
-    if @user.destroy
-      flash[:success] = 'User deleted Successfully.'
+    project_team_member = ProjectTeamMember.where(id: params[:id]).take
+    if project_team_member.destroy
+      flash[:success] = 'Team member has been deleted from project successfully.'
     else
-      flash[:errors] = @user.errors.full_messages
+      flash[:errors] = project_team_member.errors.full_messages
     end
     redirect_to project_team_members_url
   end

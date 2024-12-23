@@ -1,0 +1,57 @@
+<div class="col-12">
+  <div class="card recent-sales overflow-auto">
+
+    <!--    <div class="filter">-->
+    <!--      <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>-->
+    <!--      <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">-->
+    <!--        <li class="dropdown-header text-start">-->
+    <!--          <h6>Filter</h6>-->
+    <!--        </li>-->
+
+    <!--        <li><a class="dropdown-item" href="#">Today</a></li>-->
+    <!--        <li><a class="dropdown-item" href="#">This Month</a></li>-->
+    <!--        <li><a class="dropdown-item" href="#">This Year</a></li>-->
+    <!--      </ul>-->
+    <!--    </div>-->
+
+    <div class="card-body">
+      <h5 class="card-title">Recent Scheduler(s)</h5>
+
+      <table class="table table-borderless datatable">
+        <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Suite</th>
+          <th scope="col">Browser</th>
+          <th scope="col">Tester</th>
+          <th scope="col">Scheduled</th>
+          <th scope="col">Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @recent_schedulers.each do |recent_scheduler| %>
+          <tr>
+            <th scope="row">
+              <% if recent_scheduler.status.downcase == Scheduler::READY_STATUS.downcase %>
+                #<%= recent_scheduler.id %>
+              <% else %>
+                <a href="<%= environment_test_suite_scheduler_results_path(recent_scheduler.test_suite.environment, recent_scheduler.test_suite, recent_scheduler) %>" target="_blank">
+                  #<%= recent_scheduler.id %>
+                </a>
+              <% end %>
+            </th>
+            <td><%= recent_scheduler.test_suite.name %></td>
+            <td><%= Browser::BROWSERS.invert[recent_scheduler.browser_id] %></td>
+            <td><%= recent_scheduler.user.full_name %></td>
+            <td><%= recent_scheduler.scheduled_date.strftime('%Y-%m-%d %H:%m') %></td>
+            <td><%= render partial: "schedulers/status", locals: {scheduler: recent_scheduler} %></td>
+          </tr>
+        <% end %>
+
+        </tbody>
+      </table>
+
+    </div>
+
+  </div>
+</div>

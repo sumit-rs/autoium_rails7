@@ -4,7 +4,7 @@
 
     <div class="col-md-12">
       <label class="form-label fw-bold" for="environment_project_id">Project</label>
-      <%= f.select(:project_id, @projects, {:prompt => 'Select Project'}, class: 'form-control') %>
+      <%= f.select :project_id, @projects, {:prompt => 'Select Project'}, class: 'form-control', disabled: @environment.try(:project_id) %>
     </div>
 
     <div class="col-md-12">

@@ -59,27 +59,24 @@ class EnvironmentsController < ApplicationController
   end
 
   def destroy
-    if Current.user == @environment.user or @environment.project.creator == Current.user
-      if @environment.delete
-        flash[:success] = 'Environment deleted Successfully.'
-      else
-        flash[:errors] = @environment.errors.full_messages
-      end
-      redirect_to environments_path
+    redirect_to environments_path, notice: "You are not allowed to delete the environment which are created by other user." and return if Current.user == @environment.user or @environment.project.creator == Current.user
+
+    if @environment.delete
+      flash[:success] = 'Environment deleted Successfully.'
     else
-      redirect_to environments_path, notice: "You are not allowed to delete the environment which are created by other user."
+      flash[:errors] = @environment.errors.full_messages
     end
+    redirect_to environments_path
   end
 
   private
 
   def get_environment
     @environment = Environment.find(params[:id])
-    puts @environment.inspect
   end
 
   def get_projects
-    @projects = Project.pluck(:name, :id)
+    @projects = user_projects.pluck(:name, :id)
   end
   def environment_params
     params.require(:environment).permit(:name, :url, :project_id,

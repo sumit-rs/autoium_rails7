@@ -10,6 +10,9 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  def user_projects
+    @projects = Current.user.assign_projects.uniq
+  end
   def user_projects_and_environments
     @projects = Current.user.assign_projects.uniq.pluck(:name,:id)
     @environments = Environment.where(project_id: Current.user.prefer_environment).pluck(:name,:id)

@@ -1,8 +1,8 @@
 class ProjectsController < ApplicationController
 
   before_action :get_project, only: %i[show edit update destroy]
+  before_action :user_projects, only: %i[index]
   def index
-    @projects = Current.user.assign_projects.uniq
   end
 
   def show; end

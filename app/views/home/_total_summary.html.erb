@@ -1,0 +1,105 @@
+<div class="col-xxl-4 col-md-6">
+  <div class="card info-card sales-card">
+
+    <!--            <div class="filter">-->
+    <!--              <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>-->
+    <!--              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">-->
+    <!--                <li class="dropdown-header text-start">-->
+    <!--                  <h6>Filter</h6>-->
+    <!--                </li>-->
+
+    <!--                <li><a class="dropdown-item" href="#">Today</a></li>-->
+    <!--                <li><a class="dropdown-item" href="#">This Month</a></li>-->
+    <!--                <li><a class="dropdown-item" href="#">This Year</a></li>-->
+    <!--              </ul>-->
+    <!--            </div>-->
+
+    <div class="card-body">
+      <a href="<%= projects_url %>"><h5 class="card-title">Projects<span>| Till now</span></h5></a>
+
+      <div class="d-flex align-items-center">
+        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+          <a href="<%= projects_url %>"><i class="bi bi-menu-button-wide"></i></a>
+        </div>
+        <div class="ps-3 pt-3">
+          <a href="<%= projects_url %>"><h6><%= @projects.count %></h6></a>
+          <span class="text-success small pt-1 fw-bold"></span>
+          <span class="text-muted small pt-2 ps-1"></span>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="col-xxl-4 col-md-6">
+  <div class="card info-card revenue-card">
+
+    <!--            <div class="filter">-->
+    <!--              <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>-->
+    <!--              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">-->
+    <!--                <li class="dropdown-header text-start">-->
+    <!--                  <h6>Filter</h6>-->
+    <!--                </li>-->
+
+    <!--                <li><a class="dropdown-item" href="#">Today</a></li>-->
+    <!--                <li><a class="dropdown-item" href="#">This Month</a></li>-->
+    <!--                <li><a class="dropdown-item" href="#">This Year</a></li>-->
+    <!--              </ul>-->
+    <!--            </div>-->
+
+    <div class="card-body">
+      <a href="<%= environments_url %>"><h5 class="card-title">Environments<span>| Till now</span></h5></a>
+
+      <div class="d-flex align-items-center">
+        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+          <a href="<%= environments_url %>"><i class="bi bi-cloud-plus"></i></a>
+        </div>
+        <div class="ps-3 pt-3">
+          <a href="<%= environments_url %>"><h6><%= @environments.count %></h6></a>
+          <span class="text-success small pt-1 fw-bold"></span>
+          <span class="text-muted small pt-2 ps-1"></span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="col-xxl-4 col-xl-12">
+
+  <div class="card info-card customers-card">
+
+    <!--            <div class="filter">-->
+    <!--              <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>-->
+    <!--              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">-->
+    <!--                <li class="dropdown-header text-start">-->
+    <!--                  <h6>Filter</h6>-->
+    <!--                </li>-->
+
+    <!--                <li><a class="dropdown-item" href="#">Today</a></li>-->
+    <!--                <li><a class="dropdown-item" href="#">This Month</a></li>-->
+    <!--                <li><a class="dropdown-item" href="#">This Year</a></li>-->
+    <!--              </ul>-->
+    <!--            </div>-->
+
+    <div class="card-body">
+      <h5 class="card-title">Test Suites <span>| Till now</span></h5>
+
+      <div class="d-flex align-items-center">
+        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+          <i class="bi bi-paperclip"></i>
+        </div>
+        <div class="ps-3 pt-3">
+          <a><h6><%= @test_suites.count %></h6></a>
+          <span class="text-danger small pt-1 fw-bold"><%= @test_cases.count + @manual_cases.count %></span>
+          <span class="text-muted small pt-2 ps-1">Test cases</span>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>

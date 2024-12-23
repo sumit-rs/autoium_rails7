@@ -39,6 +39,10 @@ class TestSuite < ApplicationRecord
       [self.base_suite, self, self.post_suite].compact_blank
     end
 
+    def is_manual_suite?
+      !self.is_automated?
+    end
+
     def video_file_url
       return '' unless self.video_file.present?
 

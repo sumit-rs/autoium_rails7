@@ -31,8 +31,8 @@
                   <td><%= manual_suite.assign_number %></td>
                   <td><%= manual_suite.test_suite.name %></td>
                   <td>
-                    <p><%= manual_suite.environment.name %></p>
-                    <p class="small"><%= manual_suite.environment.url %></p>
+                    <p><%= manual_suite.environment.try(:name) %></p>
+                    <p class="small"><%= manual_suite.environment.try(:url) %></p>
                   </td>
                   <td>
                     <% if manual_suite.browser == AssignManualTestSuite::BROWSER_CHROME %>
