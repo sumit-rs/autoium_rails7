@@ -15,7 +15,7 @@ class HomeController < ApplicationController
 
     @browsers = Scheduler.select('browser_id').group(:browser_id).count
 
-    @recent_schedulers = Scheduler.order('updated_at DESC').limit(10)
+    @recent_schedulers = Scheduler.order('updated_at DESC').limit(5)
     @manual_test_suites = @test_suites.where(is_automated: false)
     @automate_test_suites = @test_suites.where(is_automated: true)
   end
