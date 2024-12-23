@@ -85,14 +85,14 @@
     <!--            </div>-->
 
     <div class="card-body">
-      <h5 class="card-title">Test Suites <span>| Till now</span></h5>
+      <a href="<%= suites_path %>"><h5 class="card-title">Test Suites <span>| Till now</span></h5></a>
 
       <div class="d-flex align-items-center">
         <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-          <i class="bi bi-paperclip"></i>
+          <a href="<%= suites_path %>"><i class="bi bi-paperclip"></i></a>
         </div>
         <div class="ps-3 pt-3">
-          <a><h6><%= @test_suites.count %></h6></a>
+          <a href="<%= suites_path %>"><h6><%= @test_suites.count %></h6></a>
           <span class="text-danger small pt-1 fw-bold"><%= @test_cases.count + @manual_cases.count %></span>
           <span class="text-muted small pt-2 ps-1">Test cases</span>
 
