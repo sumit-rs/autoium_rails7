@@ -1,18 +1,18 @@
 <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
   <img src="/assets/profile-img.jpg" alt="Profile" class="rounded-circle">
-  <span class="d-none d-md-block dropdown-toggle ps-2"><%= current_user.full_name.titleize %></span>
+  <span class="d-none d-md-block dropdown-toggle ps-2"><%= Current.user.full_name.titleize %></span>
 </a>
 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
   <li class="dropdown-header">
-    <h6><%= current_user.full_name.titleize %></h6>
-    <span><%= current_user.email %></span>
+    <h6><%= Current.user.full_name.titleize %></h6>
+    <span><%= Current.user.email %></span>
   </li>
   <li>
     <hr class="dropdown-divider">
   </li>
 
   <li>
-    <a class="dropdown-item d-flex align-items-center" href="<%= edit_user_registration_path %>">
+    <a class="dropdown-item d-flex align-items-center" href="<%= edit_user_url(Current.user) %>">
       <i class="bi bi-person"></i>
       <span>My Profile</span>
     </a>
@@ -22,7 +22,7 @@
   </li>
 
   <li>
-    <a class="dropdown-item d-flex align-items-center" href="<%= users_settings_path %>">
+    <a class="dropdown-item d-flex align-items-center" href="<%= settings_user_url(Current.user) %>">
       <i class="bi bi-gear"></i>
       <span>Account Settings</span>
     </a>
@@ -42,7 +42,7 @@
   </li>
 
   <li>
-    <%= link_to(destroy_user_session_path, class: 'dropdown-item d-flex align-items-center', data: { turbo_method: :delete, confirm: "Are you sure?" }) do %>
+    <%= link_to(session_path, class: 'dropdown-item d-flex align-items-center', data: { turbo_method: :delete, confirm: "Are you sure?" }) do %>
       <i class="bi bi-box-arrow-right"></i>
       <span>Sign Out</span>
     <% end %>

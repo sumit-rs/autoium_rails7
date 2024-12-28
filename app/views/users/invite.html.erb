@@ -1,0 +1,68 @@
+<%
+  breadcrumb = { 'Home': root_url, 'Invite User' => invite_users_path }
+  btn = []
+%>
+<%= render partial: 'common/breadcrumb', locals: { heading: 'Invite User', breadcrumb: breadcrumb, action_btns: btn } %>
+
+<section class="section">
+  <div class="row">
+    <%= render "layouts/flash_message" %>
+    <div class="col-lg-12">
+      <%= render partial: 'users/invite_frm' %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <h class="card-title">Invited Users</h>
+      <div class="card">
+        <div class="card-body">
+          <table class="table datatable mt-2" id="myTable">
+            <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Sent</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% if @user_invitations %>
+              <% @user_invitations.each do |user_invitation| %>
+              <tr>
+                <td><%= user_invitation.full_name %></td>
+                <td><%= user_invitation.email %></td>
+                <td><%= user_invitation.invitation_sent %></td>
+                <td>
+                  <% if user_invitation.invitation_token.present? %>
+                    <span class="badge rounded-pill bg-danger">PENDING</span>
+                  <% else %>
+                    <span class="badge rounded-pill bg-success">ACCEPTED</span>
+                  <% end %>
+                </td>
+                <td>
+                  <% if user_invitation.invitation_token.present?  %>
+                    <%= link_to(resend_invitation_user_path(user_invitation), title: 'Resend Invitation') do %>
+                      <i class="bi bi-envelope"></i>
+                    <% end %>
+                    <%= link_to(remove_invitation_user_path(user_invitation), method: :delete, data: {confirm: 'Are you sure?.'}, title: 'Delete User Invitation') do %>
+                      | <i class="bi bi-trash"></i>
+                    <% end %>
+                  <% end %>
+                </td>
+              </tr>
+              <% end %>
+            <% else %>
+            <tr><td colspan="5">No records found.</td></tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+

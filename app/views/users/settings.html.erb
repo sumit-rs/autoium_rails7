@@ -1,5 +1,5 @@
 <%
-  breadcrumb = { 'Home': root_url, 'Manage Settings' => users_settings_path }
+  breadcrumb = { 'Home': root_url, 'Manage Settings' => settings_user_path(Current.user) }
   btn = []
 %>
 <%= render partial: 'common/breadcrumb', locals: { heading: 'Manage Settings', breadcrumb: breadcrumb, action_btns: btn } %>

@@ -11,7 +11,7 @@ class TestSuitesController < ApplicationController
   def suites
     redirect_to environment_test_suites_path(Current.user.prefer_environment) and return if Current.user.prefer_environment.present?
     flash[:notice] = 'Please save your preference first.'
-    redirect_to users_settings_path(redirect: 'suites')
+    redirect_to settings_user_path(Current.user, redirect: 'suites')
   end
 
   def new

@@ -2,7 +2,7 @@
   <div class="col-lg-12">
     <div class="card">
       <div class="card-body">
-        <%= form_for Current.user, url: users_settings_path, method: :post, data: { turbo: false } do |f| %>
+        <%= form_for Current.user, url: settings_user_path(Current.user), method: :post, data: { turbo: false } do |f| %>
           <div class="row g-3 mt-2">
 
             <div class="col-md-5">

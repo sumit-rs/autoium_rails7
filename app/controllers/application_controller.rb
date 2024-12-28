@@ -1,11 +1,22 @@
 class ApplicationController < ActionController::Base
-  before_action :authenticate_user!
-
-  before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :restricted_to_sign_in_user
   before_action :populate_current_user
 
+  helper_method :logged_in?
+
   def populate_current_user
-    Current.user = current_user.present? ? current_user : nil
+    Current.user = if _user = User.where(id: session[:user_id]).take
+                     _user
+                   else
+                     nil
+                   end
+  end
+
+  def logged_in?
+    populate_current_user.present?
+  end
+  def restricted_to_sign_in_user
+    redirect_to(login_session_path, notice: 'Restricted access. Please login.') unless logged_in?
   end
 
   protected

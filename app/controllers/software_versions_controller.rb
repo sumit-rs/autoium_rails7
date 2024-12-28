@@ -45,12 +45,13 @@ class SoftwareVersionsController < ApplicationController
   private
 
   def redirect_if_not_admin
-    flash[:errors] = "You are not allowed to perform this action."
-    redirect_to edit_environment_path(@environment)
+    redirect_to software_versions_path, notice: "You are not allowed to perform this action." and return unless Current.user.is_admin?
   end
+
   def get_software_version
     @version = SoftwareVersion.find(params[:id])
   end
+
   def version_params
     params.require(:software_version).permit(:name, :description, :release_date, :software_type)
   end

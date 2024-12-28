@@ -1,6 +1,7 @@
 class HomeController < ApplicationController
-  before_action :authenticate_user!, except: [:privacy_policy]
+  skip_before_action :restricted_to_sign_in_user, only: [:privacy_policy]
   before_action :user_projects, except: [:privacy_policy]
+
   def index
     @environments = Environment.where(project_id: @projects.collect(&:id))
     @test_suites = TestSuite.where(environment_id: @environments.collect(&:id))
@@ -21,6 +22,9 @@ class HomeController < ApplicationController
   end
 
   def privacy_policy
+  end
 
+  def documentation
+    @versions = SoftwareVersion.all
   end
 end

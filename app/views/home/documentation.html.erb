@@ -1,0 +1,102 @@
+<%
+  breadcrumb = { 'Home': root_url, 'Autoium - Documentation' => documentation_path }
+  btn = []
+%>
+<%= render partial: 'common/breadcrumb', locals: { heading: 'Autoium - Documentation', breadcrumb: breadcrumb, action_btns: btn } %>
+
+<section class="section">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Software Versions</h5>
+          <div class="row">
+            <div class="col-md-12">
+              <p>
+                Autoium is a versatile Java-based testing tool designed to simplify and enhance website testing using Selenium. With the capability to seamlessly operate in both console and GUI modes, Autoium empowers users to efficiently test and validate web applications. The intuitive GUI, built using Swing, provides a user-friendly interface, while the console mode allows for streamlined automation.
+              </p>
+              <!-- Table with stripped rows -->
+              <%= render partial: 'software_versions/version_content'  %>
+              <!-- End Table with stripped rows -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Chrome Extension</h5>
+          <div class="row">
+            <div class="col-md-12">
+              <p>
+                Check out the Autoium Chrome extension
+                <a class="download-link" href="https://chromewebstore.google.com/detail/autoium/kdjmljenoekkdbclilboemighaafhgbl?hl=en-US&amp;utm_source=ext_sidebar" target="_blank">here</a>.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Drivers</h5>
+          <div class="row">
+            <div class="col-md-12">
+              <p>
+                To utilize Autoium effectively, you'll need to download the appropriate drivers:
+              </p>
+              <ul>
+                <li>
+                  <strong>Chrome Driver:</strong> Download the Chrome Driver <a class="download-link" href="https://sites.google.com/chromium.org/driver/" target="_blank">here</a>.
+                  The path to the Chrome Driver can be configured via the Java tool's settings options.
+                </li>
+                <li>
+                  <strong>Firefox Driver:</strong> Download the Firefox Driver <a class="download-link" href="https://github.com/mozilla/geckodriver/releases" target="_blank">here</a>.
+                  Similarly, the path to the Firefox Driver can also be configured through the Java tool's settings options.
+                </li>
+                <li>
+                  <strong>Edge Driver:</strong> Download the Edge Driver <a class="download-link" href="https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/?form=MA13LH#downloads" target="_blank">here</a>.
+                  Configure the path to the Edge Driver using the Java tool's settings options.
+                </li>
+                <li>
+                  <strong>Safari Driver:</strong> Safari and Safari Technology Preview each provide their own safaridriver executable. Safari’s executable is located at /usr/bin/safaridriver.
+                  Configure the path to the Safari Driver using the Java tool's settings options.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Setting up Autoium</h5>
+          <div class="row">
+            <div class="col-md-12">
+              <p class="card-text">Get started by downloading the documentation PDF.</p>
+              <p class="card-text">
+                <a href="Autoium_executable_client_program.pdf" target="_blank" class="btn btn-primary">Download Documentation</a>
+              </p>
+              <div class="mt-3">
+                <small class="text-muted">File size: 1MB | Last updated: February 22, 2024</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>

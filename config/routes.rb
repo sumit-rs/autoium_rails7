@@ -1,9 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users
-  devise_scope :user do
-    get 'users/settings', to: 'users#settings'
-    post 'users/settings', to: 'users#settings'
-  end
+
   # get 'home/index'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   namespace :api do
@@ -131,11 +127,34 @@ Rails.application.routes.draw do
   resources :suite_reports, only:[:index, :show]
   resources :software_versions
 
+  resource :session, only: [:create, :destroy] do
+    collection do
+      get :login
+    end
+  end
+
+  resources :users, only: [:edit, :update] do
+    member do
+      get :settings
+      post :settings
+      delete :remove_invitation
+      get :resend_invitation
+    end
+    collection do
+      get :invite
+      post :invite
+      get :accept_invitation
+    end
+  end
+
   match "suites", to: "test_suites#suites", via: [:get]
   match "load_image", to: "file_handler#load_image", via: [:get]
   match "fetch-team-members", to: "team_members#fetch_team_members", via: [:get, :post]
-  match "privacy_policy", to: "home#privacy_policy", via: :all
+  match "privacy_policy", to: "home#privacy_policy", via: :get
+  match "documentation", to: "home#documentation", via: :get
   match "project_roles", to: "roles#project_roles", via: :get, as: "access_roles"
+
   # Defines the root path route ("/")
+  #
   root "home#index"
 end

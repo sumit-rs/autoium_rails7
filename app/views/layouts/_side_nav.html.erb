@@ -65,38 +65,44 @@
   </li><!-- End Tables Nav -->
 
   <li class="nav-item">
-    <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
-      <i class="bi bi-layout-text-window-reverse"></i><span>Manage Compliance</span><i class="bi bi-chevron-down ms-auto"></i>
-    </a>
-    <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-      <li>
-        <a href="charts-chartjs.html">
-          <i class="bi bi-circle"></i><span>Accessibility Compliance</span>
-        </a>
-      </li>
-    </ul>
-  </li><!-- End Charts Nav -->
-
-  <li class="nav-item">
     <a class="nav-link collapsed" data-bs-target="#release-nav" data-bs-toggle="collapse" href="#">
       <i class="bi bi-gem"></i><span>Manage Release</span><i class="bi bi-chevron-down ms-auto"></i>
     </a>
     <ul id="release-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
       <li>
-        <a href="icons-bootstrap.html">
+        <a href="javascript:void(0);" onclick="alert('Working on it.');">
           <i class="bi bi-circle"></i><span>Release</span>
         </a>
       </li>
     </ul>
-  </li><!-- End Icons Nav -->
+  </li>
 
+  <li class="nav-item">
+    <%= link_to(documentation_path, class: (['home'].include?(params[:controller]) and ['documentation'].include?(params[:action])) ? 'active nav-link' : 'nav-link collapsed') do %>
+      <i class="bi bi-info-circle"></i><span>Documentation</span>
+    <% end %>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
+      <i class="bi bi-layout-text-window-reverse"></i><span>Manage Compliance</span><i class="bi bi-chevron-down ms-auto"></i>
+    </a>
+    <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+      <li>
+        <a href="javascript:void(0);" onclick="alert('Will implement soon');">
+          <i class="bi bi-circle"></i><span>Accessibility Compliance</span>
+        </a>
+      </li>
+    </ul>
+  </li>
+
+  <% if Current.user.try(:is_admin?) %>
   <li class="nav-heading">Administrator Section</li>
 
   <li class="nav-item">
-    <a class="nav-link collapsed" href="users-profile.html">
-      <i class="bi bi-person"></i>
-      <span>Invite Users</span>
-    </a>
+    <%= link_to(invite_users_path, class: (['users'].include?(params[:controller]) and ['invite'].include?(params[:action])) ? 'active nav-link' : 'nav-link collapsed') do %>
+      <i class="bi bi-person"></i><span>Invite User</span>
+    <% end %>
   </li><!-- End Profile Page Nav -->
 
   <li class="nav-item">
@@ -120,18 +126,15 @@
     <% end %>
   </li><!-- End Register Page Nav -->
 
-  <li class="nav-item">
-    <a class="nav-link collapsed" href="pages-login.html">
-      <i class="bi bi-info-circle"></i>
-      <span>Documentation</span>
-    </a>
-  </li><!-- End Login Page Nav -->
+ <% end %>
 
+  <% if logged_in? %>
   <li class="nav-item">
-    <%= link_to(destroy_user_session_path, class: 'nav-link collapsed', data: { turbo_method: :delete, confirm: "Are you sure?" }) do %>
+    <%= link_to(session_path, class: 'nav-link collapsed', data: { turbo_method: :delete, confirm: "Are you sure?" }) do %>
       <i class="bi bi-box-arrow-right"></i>
       <span>Sign Out</span>
     <% end %>
   </li>
+  <% end %>
 
 </ul>
