@@ -33,7 +33,7 @@ class User < ApplicationRecord
   # -------------------------------------------------------------
   before_validation :populate_user_password, if: Proc.new{|record| record.allow_generate_password}
   after_create :populate_project_team_member
-  after_commit :send_invitation_mail, on: :update, if: Proc.new{|record| record.invitation_sent.present? and record.invitation_token.present?}
+  after_commit :send_invitation_mail, on: [:update, :create], if: Proc.new{|record| record.invitation_sent.present? and record.invitation_token.present?}
 
   def full_name
     "#{self.first_name} #{self.last_name}"

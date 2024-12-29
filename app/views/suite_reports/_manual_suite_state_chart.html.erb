@@ -20,7 +20,7 @@
         //document.addEventListener("DOMContentLoaded", () => {
         var chart = new ApexCharts(document.querySelector("#suiteState"), {
             series: [{
-                data: [<%= @states.dig(AssignManualTestSuite::STATE_ASSIGN) %>, <%= @states.dig(AssignManualTestSuite::STATE_START) %>, <%= @states.dig(AssignManualTestSuite::STATE_PROGRESS) %>, <%= @states.dig(AssignManualTestSuite::STATE_FINISH) %>]
+                data: [<%= @states.dig(AssignManualTestSuite::STATE_ASSIGN).to_i %>, <%= @states.dig(AssignManualTestSuite::STATE_START).to_i %>, <%= @states.dig(AssignManualTestSuite::STATE_PROGRESS).to_i %>, <%= @states.dig(AssignManualTestSuite::STATE_FINISH).to_i %>]
             }],
             chart: {
                 type: 'bar',

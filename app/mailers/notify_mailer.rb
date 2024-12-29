@@ -6,7 +6,7 @@ class NotifyMailer < ApplicationMailer
 
   def invitation_link(user)
     @user = user
-    @invitation_url = accept_invitation_users_url(token: @user.invitation_token)
+    @invitation_url = "#{ENV['SITE_URL']}/users/accept_invitation?token=#{@user.invitation_token}"
     mail(to: @user.email, subject: 'Welcome to our Autonium platform!')
   end
 
