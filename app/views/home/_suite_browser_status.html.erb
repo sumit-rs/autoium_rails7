@@ -12,7 +12,7 @@
                 data: {
                     labels: ['Chrome', 'FireFox', 'Safari', 'Edge'],
                     datasets: [{
-                        label: 'Scheduler',
+                        label: 'Browser',
                         data: [<%= @browsers.dig(Browser::CHROME_ID).to_i %>, <%= @browsers.dig(Browser::FIREFOX_ID).to_i %>, <%= @browsers.dig(Browser::SAFARI_ID).to_i %>, <%= @browsers.dig(Browser::EDGE_ID).to_i %>],
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',

@@ -5,7 +5,11 @@ class SuiteReportsController < ApplicationController
   # -------------------------------------------------------------
 
   def index
-    @reports = AssignManualTestSuite.joins(test_suite: [:environment]).where('environments.id' => Current.user.prefer_environment).order('id DESC').distinct
+    @reports = AssignManualTestSuite.joins(test_suite: [:environment]).where('environments.id' => Current.user.prefer_environment).order(id: :desc).distinct
+
+    reports = AssignManualTestSuite.joins(test_suite: [:environment]).where('environments.id' => Current.user.prefer_environment)
+    @browsers = reports.select('browser').group(:browser).count
+    @states = reports.select('state').group('state').count
     @section = 'reports'
   end
 
@@ -18,7 +22,7 @@ class SuiteReportsController < ApplicationController
     @scheduler_running = @schedulers.collect{|scheduler| scheduler if scheduler.status == Scheduler::RUNNING_STATUS}.compact.count
     @scheduler_complete = @schedulers.collect{|scheduler| scheduler if scheduler.status == Scheduler::COMPLETE_STATUS}.compact.count
 
-    schedulers = Scheduler.joins(test_suite: [:environment]).where('environments.id': Current.user.prefer_environment).select('browser_id')
+    schedulers = Scheduler.joins(test_suite: [:environment]).where('environments.id': Current.user.prefer_environment)
     @browsers = schedulers.select('browser_id').group(:browser_id).count
 
     @recorded = schedulers.where(record_session: true).count
@@ -32,5 +36,6 @@ class SuiteReportsController < ApplicationController
     @suite_report = AssignManualTestSuite.joins(:manual_case_results,
                                            test_suite: [environment: [project: [:project_team_members]]]
     ).where('project_team_members.team_member_id' => Current.user.id, 'assign_manual_test_suites.id' => params[:id]).take
+    redirect_to root_path, notice: 'Invalid record' unless @suite_report.present?
   end
 end

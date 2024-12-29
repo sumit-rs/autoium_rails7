@@ -22,7 +22,7 @@
         <td><%= scheduler.state  %></td>
         <td>
           <% if scheduler.state == AssignManualTestSuite::STATE_FINISH %>
-            <%= ((scheduler.fail_case_count || 0) > 0 ? '<span class="badge rounded-pill bg-danger">Danger</span>' : '<span class="badge rounded-pill bg-success">Success</span>').html_safe %>
+            <%= ((scheduler.fail_case_count || 0) > 0 ? '<span class="badge rounded-pill bg-danger">Failed</span>' : '<span class="badge rounded-pill bg-success">Success</span>').html_safe %>
           <% elsif scheduler.state == AssignManualTestSuite::STATE_ASSIGN  %>
             <span class="badge rounded-pill bg-warning">Assigned</span>
           <% elsif [AssignManualTestSuite::STATE_PROGRESS, AssignManualTestSuite::STATE_START].include?(scheduler.state)  %>

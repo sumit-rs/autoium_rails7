@@ -5,28 +5,52 @@
 <%= render partial: 'common/breadcrumb', locals: {heading: 'Test Suite Report', breadcrumb: breadcrumb, action_btns: btn} %>
 
 <section class="section min-vh-100">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title">Result Summary</p>
+          <div class="row">
+            <div class="col-2"><strong>Environment:</strong></div>
+            <div class="col-4"><%= @suite_report.test_suite.environment.name %></div>
+
+            <div class="col-2"><strong>URL:</strong></div>
+            <div class="col-4"><a href="<%= @suite_report.test_suite.environment.url %>" target="_blank"><%= @suite_report.test_suite.environment.url %></a></div>
+
+            <div class="col-2"><strong>Test Suite:</strong></div>
+            <div class="col-4"><%= @suite_report.test_suite.name %></div>
+
+            <div class="col-2"><strong>Tester:</strong></div>
+            <div class="col-4"><%= @suite_report.user.full_name %></div>
+
+            <div class="col-2"><strong>Suite Status:</strong></div>
+            <div class="col-4">
+              <% if (@suite_report.fail_case_count || 0) > 0 %>
+                <%= status_image('ERROR').html_safe %>
+              <% else %>
+                <%= status_image('SUCCESS').html_safe %>
+              <% end %>
+            </div>
+
+            <div class="col-2"><strong>Result:</strong></div>
+            <div class="col-4"><strong><span class="small text-danger">Fail: <%= (@suite_report.fail_case_count || 0) %></span> | <span class="small text-success">Pass: <%= (@suite_report.pass_case_count || 0) %></span></strong></div>
+
+
+
+            <div class="col-12 mt-2">
+<!--              <a href="<%##= download_results_environment_test_suite_scheduler_results_path(@environment, @test_suite, @scheduler) %>" target="_blank" class="btn btn-warning" title="Download Results" title="Download Results"><i class="bi bi-download me-1"></i>Results</a>-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 <div class="row">
   <div class="col-lg-12">
     <div class="card">
       <div class="card-body">
-        <div class="card-title"><%= @suite_report.test_suite.environment.name %> (<%= @suite_report.test_suite.environment.url %>)</div>
-        <div class="row">
-          <div class="col-6"><p class="small"><strong>Test Suite</strong>: <%= @suite_report.test_suite.name %></p></div>
-          <div class="col-6"><p class="small"><strong>Assigned To</strong>: <%= @suite_report.user.full_name %></p></div>
-          <div class="col-6">
-            <p class="small"><strong>Status</strong>:
-              <% if (@suite_report.fail_case_count || 0) > 0 %>
-                <%= image_tag 'failed.jpg', width: '50px' %> (Fail: <%= (@suite_report.fail_case_count || 0) %>, Pass: <%= (@suite_report.pass_case_count || 0) %>)
-              <% else %>
-                <%= image_tag 'pass.png', width: '50px' %>
-              <% end %>
-            </p>
-          </div>
-          <div class="col-6">
-            <p class="small"><strong>Result:</strong>: Fail: <%= (@suite_report.fail_case_count || 0) %>, Pass: <%= (@suite_report.pass_case_count || 0) %>
-          </div>
-        </div>
+        <div class="card-title"></div>
 
         <div class="table-responsive">
           <table class="table">
@@ -34,7 +58,7 @@
             <tr class="text-dark">
               <th width="20%">TestCase</th>
               <th width="40%">Description</th>
-              <th width="25%">URL</th>
+              <th width="30%">Comment</th>
               <th>Status</th>
             </tr>
             </thead>
@@ -43,8 +67,21 @@
             <tr class="font-14 text-dark">
               <td class="wrap"><%= manual_case_result.manual_case.name %></td>
               <td class="wrap"><%= manual_case_result.manual_case.description %></td>
-              <td><%= manual_case_result.manual_case.url %></td>
-              <td class="text-danger"><%= manual_case_result.status %></td>
+              <td class="wrap">
+                <%= manual_case_result.description %>
+                <% if manual_case_result.case_result_file.attached? %>
+                  <%= link_to manual_case_result.case_result_file , title: 'View Error Screenshot', target:'_blank' do %>
+                    <i class="bi bi-file-earmark-image text-dark"></i>
+                  <% end %>
+                <% end %>
+              </td>
+              <td>
+                <% if manual_case_result.status == ManualCaseResult::STATUS_PASS %>
+                  <%= status_image('SUCCESS').html_safe %>
+                <% else %>
+                  <%= status_image('ERROR').html_safe %>
+                <% end %>
+              </td>
             </tr>
             <% end %>
             </tbody>

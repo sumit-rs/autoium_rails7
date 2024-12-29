@@ -9,8 +9,9 @@
   <%= render partial: 'layouts/flash_message' %>
   <%= render partial: 'suite_reports/nav_tab' %>
   <%= render partial: 'users/user_prefrence_project_environment_frm' %>
+  <div class="row">
   <% if params[:action] == 'automated' %>
-    <div class="row">
+
       <div class="col-lg-4">
         <%= render partial: 'home/test_suite_scheduler_status' %>
       </div>
@@ -20,9 +21,15 @@
       <div class="col-lg-4">
         <%= render partial: 'home/record_session_chart' %>
       </div>
+  <% else %>
+    <div class="col-lg-6">
+      <%= render partial: 'suite_reports/manual_suite_browser_chart' %>
+    </div>
+    <div class="col-lg-6">
+      <%= render partial: 'suite_reports/manual_suite_state_chart' %>
     </div>
   <% end %>
-
+  </div>
   <div class="row">
     <div class="col-lg-12">
       <div class="card">

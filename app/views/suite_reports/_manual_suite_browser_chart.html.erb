@@ -1,0 +1,45 @@
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Suite Browsers Chart</h5>
+
+    <!-- Bar Chart -->
+    <canvas id="barChart1" style="max-height: 400px;"></canvas>
+    <script>
+        //document.addEventListener("DOMContentLoaded", () => {
+        new Chart(document.querySelector('#barChart1'), {
+            type: 'bar',
+            height: 350,
+            data: {
+                labels: ['Chrome', 'FireFox', 'Safari', 'Edge'],
+                datasets: [{
+                    label: 'Browser',
+                    data: [<%= @browsers.dig(AssignManualTestSuite::BROWSER_CHROME).to_i %>, <%= @browsers.dig(AssignManualTestSuite::BROWSER_FIREFOX).to_i %>, <%= @browsers.dig(AssignManualTestSuite::BROWSER_SAFARI).to_i %>, <%= @browsers.dig(AssignManualTestSuite::BROWSER_EDGE).to_i %>],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgb(255, 99, 132)',
+                        'rgb(75, 192, 192)',
+                        'rgb(54, 162, 235)',
+                        'rgb(153, 102, 255)',
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+        //});
+    </script>
+    <!-- End Bar CHart -->
+
+  </div>
+</div>
