@@ -19,6 +19,9 @@ class HomeController < ApplicationController
     @recent_schedulers = Scheduler.order('updated_at DESC').limit(5)
     @manual_test_suites = @test_suites.where(is_automated: false)
     @automate_test_suites = @test_suites.where(is_automated: true)
+
+    @recorded = Scheduler.where(record_session: true).count
+    @non_recorded = Scheduler.where(record_session: false).count
   end
 
   def privacy_policy

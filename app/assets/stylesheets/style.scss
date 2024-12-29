@@ -1248,6 +1248,11 @@ h6 {
   padding: 0px !important;
 }
 
+.select2-container--bootstrap .select2-selection--multiple .select2-search--inline .select2-search__field{
+  padding-top: 5px;
+  min-width: 24em;
+}
+
 .was-validated .form-control:invalid, .form-control.is-invalid {
   border-color: #ff4f70;
   padding-right: calc(1.5em + 0.75rem);

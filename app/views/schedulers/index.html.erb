@@ -1,5 +1,5 @@
 <%
-  breadcrumb = {'Home': root_url, 'Environments' => environments_url, 'Test Suites' => environment_test_suites_url(@environment), 'Schedule Test Suite Now' => '#' }
+  breadcrumb = {'Home': root_url, 'Environments' => environments_url, 'Test Suites' => automated_environment_test_suites_url(@environment), 'Schedule Test Suite Now' => '#' }
   btn = []
 %>
 <%= render partial: 'common/breadcrumb', locals: {heading: 'Test Suite Schedulers', breadcrumb: breadcrumb, action_btns: btn} %>

@@ -1,0 +1,62 @@
+<!-- Table with stripped rows -->
+<table class="table datatable mt-2" id="myTable">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Suite</th>
+    <th>Browser</th>
+    <th>Scheduled</th>
+    <th>Tester</th>
+    <th>Status</th>
+    <th>Action</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% if @schedulers %>
+    <% @schedulers.each do |scheduler| %>
+      <tr>
+        <td><%= scheduler.id %></td>
+        <td><%= scheduler.test_suite.name  %></td>
+        <td><%= scheduler.browser.name  %></td>
+        <td><%= scheduler.scheduled_date.utc.strftime('%Y-%m-%d %H:%M')  %></td>
+        <td><%= scheduler.user.full_name  %></td>
+        <td>
+          <%= render partial: "schedulers/status", locals: {scheduler: scheduler} %>
+        </td>
+        <td>
+          <% result_suite = scheduler.result_suites.last %>
+          <% if result_suite %>
+          <%= link_to(environment_test_suite_scheduler_results_path(Current.user.prefer_environment, scheduler.test_suite, scheduler), title: 'Suite Results', target: '_blank') do %>
+            <i class="bi bi-eye"></i>
+          <% end %>
+
+            <% if result_suite.video_file.present? %>
+              <%= link_to(result_suite.video_file_url, title: 'Download Recording', target: '_blank') do %>
+                <i class="bi bi-cloud-download"></i>
+              <% end %>
+
+              <%= link_to(load_video_path(result: result_suite.id), title: 'View Recording', remote: true) do %>
+                <i class="bi bi-camera-video view_recording"></i>
+              <% end %>
+            <% end %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  <% end %>
+  </tbody>
+</table>
+<!-- End Table with stripped rows -->
+
+  <div class="modal fade" id="videoModal" tabindex="-1" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title results-modal-title">Suite Result Recording</h5>
+          <button type="button" class="btn-close" id="dismiss_model" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body video-content">
+        </div>
+      </div>
+    </div>
+  </div>

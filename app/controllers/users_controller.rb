@@ -24,12 +24,10 @@ class UsersController < ApplicationController
       user.prefer_environment = params[:user][:prefer_environment]
       user.prefer_project = params[:user][:prefer_project]
       user.save
-      Current.user = user
       flash[:success] = "User default preference of project and environment has been saved."
       if Current.user.prefer_environment.present?
-        if params[:redirect] == 'suites' and
-          redirect_to environment_test_suites_path(Current.user.prefer_environment) and return
-        end
+        redirect_to environment_test_suites_path(Current.user.prefer_environment) and return if params[:redirect] == 'suites'
+        redirect_to suite_reports_path and return if params[:redirect] == 'reports'
       end
       redirect_to settings_user_path(Current.user,redirect:params[:redirect])
     end

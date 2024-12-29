@@ -1,0 +1,44 @@
+<!-- Table with stripped rows -->
+<table class="table datatable mt-2" id="myTable">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Browser</th>
+    <th>Assigned</th>
+    <th>Tester</th>
+    <th>State</th>
+    <th>Status</th>
+    <th>Action</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% if @reports %>
+    <% @reports.each do |scheduler| %>
+      <tr>
+        <td><%= scheduler.assign_number %></td>
+        <td><%= scheduler.browser  %></td>
+        <td><%= scheduler.created_at.utc.strftime('%Y-%m-%d %H:%M')  %></td>
+        <td><%= scheduler.user.full_name  %></td>
+        <td><%= scheduler.state  %></td>
+        <td>
+          <% if scheduler.state == AssignManualTestSuite::STATE_FINISH %>
+            <%= ((scheduler.fail_case_count || 0) > 0 ? '<span class="badge rounded-pill bg-danger">Danger</span>' : '<span class="badge rounded-pill bg-success">Success</span>').html_safe %>
+          <% elsif scheduler.state == AssignManualTestSuite::STATE_ASSIGN  %>
+            <span class="badge rounded-pill bg-warning">Assigned</span>
+          <% elsif [AssignManualTestSuite::STATE_PROGRESS, AssignManualTestSuite::STATE_START].include?(scheduler.state)  %>
+            <span class="badge rounded-pill bg-primary">In-Progress</span>
+          <% end %>
+        </td>
+        <td>
+          <% if scheduler.state == AssignManualTestSuite::STATE_FINISH  %>
+            <%= link_to(suite_report_path(scheduler), title: 'Suite Results', target: '_blank') do %>
+              <i class="bi bi-eye"></i>
+            <% end %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  <% end %>
+  </tbody>
+</table>
+<!-- End Table with stripped rows -->

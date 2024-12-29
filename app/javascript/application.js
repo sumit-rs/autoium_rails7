@@ -15,20 +15,5 @@ var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
     return new bootstrap.Tooltip(tooltipTriggerEl)
 })
 $( document ).ready(function() {
-    if (typeof tinyMCE != 'undefined') {
-        tinyMCE.init({
-            selector: "textarea.tinymce",
-            toolbar: [
-                "styleselect | bold italic | alignleft aligncenter alignright alignjustify",
-                "bullist numlist outdent indent | link image | code | codesample"
-            ],
-            plugins: "image,link,code,codesample,autoresize,media,table,insertdatetime,charmap,preview,anchor,searchreplace,visualblocks,fullscreen"
-        });
-    } else {
-        //setTimeout(arguments.callee, 50);
-    }
 
-    $('.toggle-sidebar-btn').click(function() {
-       $('.autoium-body').toggleClass('toggle-sidebar');
-    });
 });

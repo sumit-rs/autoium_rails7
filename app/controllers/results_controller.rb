@@ -4,6 +4,7 @@ class ResultsController < ApplicationController
   before_action :get_scheduler
   before_action :get_result_suite
   def index
+    redirect_to root_path, notice: 'Result has not captured yet for the schedule.' and return unless @result_suite.present?
     @result_cases = ResultCase.includes(:test_case).where(result_suite: @result_suite).order('test_cases.priority asc')
   end
 

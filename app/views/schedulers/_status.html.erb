@@ -1,10 +1,10 @@
 <% if scheduler.status.upcase == Scheduler::SUCCESS_STATUS  %>
   <% status = scheduler.status.upcase == Scheduler::COMPLETE_STATUS ? 'Completed' : 'Pass' %>
-  <i class="bi bi-check-circle text-success me-1" title="<%= status %>", alt="<%= status %>"></i>
+  <i class="bi bi-check-circle text-success me-1" title="<%= status %>"></i>
 <% elsif scheduler.status.upcase == Scheduler::ERROR_STATUS %>
-  <i class="bi bi-x-circle text-danger me-1" title="<%= scheduler.status.upcase %>", alt="<%= scheduler.status.upcase %>"></i>
+  <i class="bi bi-x-circle text-danger me-1" title="<%= scheduler.status.upcase %>"></i>
 <% elsif scheduler.status.upcase == Scheduler::READY_STATUS %>
-  <i class="bi bi-truck text-secondary me-1" title="<%= scheduler.status.upcase %>", alt="<%= scheduler.status.upcase %>"></i>
+  <i class="bi bi-truck text-secondary me-1" title="<%= scheduler.status.upcase %>"></i>
 <% elsif scheduler.status.upcase == Scheduler::RUNNING_STATUS %>
-  <i class="bi bi-clock text-info me-1" title="<%= scheduler.status.upcase %>", alt="<%= scheduler.status.upcase %>"></i>Running
+  <i class="bi bi-clock text-info me-1" title="<%= scheduler.status.upcase %>"></i>
 <% end %>

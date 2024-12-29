@@ -1,8 +1,11 @@
 class ApplicationController < ActionController::Base
+  # -------------------------------------------------------------
   before_action :restricted_to_sign_in_user
   before_action :populate_current_user
+  # -------------------------------------------------------------
 
   helper_method :logged_in?
+  # -------------------------------------------------------------
 
   def populate_current_user
     Current.user = if _user = User.where(id: session[:user_id]).take

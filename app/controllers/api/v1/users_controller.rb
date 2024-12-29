@@ -7,7 +7,7 @@ class Api::V1::UsersController < ApplicationApiController
     password = params.dig('data','password')
     if(email.present? and password.present?)
       user = User.where(email: email).first
-      valid_password = user.valid_password?(password)
+      valid_password = user&.authenticate(password)
       if valid_password
         token = User.generate_jwt_token(user.email)
         render(json: {

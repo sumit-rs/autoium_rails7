@@ -1,0 +1,96 @@
+<%
+  breadcrumb = {'Home': root_url, 'Environments' => environments_url, 'Test Suites' => environment_test_suites_url(@environment), 'Assign Test Suite' => '#' }
+  btn = []
+%>
+<%= render partial: 'common/breadcrumb', locals: {heading: 'Assign Test Suite', breadcrumb: breadcrumb, action_btns: btn} %>
+
+<section class="section min-vh-100">
+  <div class="row">
+    <div class="col-lg-12">
+      <%= render partial: 'layouts/flash_message' %>
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title">Assign Test Suite</p>
+          <%= render partial: 'test_suites/assign_users_frm' %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <p><strong>Environment:</strong> <%= @environment.name %> - <%= @environment.url %></p>
+          <p><strong>Suite:</strong> <%= @test_suite.name %></p>
+
+          <!-- Table with stripped rows -->
+          <table class="table datatable mt-2" id="myTable">
+            <thead>
+            <tr>
+              <th>ID</th>
+              <th>Browser</th>
+              <th>Assigned</th>
+              <th>Tester</th>
+              <th>State</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% if @schedulers %>
+              <% @schedulers.each do |scheduler| %>
+                <tr>
+                  <td><%= scheduler.assign_number %></td>
+                  <td><%= scheduler.browser  %></td>
+                  <td><%= scheduler.created_at.utc.strftime('%Y-%m-%d %H:%M')  %></td>
+                  <td><%= scheduler.user.full_name  %></td>
+                  <td><%= scheduler.state  %></td>
+                  <td>
+                    <% if scheduler.state == AssignManualTestSuite::STATE_FINISH %>
+                      <%= ((scheduler.fail_case_count || 0) > 0 ? '<span class="badge rounded-pill bg-danger">Danger</span>' : '<span class="badge rounded-pill bg-success">Success</span>').html_safe %>
+                    <% elsif scheduler.state == AssignManualTestSuite::STATE_ASSIGN  %>
+                      <span class="badge rounded-pill bg-info">Ready</span>
+                    <% elsif [AssignManualTestSuite::STATE_PROGRESS, AssignManualTestSuite::STATE_START].include?(scheduler.state)  %>
+                      <span class="badge rounded-pill bg-primary">In-Progress</span>
+                    <% end %>
+                  </td>
+                  <td>
+                    <% if scheduler.state == AssignManualTestSuite::STATE_FINISH  %>
+                      <%= link_to "Result", suite_report_path(scheduler), target: '_blank', class: 'btn small btn-outline-secondary' %>
+                    <% end %>
+                    <% if scheduler.state == AssignManualTestSuite::STATE_ASSIGN  %>
+                      <%= link_to(remove_assign_suite_environment_test_suite_path(@environment, @test_suite, suite: scheduler.id), title: 'Removed') do %>
+                                              <i class="bi bi-trash"></i>
+                      <% end %>
+                    <% end %>
+
+                  </td>
+                </tr>
+              <% end %>
+            <% end %>
+            </tbody>
+          </table>
+          <!-- End Table with stripped rows -->
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+<script>
+    $('#user_email').select2({
+        theme: "bootstrap",
+        placeholder: "Search and select team member by name",
+        width: '100%',
+        multiple: true,
+        ajax: {
+            url: '<%= fetch_team_members_path(format: :json, format_id: true) %>',
+            dataType: 'json'
+        },
+    })
+</script>

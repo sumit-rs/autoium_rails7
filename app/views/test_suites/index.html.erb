@@ -9,98 +9,16 @@
 
 <section class="section min-vh-100">
   <%= render partial: 'layouts/flash_message' %>
+
+  <%= render partial: 'test_suites/nav_tab' %>
   <%= render partial: 'users/user_prefrence_project_environment_frm' %>
   <div class="row">
     <div class="col-lg-12">
       <div class="card">
         <div class="card-body">
-
-          <!-- Table with stripped rows -->
-          <table class="table datatable mt-2" id="myTable">
-            <thead>
-            <tr>
-              <th></th>
-              <th>Name</th>
-              <th>Short Description</th>
-              <th>Test Plan</th>
-              <th>Stale</th>
-              <th>Status</th>
-              <th>Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            <% if @test_suites %>
-              <% @test_suites.each do |test_suite| %>
-                <tr>
-                  <td>
-                    <% if test_suite.is_automated?  %>
-                      <% case_path =  environment_test_suite_test_cases_path(test_suite.environment, test_suite) %>
-                      <span class="badge rounded-pill bg-danger">A</span>
-                    <% else %>
-                      <% case_path =  environment_test_suite_manual_test_cases_path(test_suite.environment, test_suite) %>
-                      <span class="badge rounded-pill bg-info">M</span>
-                    <% end %>
-                  </td>
-                  <td><%= test_suite.name  %></td>
-                  <td>
-                    <%= truncate test_suite.short_description, length: 40 %>
-                    <% if (test_suite.short_description || '').length > 40 %>
-                      <span class="badge text-dark" data-bs-toggle="tooltip" data-bs-placement="bottom" title="<%= test_suite.short_description %>"><i class="bi bi-info-circle me-1"></i></span>
-                    <% end %>
-                  </td>
-                  <td><%= test_suite.test_plan.try(&:name)  %></td>
-                  <td><%= test_suite.is_stale ? "Yes" : "No" %></td>
-                  <td>
-                    <%= select_tag(
-                          "test_suite[status]",
-                          options_for_select(TestSuite::SUITE_STATUS, test_suite.status),
-                          class: 'form-control',
-                          data: {
-                            remote: true,
-                            url: environment_test_suite_path(@environment, test_suite),
-                            method: 'put'
-                          },
-                          ) %>
-                  </td>
-                  <td>
-                    <%= link_to(case_path, title: 'Test Cases') do %>
-                      <i class="bi bi-briefcase"></i> |
-                    <% end %>
-
-                    <%= link_to(edit_environment_test_suite_url(test_suite.environment, test_suite), title: 'Edit Suite') do %>
-                      <i class="bi bi-pencil-fill"></i>
-                    <% end %>
-
-                    <% if test_suite.is_automated? %>
-                      <%= link_to(environment_test_suite_schedulers_path(test_suite.environment, test_suite), title: 'Schedule Now') do %>
-                        | <i class="bi bi-calendar-month"></i>
-                      <% end %>
-                    <% else %>
-                      <% if test_suite.manual_cases.present? %>
-                        <%= link_to(assign_users_environment_test_suite_path(test_suite.environment, test_suite), title: 'Assign suites to users', remote: true) do %>
-                          | <i class="bi bi-calendar-month"></i>
-                        <% end %>
-                      <% else %>
-                        <%= link_to "javascript:void(0)", title: 'Assign suites to users', data: { confirm: "There is no manual case(s) have created for the suite. Kindly create the suite first before user assignment." } do %>
-                          | <i class="bi bi-calendar-month"></i>
-                        <% end %>
-                      <% end %>
-                    <% end %>
-
-                    <%= link_to(environment_test_suite_url(test_suite.environment, test_suite), method: :delete, data: {confirm: 'Are you sure? It will delete all the associates records of it like Test cases etc.'}, title: 'Delete Suite') do %>
-                      | <i class="bi bi-trash"></i>
-                    <% end %>
-                  </td>
-                </tr>
-              <% end %>
-            <% end %>
-            </tbody>
-          </table>
-          <!-- End Table with stripped rows -->
-
+          <%= render partial: 'test_suites/result_content' %>
         </div>
       </div>
-
     </div>
   </div>
 </section>

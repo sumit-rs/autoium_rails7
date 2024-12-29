@@ -1,11 +1,20 @@
 class TestSuitesController < ApplicationController
-  before_action :user_projects_and_environments, only: [:index]
+
+  # -------------------------------------------------------------
+  before_action :user_projects_and_environments, only: [:index,:automated]
   before_action :get_environment
-  before_action :get_test_suite, only: [:show, :edit, :update, :destroy, :assign_users]
+  before_action :get_test_suite, only: [:show, :edit, :update, :destroy, :assign_users, :remove_assign_suite]
+  # -------------------------------------------------------------
 
   def index
     @section = 'suites'
-    @test_suites = @environment.present? ? @environment.test_suites : []
+    @test_suites = @environment.present? ? @environment.test_suites.where(is_automated: false) : []
+  end
+
+  def automated
+    @section = 'suites'
+    @test_suites = @environment.present? ? @environment.test_suites.where(is_automated: true) : []
+    render :index
   end
 
   def suites
@@ -65,15 +74,15 @@ class TestSuitesController < ApplicationController
   def assign_users
     @error = false
     @assign_manual_test_suite = AssignManualTestSuite.new
-    if request.xhr? and request.post?
+    @schedulers = @test_suite.assign_manual_test_suites.order('id DESC')
+
+    if request.post?
       user_ids = (assign_manual_test_suite_params[:assign_to] || []).map(&:to_i)
-      test_suite_id = assign_manual_test_suite_params[:test_suite_id]
-      if user_ids.empty? or test_suite_id.empty? or @test_suite.manual_cases.empty?
+      test_suite_id = @test_suite.id #assign_manual_test_suite_params[:test_suite_id]
+      if user_ids.empty? or @test_suite.manual_cases.empty?
         str = ''
-        str << 'User must exist.<br/>' if user_ids.empty?
-        str << 'Test suite must exist.' if test_suite_id.empty?
+        str << 'At-least one email must be selected.<br/>' if user_ids.empty?
         str << 'No manual case exist for test suite.' if @test_suite.manual_cases.empty?
-        @error = true
         flash.now[:errors] = str
       else
         ## checking: if assignment exist for the user then dont create new entry into the system, only update the assignment cases
@@ -97,10 +106,21 @@ class TestSuitesController < ApplicationController
           flash.now[:errors] = error
         else
           flash[:success] = 'Test suite assigned successfully!'
-          render js: "window.location.href =' #{environment_test_suites_url(@environment)}'"
+          redirect_to assign_users_environment_test_suite_url(@environment, @test_suite)
         end
       end
     end
+  end
+
+  def remove_assign_suite
+    @assign_suite = AssignManualTestSuite.where(id: params[:suite]).take
+    if @assign_suite.try(:state) == AssignManualTestSuite::STATE_ASSIGN
+      @assign_suite.destroy
+      flash[:success] = 'Assign suite successfully deleted.'
+    else
+      flash[:errors] = "#{@assign_suite.try(:state)} state test suite could not be deleted."
+    end
+    redirect_to assign_users_environment_test_suite_url(@environment, @test_suite)
   end
 
   def import

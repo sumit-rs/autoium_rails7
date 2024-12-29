@@ -76,11 +76,13 @@ Rails.application.routes.draw do
       member do
         get :assign_users
         post :assign_users
+        get :remove_assign_suite
       end
 
       collection do
         get :import
         post :import
+        get :automated
       end
 
       resources :test_cases do
@@ -124,7 +126,11 @@ Rails.application.routes.draw do
   resources :manual_case_results do
   end
 
-  resources :suite_reports, only:[:index, :show]
+  resources :suite_reports, only:[:index, :show] do
+    collection do
+      get :automated
+    end
+  end
   resources :software_versions
 
   resource :session, only: [:create, :destroy] do
@@ -149,6 +155,7 @@ Rails.application.routes.draw do
 
   match "suites", to: "test_suites#suites", via: [:get]
   match "load_image", to: "file_handler#load_image", via: [:get]
+  match "load_video", to: "file_handler#load_video", via: [:get]
   match "fetch-team-members", to: "team_members#fetch_team_members", via: [:get, :post]
   match "privacy_policy", to: "home#privacy_policy", via: :get
   match "documentation", to: "home#documentation", via: :get

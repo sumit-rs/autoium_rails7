@@ -1,0 +1,15 @@
+<%
+  _tabs = []
+  _tabs << {label: 'Manual Suites', url: suite_reports_path, match: {controller: 'suite_reports', action: 'index'}, badge:"bg-info", badge_name: 'M'}
+  _tabs << {label: 'Automate Suites', url: automated_suite_reports_path, match: {controller: 'suite_reports', action: 'automated'},badge:"bg-danger", badge_name: 'A'}
+%>
+<ul class="nav nav-tabs mt-2">
+  <% _tabs.each do |suite| %>
+    <li class="nav-item">
+      <%= link_to(suite[:url], class: "nav-link #{'active' if suite[:match] == {controller: params[:controller], action: params[:action]}}") do %>
+        <span class="badge rounded-pill <%= suite[:badge] %>"><%= suite[:badge_name] %></span>
+        <%= suite[:label] %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
