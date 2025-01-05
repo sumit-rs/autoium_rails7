@@ -11,6 +11,15 @@ class FileUploader
     end
   end
 
+  def self.upload_base64(binary_data, project_id, environment_id, folder_path, file_name)
+    use_s3 = should_use_s3(project_id)
+    if use_s3
+      S3File.upload_base64(binary_data, project_id, environment_id, folder_path, file_name)
+    else
+      LocalFileUploader.upload_base64(binary_data, project_id, environment_id, folder_path, file_name)
+    end
+  end
+
   def self.retrieve(project_id, environment_id, folder_path, file_name)
     use_s3 = should_use_s3(project_id)
     if use_s3

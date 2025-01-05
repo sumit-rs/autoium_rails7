@@ -23,10 +23,16 @@ class Api::V1::ManualTestCasesController < ApplicationApiController
   end
 
   def update
-    if @test_case.update(manual_test_params)
-      render json: { message: 'Test case updated!', status: true }, status: :ok
-    else
-      render json: { message: @test_case.errors.full_messages.join(','), status: false }, status: :precondition_failed
+
+    begin
+      if @test_case.update(manual_test_params)
+        render json: { message: 'Test case updated!', status: true }, status: :ok
+      else
+        render json: { message: @test_case.errors.full_messages.join(','), status: false }, status: :precondition_failed
+      end
+    rescue ArgumentError => e
+      Rails.logger.info "======#{e.inspect}"
+      render json: { message: 'Something went wrong.Please try later.', status: false }, status: :precondition_failed
     end
   end
 
@@ -38,6 +44,6 @@ class Api::V1::ManualTestCasesController < ApplicationApiController
   end
 
   def manual_test_params
-    params.require(:manual_case).permit(:name, :url, :description)
+    params.require(:manual_case).permit(:name, :url, :description, :file)
   end
 end

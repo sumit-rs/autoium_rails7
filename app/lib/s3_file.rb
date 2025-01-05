@@ -31,6 +31,16 @@ class S3File
     obj.upload_file(file_path)
   end
 
+  def self.upload_base64(binary_data, project_id, environment_id, folder_path, file_name)
+    bucket = load_s3_bucket(project_id)
+
+    create_folder_path(bucket, environment_id, folder_path)
+
+    s3_key = s3_key_for_file(environment_id, folder_path, file_name)
+    obj = bucket.object(s3_key)
+    obj.put(body: binary_data)
+  end
+
   def self.retrieve(project_id, environment_id, folder_path, file_name)
     bucket = load_s3_bucket(project_id)
     file_name = file_name.split('?').first if file_name.include?('?')
