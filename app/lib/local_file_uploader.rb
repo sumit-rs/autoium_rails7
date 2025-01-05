@@ -21,6 +21,7 @@ class LocalFileUploader
   end
 
   def self.local_file_url(project_id, environment_id, folder_path, file_name)
+    #screenshot file get retrieve from public/<storage_path>
     File.join(ENV["STORAGE_PATH"], "project_#{project_id}", "environment_#{environment_id}", folder_path, file_name)
   end
 

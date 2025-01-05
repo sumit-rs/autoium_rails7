@@ -2,7 +2,7 @@ class Api::V1::TestSuitesController < ApplicationApiController
   include CommonConcern
   def index
     if @environment
-      @test_suites = @environment.test_suites.where(is_automated: true).select(:id, :name).as_json
+      @test_suites = @environment.test_suites.select(:id, :name, :is_automated).as_json
       render(json: { message: 'Test suites retrieved!', result: @test_suites, status: true }, status: :ok)
     else
       render(json: { message: 'Failed to retrieve test suites! Invalid environment', status: false }, status: :ok)
@@ -25,6 +25,6 @@ class Api::V1::TestSuitesController < ApplicationApiController
   private
 
   def test_suite_params
-    params.require(:test_suite).permit(:name, :short_description, :base_suite_id, :environment_id)
+    params.require(:test_suite).permit(:name, :short_description, :base_suite_id, :environment_id, :is_automated, :post_suite_id)
   end
 end

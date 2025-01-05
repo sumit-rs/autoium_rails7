@@ -74,8 +74,7 @@ class TestSuite < ApplicationRecord
 
     def populate_default_short_desc_based_platform
       if self.platform == TestSuite::CHROME_PLATFORM
-        self.short_description = 'Created test suite through chrome.'
-        self.is_automated = true
+        self.short_description ||= 'Created test suite through chrome.'
         self.status = TestSuite::SUITE_DRAFT_STATUS
       end
     end

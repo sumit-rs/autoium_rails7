@@ -39,8 +39,8 @@
 /config/master.key
 /vendor/bundle
 
-/public/assets
-/public/storage
+/public/assets/*
+/public/storage/*
 
 docker-compose.yml
 docker-compose-*.yml

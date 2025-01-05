@@ -31,7 +31,7 @@ class ManualTestCasesController < ApplicationController
   def update
     if @test_case.update(manual_test_params)
       flash[:success] = 'Manual test case updated successfully.'
-      redirect_to environment_test_suite_manual_test_cases_path(@environment, @test_suite)
+      redirect_to edit_environment_test_suite_manual_test_case_path(@environment, @test_suite, @test_case)
     else
       flash.now[:errors] = @test_case.errors.full_messages
       render :edit
@@ -52,9 +52,10 @@ class ManualTestCasesController < ApplicationController
   end
 
   def delete_attachment
-    @test_case.file.purge
+    @test_case.remove_screenshot
+    @test_case.update(screenshot_file_location: nil)
     flash[:success] = "Case attachment has been removed successfully."
-    redirect_to environment_test_suite_manual_test_cases_path(@environment, @test_suite)
+    redirect_to edit_environment_test_suite_manual_test_case_path(@environment, @test_suite, @test_case)
   end
 
   private

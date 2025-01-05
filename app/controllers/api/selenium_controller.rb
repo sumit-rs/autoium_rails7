@@ -289,7 +289,11 @@ class Api::SeleniumController < ApplicationApiController
       @result_case = ResultCase.where(id: params[:result_case_id]).take
       return render_result(false, 'Result case not found!') unless @result_case.present?
 
-      res = @result_case.upload_screenshot(params[:file])
+      return render_result(false,message: 'Please select a file!' ) unless params[:file].present?
+      return render_result(false,'Invalid image format! Please upload a PNG image!' ) unless params[:file].content_type == 'image/png'
+
+      file_name = @result_case.upload_screenshot(params[:file])
+      res = { status: true, message: "Screenshot - #{file_name} uploaded successfully!" }
 
       render_result(true, 'Screenshot uploaded successfully!', res, nil, 200)
     rescue StandardError => error

@@ -9,12 +9,15 @@ class TeamMembersController < ApplicationController
   def new
     @user = User.new
   end
+
+  #this method is not being used any more - it was written to invite external user
+  # Logic has shifted while assign manual suite to user
   def create
     @user = User.new(team_member_params)
     @user.project_id = @project.id
     @user.allow_generate_password = true
     if @user.save
-      flash[:success] = 'User has been assigned to project and send out to access link to user.'
+      flash[:success] = 'User has been assigned to project.'
       redirect_to project_team_members_url(@project)
     else
       flash.now[:errors] = @user.errors.full_messages
@@ -50,10 +53,10 @@ class TeamMembersController < ApplicationController
     project_team_member = ProjectTeamMember.find_or_initialize_by(team_member: user, project: @project)
     if user and project_team_member.valid?
       project_team_member.save
-      flash[:success] = 'User has been assigned to project and send out to access link to user'
+      flash[:success] = 'User has been assigned to project.'
       redirect_to project_team_members_url(@project)
     else
-      flash.now[:errors] = "User must exist."
+      flash.now[:errors] = "Email can't be blank."
       render :new
     end
   end

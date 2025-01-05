@@ -54,7 +54,7 @@ Things you may want to cover:
 
    ```docker-compose exec autonium rails dbconsole```
 
-8. To get shell access on oregano
+8. To get shell access on autonium
 
    ```docker-compose exec autonium sh```
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_12_28_150629) do
+ActiveRecord::Schema[7.2].define(version: 2025_01_05_090615) do
   create_table "active_storage_attachments", charset: "utf8mb3", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -99,6 +99,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_28_150629) do
     t.bigint "manual_case_id", null: false
     t.integer "assign_to", null: false
     t.text "description"
+    t.string "screenshot_file_location"
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -111,6 +112,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_28_150629) do
     t.string "name"
     t.text "description"
     t.string "url"
+    t.string "screenshot_file_location"
     t.boolean "is_active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

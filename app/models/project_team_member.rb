@@ -11,7 +11,9 @@ class ProjectTeamMember < ApplicationRecord
 
 
   def at_least_one_project_member_present
-    self.errors.add(:base, 'At-least one project member must be present') if self.project.project_team_members.count == 1
-    throw :abort
+    if self.project.project_team_members.count == 1
+      self.errors.add(:base, 'At-least one project member must be present.')
+      throw :abort
+    end
   end
 end

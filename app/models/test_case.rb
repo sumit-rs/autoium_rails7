@@ -44,9 +44,9 @@ return execute();'
     File.exist?(file_path) ? File.read(file_path) : ''
   end
   def self.get_file_path(file_name)
-    folder_name = "#{ENV['STORAGE_PATH']}/scripts/"
+    folder_name = Rails.root.join('public',ENV["STORAGE_PATH"], "scripts")
     Dir.mkdir folder_name unless Dir.exist? folder_name
-    "#{folder_name}#{file_name}"
+    File.join(folder_name, file_name)
   end
 
   def self.update_selenium_file(content, file_name)

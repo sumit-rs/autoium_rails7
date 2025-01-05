@@ -35,6 +35,7 @@ Rails.application.routes.draw do
       resources :environments, only: [:index] do
         resources :test_suites, only: [:index, :create] do
           resources :test_cases, only: [:index, :create, :show, :update]
+          resources :manual_test_cases, only: [:index, :create, :show, :update]
         end
         resources :custom_commands, only: [:index]
       end

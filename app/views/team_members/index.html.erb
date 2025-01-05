@@ -1,6 +1,6 @@
 <%
   breadcrumb = {'Home': root_url, 'Manage Projects' => projects_url , 'Manage Team Members' => project_team_members_url(@project) }
-  btn = [{name: 'Create Member', url: new_project_team_member_path(@project), class: 'btn btn-primary btn-sm float-right'}]
+  btn = [{name: 'Assign Member', url: new_project_team_member_path(@project), class: 'btn btn-primary btn-sm float-right'}]
 %>
 <%= render partial: 'common/breadcrumb', locals: {heading: 'Manage Team Members', breadcrumb: breadcrumb, action_btns: btn} %>
 
@@ -30,10 +30,6 @@
                   <td><%= project_user.email %></td>
                   <td><%= date_format(project_user.created_at) %></td>
                   <td>
-                    <%= link_to(edit_project_team_member_path(@project,project_user), title: 'Edit Team Member') do %>
-                      <i class="bi bi-pencil-fill"></i> |
-                    <% end %>
-
                     <%= link_to(project_team_member_path(@project, project_user.ptm), method: :delete, data: {confirm: 'Are you sure?'}, title: 'Delete Project') do %>
                       <i class="bi bi-trash"></i>
                     <% end %>
