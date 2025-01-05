@@ -3,7 +3,7 @@ class SoftwareVersionsController < ApplicationController
   before_action :get_software_version, only: %i[show edit update destroy]
   before_action :redirect_if_not_admin, except: %i[index]
   def index
-    @versions = SoftwareVersion.all
+    @versions = SoftwareVersion.order(release_date: :desc)
   end
 
   def new

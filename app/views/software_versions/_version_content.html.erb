@@ -24,9 +24,10 @@
             <i class="bi bi-download"></i> <span class="small">Windows</span>
           <% end %>
           |
-          <%= link_to(version.mac_link, title: "MAC Version #{version.name}", target: '_blank') do %>
-            <i class="bi bi-download"></i> <span class="small">MAC</span>
-          <% end %>
+          <a href="javascript:void(0);" onclick="alert('Will release soon')"><i class="bi bi-download"></i> <span class="small">MAC</span></a>
+          <%#= link_to(version.mac_link, title: "MAC Version #{version.name}", target: '_blank') do %>
+<!--            <i class="bi bi-download"></i> <span class="small">MAC</span>-->
+          <%# end %>
         </td>
         <% if Current.user.is_admin? %>
           <td>

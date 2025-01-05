@@ -69,8 +69,8 @@
               <td class="wrap"><%= manual_case_result.manual_case.description %></td>
               <td class="wrap">
                 <%= manual_case_result.description %>
-                <% if manual_case_result.case_result_file.attached? %>
-                  <%= link_to manual_case_result.case_result_file , title: 'View Error Screenshot', target:'_blank' do %>
+                <% if manual_case_result.screenshot_file_location.present? %>
+                  <%= link_to manual_case_result.get_screenshot_url , title: 'Current Behaviour', target:'_blank' do %>
                     <i class="bi bi-file-earmark-image text-dark"></i>
                   <% end %>
                 <% end %>

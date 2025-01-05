@@ -28,6 +28,6 @@ class HomeController < ApplicationController
   end
 
   def documentation
-    @versions = SoftwareVersion.all
+    @versions = SoftwareVersion.order(release_date: :desc)
   end
 end
