@@ -37,6 +37,9 @@ module FeedBook
       exception_recipients: %w[sumit.kumar@resourcestack.com],
     }
 
+    #we was facing issue to precompile assets in production
+    # https://stackoverflow.com/questions/70401077/rails-7-asset-pipeline-sasscsyntaxerror-with-tailwind/70665740#70665740
+    config.assets.css_compressor = nil
 
     config.tinymce.install = :compile
 

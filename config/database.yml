@@ -1,0 +1,17 @@
+defaults: &defaults
+  adapter: mysql2
+  username: <%= ENV.fetch('DB_USERNAME') %>
+  password: <%= ENV.fetch('DB_PASSWORD') %>
+  host: <%= ENV.fetch('DB_HOST') %>
+
+development:
+  <<: *defaults
+  database: <%= ENV.fetch('DB_NAME') %>
+
+test:
+  <<: *defaults
+  database: <%= ENV.fetch('DB_NAME') %>
+
+production:
+  <<: *defaults
+  database: <%= ENV.fetch('DB_NAME') %>

@@ -21,7 +21,7 @@ class LocalFileUploader
 
   def self.retrieve(project_id, environment_id, folder_path, file_name)
     local_file_url = LocalFileUploader.local_file_url(project_id, environment_id, folder_path, file_name)
-    "/#{local_file_url}"
+    "#{ENV.fetch('SITE_URL')}/#{local_file_url}"
   end
 
   def self.delete(project_id, environment_id, folder_path, file_name)

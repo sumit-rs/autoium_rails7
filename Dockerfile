@@ -1,5 +1,8 @@
 FROM ruby:3.1.2
 
+#to run application in production mode
+#ENV RAILS_ENV=production
+
 # Installing required libraries
 RUN apt-get update -qq
 RUN apt-get install -y build-essential curl git nodejs libmariadb-dev figlet vim
@@ -27,6 +30,9 @@ RUN echo "figlet -cl 'Autonium'" >> /home/ubuntu/.bashrc
 
 # Switching to non-root user 'ubuntu'
 USER ubuntu
+
+#to run application in production mode
+#RUN bundle exec rake assets:precompile
 
 # Exposing 3000 port
 EXPOSE 3000
