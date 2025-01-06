@@ -53,7 +53,8 @@ Rails.application.configure do
   config.log_level = :info
 
   # Prepend all log lines with the following tags.
-  config.log_tags = [ :request_id ]
+  #config.log_tags = [ :request_id ]
+  config.log_tags = [ENV.fetch('APP_NAME'), 'production', :request_id, lambda {|request| request.user_agent}]
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
@@ -90,4 +91,12 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # To allow requests
+  config.hosts << /(.+)\.autoium.net\Z/
+  config.hosts << "localhost"
+  # config.hosts.clear
+
+  # Setting web host as default URL
+  routes.default_url_options = {protocol: 'https', host: ENV.fetch('HOST')}
 end

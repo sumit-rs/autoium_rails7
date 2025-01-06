@@ -49,8 +49,8 @@ module FeedBook
     config.active_record.encryption.deterministic_key = ENV['ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY']
     config.active_record.encryption.key_derivation_salt = ENV['ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT']
 
-    config.hosts << ENV["SITE_URL"] if ENV["SITE_URL"]
-    config.hosts << "www.#{ENV["SITE_URL"]}"
-    config.action_mailer.default_url_options = { host: ENV["SITE_URL"] }
+    # config.hosts << ENV["SITE_URL"] if ENV["SITE_URL"]
+    # config.hosts << "www.#{ENV["SITE_URL"]}"
+    config.action_mailer.default_url_options = { host: ENV["HOST"] }
   end
 end
