@@ -97,6 +97,6 @@ Rails.application.configure do
   config.hosts << "localhost"
   # config.hosts.clear
 
-  # Setting web host as default URL
-  #routes.default_url_options = {protocol: 'https', host: ENV.fetch('HOST')}
+  # Setting web host as default URL for routes - comment it if not required. It help to generate absolute url in background or while sending link in mail
+  routes.default_url_options = {protocol: ENV.fetch('PROTOCOL') || 'http', host: ENV.fetch('HOST') || 'localhost'}
 end

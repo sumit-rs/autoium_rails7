@@ -76,5 +76,5 @@ Rails.application.configure do
   # config.hosts.clear
 
   # Setting web host as default URL
-  #routes.default_url_options = {protocol: 'http', host: ENV.fetch('HOST')}
+  routes.default_url_options = {protocol: ENV.fetch('PROTOCOL') || 'http', host: ENV.fetch('HOST') || 'localhost'}
 end
