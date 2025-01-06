@@ -72,7 +72,7 @@ Rails.application.configure do
 
   # To allow requests
   config.hosts << /(.+)\.autoium.net\Z/
-  config.hosts << "localhost"
+  #config.hosts << "localhost"
   # config.hosts.clear
 
   # Setting web host as default URL
