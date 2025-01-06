@@ -46,7 +46,8 @@ gem "bootsnap", require: false
 
 # Use Sass to process CSS
 gem "bootstrap"
-gem "sassc-rails"
+#gem "sassc-rails"
+gem "sass-rails", ">= 6"
 
 gem 'select2-rails'
 gem 'dotenv-rails'
