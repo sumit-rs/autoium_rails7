@@ -98,5 +98,5 @@ Rails.application.configure do
   # config.hosts.clear
 
   # Setting web host as default URL
-  routes.default_url_options = {protocol: 'https', host: ENV.fetch('HOST')}
+  #routes.default_url_options = {protocol: 'https', host: ENV.fetch('HOST')}
 end
