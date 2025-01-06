@@ -71,9 +71,10 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
   # To allow requests
+  config.hosts << /(.+)\.autoium.net\Z/
   config.hosts << "localhost"
   # config.hosts.clear
 
   # Setting web host as default URL
-  routes.default_url_options = {protocol: 'http', host: ENV.fetch('HOST')}
+  #routes.default_url_options = {protocol: 'http', host: ENV.fetch('HOST')}
 end
