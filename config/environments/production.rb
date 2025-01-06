@@ -97,6 +97,8 @@ Rails.application.configure do
   config.hosts << "localhost"
   # config.hosts.clear
 
+  config.action_mailer.default_url_options = {protocol: ENV.fetch('PROTOCOL') || 'http', host: ENV.fetch('HOST') || 'localhost'}
+
   # Setting web host as default URL for routes - comment it if not required. It help to generate absolute url in background or while sending link in mail
   routes.default_url_options = {protocol: ENV.fetch('PROTOCOL') || 'http', host: ENV.fetch('HOST') || 'localhost'}
 end
