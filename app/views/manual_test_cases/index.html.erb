@@ -13,11 +13,13 @@
       <div class="card">
         <div class="card-body">
           <!-- Table with stripped rows -->
-          <table class="table datatable mt-2" id="myTable">
+          <div class="table-responsive">
+            <table class="table datatable mt-2" id="myTable">
             <thead>
             <tr>
               <th>Name</th>
               <th>Description</th>
+              <th>URL</th>
               <th>Status</th>
               <th>Action</th>
             </tr>
@@ -27,8 +29,14 @@
               <% @test_cases.each do |test_case| %>
                 <tr>
                   <td><%= test_case.name  %></td>
-                  <td><%= test_case.description.html_safe  %></td>
-                  <td><%= test_case.is_active %></td>
+                  <td>
+                    <%= truncate test_case.description.html_safe, length: 50  %>
+                    <% if (test_case.description.html_safe || '').length > 50 %>
+                      <span class="badge text-dark" data-bs-toggle="tooltip" data-bs-placement="bottom" title="<%= raw test_case.description.html_safe %>"><i class="bi bi-info-circle me-1"></i></span>
+                    <% end %>
+                  </td>
+                  <td class="wrap"><a href="<%= test_case.url %>" target="_blank"><%= truncate test_case.url, length: 50  %></a></td>
+                  <td><%= test_case.is_active ? 'Active' : 'In-Active' %></td>
                   <td>
                     <%= link_to(edit_environment_test_suite_manual_test_case_url(@environment, @test_suite, test_case), title: 'Edit Suite') do %>
                       <i class="bi bi-pencil-fill"></i>
@@ -42,6 +50,7 @@
             <% end %>
             </tbody>
           </table>
+          </div>
           <!-- End Table with stripped rows -->
 
         </div>

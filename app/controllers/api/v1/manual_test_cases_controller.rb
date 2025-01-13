@@ -14,10 +14,12 @@ class Api::V1::ManualTestCasesController < ApplicationApiController
     @test_case = ManualCase.new(manual_test_params)
     @test_suite.user = Current.user
     @test_case.test_suite = @test_suite
+    @test_case.is_active = true
 
     if @test_case.save
       render json: { message: 'Test case created!', status: true }, status: :ok
     else
+      Rails.logger.info "=======#{@test_case.errors.full_messages.inspect}"
       render json: { message: @test_case.errors.full_messages.join(','), status: false }, status: :precondition_failed
     end
   end

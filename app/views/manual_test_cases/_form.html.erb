@@ -33,7 +33,7 @@
 
     <div class="col-md-6">
       <%= f.label :is_active, 'Active', class: 'form-label fw-bold' %>
-      <%= f.select(:is_active, options_for_select([['Yes', 1],['No', 1]]), {}, class: "form-control") %>
+      <%= f.select(:is_active, options_for_select([['Yes', 1],['No', 0]], selected: @test_case.is_active ? 1 : 0), {}, class: "form-control") %>
     </div>
 
     <div class="col-md-12">
