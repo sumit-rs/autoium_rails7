@@ -1,4 +1,7 @@
 <%= render partial: 'layouts/flash_message' %>
+<%
+    _test_suites = TestSuite.where(environment_id: 3).pluck(:name,:id)
+%>
 <%= form_with model: @test_suite, url: @test_suite.new_record? ? environment_test_suites_path(@environment, @test_suite) : environment_test_suite_path(@environment, @test_suite), data: { turbo: false } do |f| %>
   <div class="row g-3">
     <div class="col-md-6">
@@ -24,12 +27,12 @@
 
     <div class="col-md-6">
       <%= f.label :base_suite_id, 'Base Suite', class: 'form-label fw-bold' %>
-      <%= f.select(:base_suite_id, options_for_select(TestSuite.all.pluck(:name,:id), @test_suite.base_suite_id), {include_blank: "Choose base suite"}, class: "form-control #{error_class(@test_suite, :base_suit_id)}") %>
+      <%= f.select(:base_suite_id, options_for_select(_test_suites, @test_suite.base_suite_id), {include_blank: "Choose base suite"}, class: "form-control #{error_class(@test_suite, :base_suit_id)}") %>
 
     </div>
     <div class="col-md-6">
       <%= f.label :post_suite_id, 'Post Suite', class: 'form-label fw-bold' %>
-      <%= f.select(:post_suite_id, options_for_select(TestSuite.all.pluck(:name,:id), @test_suite.post_suite_id), {include_blank: "Choose post suite"}, class: "form-control #{error_class(@test_suite, :post_suit_id)}") %>
+      <%= f.select(:post_suite_id, options_for_select(_test_suites, @test_suite.post_suite_id), {include_blank: "Choose post suite"}, class: "form-control #{error_class(@test_suite, :post_suit_id)}") %>
     </div>
     <div class="col-md-12">
       <%= f.label :short_description, 'Short description (Max 255 chars)*', class: 'form-label fw-bold' %>
