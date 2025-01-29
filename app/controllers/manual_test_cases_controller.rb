@@ -31,10 +31,19 @@ class ManualTestCasesController < ApplicationController
   def update
     if @test_case.update(manual_test_params)
       flash[:success] = 'Manual test case updated successfully.'
-      redirect_to edit_environment_test_suite_manual_test_case_path(@environment, @test_suite, @test_case)
+      # request.xhr is used for annotate image and save annotated image through ajax
+      if request.xhr?
+        render json: { url: @test_case.get_screenshot_url }, status: :ok
+      else
+        redirect_to edit_environment_test_suite_manual_test_case_path(@environment, @test_suite, @test_case)
+      end
     else
-      flash.now[:errors] = @test_case.errors.full_messages
-      render :edit
+      if request.xhr?
+        render json: { url: '' }, status: :precondition_failed
+      else
+        flash.now[:errors] = @test_case.errors.full_messages
+        render :edit
+      end
     end
   end
 

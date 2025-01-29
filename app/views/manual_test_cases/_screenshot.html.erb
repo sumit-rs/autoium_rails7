@@ -1,0 +1,11 @@
+<% if @test_case.screenshot_file_location.present? %>
+  <img id="case_screenshot" src="<%= url_for(@test_case.get_screenshot_url) %>" class="border border-light" width="200" data-attr="<%= @environment.id %>-<%= @test_suite.id %>-<%= @test_case.id %>"/>
+  <p><small>Click on the image to annotate.</small></p>
+  <p>
+    <%= link_to @test_case.get_screenshot_url , title: 'Expected Behavior Screenshot', target:'_blank' do %>
+      Download Attachment
+    <% end %>
+    |
+    <%= link_to 'Remove Attachment', delete_attachment_environment_test_suite_manual_test_case_path(@environment, @test_suite, @test_case), method: :delete, data: { confirm: 'Are you sure?' } %>
+  </p>
+<% end %>

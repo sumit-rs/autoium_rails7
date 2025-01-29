@@ -20,15 +20,7 @@
     <div class="col-md-6">
       <%= f.label :file, 'File', class: 'form-label fw-bold' %>
       <%= f.file_field :file, class: 'form-control' %>
-      <% if @test_case.screenshot_file_location.present? %>
-        <img src="<%= url_for(@test_case.get_screenshot_url) %>" class="border border-light" width="200"/>
-        <p>
-        <%= link_to @test_case.get_screenshot_url , title: 'Expected Behavior Screenshot', target:'_blank' do %>
-          Download Attachment
-        <% end %>
-        </p>
-        <p><%= link_to 'Remove Attachment', delete_attachment_environment_test_suite_manual_test_case_path(@environment, @test_suite, @test_case), method: :delete, data: { confirm: 'Are you sure?' } %></p>
-      <% end %>
+      <%= render partial: 'manual_test_cases/screenshot' %>
     </div>
 
     <div class="col-md-6">
