@@ -7,7 +7,7 @@ class LocalFileUploader
 
     local_file_path = File.join(local_dir_path, file_name)
     FileUtils.cp(file_path, local_file_path)
-    File.chmod(755, local_file_path) if File.exist?(local_file_path)
+    File.chmod(775, local_file_path) if File.exist?(local_file_path)
   end
 
   def self.upload_base64(binary_file, project_id, environment_id, folder_path, file_name)
