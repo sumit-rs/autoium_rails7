@@ -2,7 +2,8 @@ class ResultsController < ApplicationController
   before_action :get_environment
   before_action :get_test_suite
   before_action :get_scheduler
-  before_action :get_result_suite
+  before_action :get_result_suite, except: [:download_results]
+  before_action :get_result_suites, only: [:download_results]
   def index
     redirect_to root_path, notice: 'Result has not captured yet for the schedule.' and return unless @result_suite.present?
     @result_cases = ResultCase.includes(:test_case).where(result_suite: @result_suite).order('test_cases.priority asc')
@@ -39,7 +40,7 @@ class ResultsController < ApplicationController
   end
 
   def download_results
-    generate_xls = PopulateExcel.new.generate_suite_results_xls([@result_suite])
+    generate_xls = PopulateExcel.new.generate_suite_results_xls(@result_suites)
     send_file generate_xls, type: "application/xlsx", filename: "#{@test_suite.name}-reults-#{Time.now.to_i}.xlsx"
   end
 
@@ -81,8 +82,11 @@ class ResultsController < ApplicationController
     @scheduler = Scheduler.where(id: params[:scheduler_id]).take
   end
 
+  def get_result_suites
+    @result_suites =  ResultSuite.where(test_suite: @test_suite, scheduler: @scheduler).order('id DESC')
+  end
   def get_result_suite
-    @result_suite = ResultSuite.where(test_suite: @test_suite, scheduler: @scheduler).order('id DESC').take
+    @result_suite = get_result_suites.take
   end
 
 end

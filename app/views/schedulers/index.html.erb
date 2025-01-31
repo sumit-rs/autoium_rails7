@@ -29,8 +29,9 @@
             <tr>
               <th>ID</th>
               <th>Browser</th>
-              <th>ScheduledAt</th>
-              <th>CompletedAt</th>
+              <th>Execution</th>
+              <th>Scheduled</th>
+              <th>Completed</th>
               <th>Tester</th>
               <th>Status</th>
               <th>Action</th>
@@ -42,6 +43,11 @@
                 <tr>
                   <td><%= scheduler.id %></td>
                   <td><%= scheduler.browser.name  %></td>
+                  <td>
+                    <a href="<%= download_results_environment_test_suite_scheduler_results_path(@environment, @test_suite, scheduler) %>" target="_blank" class="btn btn-warning" title="Download Results" title="Download Results">
+                      <i class="bi bi-download me-1"></i> <%= pluralize( scheduler.result_suites.count, 'time' ) %>
+                    </a>
+                  </td>
                   <td><%= scheduler.scheduled_date  %></td>
                   <td><%= scheduler.completed_date  %></td>
                   <td><%= scheduler.user.full_name  %></td>

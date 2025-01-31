@@ -88,6 +88,11 @@ class PopulateExcel
       proc: proc { |record| record.scheduler_id },
       mandatory_header: true,
     },
+    scheduler_index: {
+      label: 'SchedulerIndex',
+      proc: proc { |record| record.result_suite.scheduler_index },
+      mandatory_header: true,
+    },
     error_description: {
       label: 'Description',
       proc: proc { |record| record.error_description },
@@ -114,10 +119,8 @@ class PopulateExcel
       headers = PopulateExcel::TEST_SUITE_FIELDS_MAPPING
       generate_header(wb_sheet, headers, text_style)
       data = []
-      (result_suites || {}).each_with_index do |result_suite, index|
-        data << PopulateExcel::TEST_SUITE_FIELDS_MAPPING.values.collect { |_hash| _hash[:proc].call(result_suite.test_suite) }
-        wb_sheet.add_row(data.flatten, style: text_style)
-      end
+      data << PopulateExcel::TEST_SUITE_FIELDS_MAPPING.values.collect { |_hash| _hash[:proc].call(result_suites.first.test_suite) }
+      wb_sheet.add_row(data.flatten, style: text_style)
     end
 
     workbook.add_worksheet(name: "Result-Suite") do |wb_sheet|
@@ -131,8 +134,10 @@ class PopulateExcel
     workbook.add_worksheet(name: "Test-Result-Cases") do |wb_sheet|
       headers = PopulateExcel::RESULT_CASES_FIELDS_MAPPING
       generate_header(wb_sheet, headers, text_style)
-      (result_suites.first.result_cases || {}).each_with_index do |result_case, index|
-        wb_sheet.add_row(PopulateExcel::RESULT_CASES_FIELDS_MAPPING.values.collect { |_hash| _hash[:proc].call(result_case) }, style: text_style)
+      result_suites.each do |result_suite|
+        (result_suite.result_cases || {}).each_with_index do |result_case, index|
+          wb_sheet.add_row(PopulateExcel::RESULT_CASES_FIELDS_MAPPING.values.collect { |_hash| _hash[:proc].call(result_case) }, style: text_style)
+        end
       end
     end
 

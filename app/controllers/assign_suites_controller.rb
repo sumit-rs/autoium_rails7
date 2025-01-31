@@ -4,7 +4,7 @@ class AssignSuitesController < ApplicationController
   end
 
   def manual
-    @assign_manual_suites = AssignManualTestSuite.joins(:test_suite, :user).where(assign_to: Current.user.id, 'test_suites.is_automated': false, 'test_suites.status': TestSuite::SUITE_STATUS)
+    @assign_manual_suites = AssignManualTestSuite.joins(:test_suite, :user).where(assign_to: Current.user.id, 'test_suites.is_automated': false, 'test_suites.status': TestSuite::SUITE_STATUS).order('id desc')
   end
 
   def manual_cases
