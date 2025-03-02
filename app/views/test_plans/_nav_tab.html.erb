@@ -1,0 +1,15 @@
+<%
+  _tabs = []
+  _tabs << {label: 'Test Plans', url: environment_test_plans_path(@environment), match: {controller: 'test_plans', action: 'index'}, icon:"docs"}
+  _tabs << {label: 'Flow Graph', url: flow_states_environment_test_plans_path(@environment), match: {controller: 'test_plans', action: 'flow_states'},icon:"globe"}
+%>
+<ul class="nav nav-tabs mt-2">
+  <% _tabs.each do |environment| %>
+    <li class="nav-item">
+      <%= link_to(environment[:url], class: "nav-link #{'active' if environment[:match] == {controller: params[:controller], action: params[:action]}}") do %>
+        <i class="icon-<%= environment[:icon] %>"></i>
+        <%= environment[:label] %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

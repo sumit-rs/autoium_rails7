@@ -9,15 +9,17 @@ import "@fortawesome/fontawesome-free";
 import "jquery_ujs";
 import "./jquery-ui.min";
 import "./tinymce";
+import { createGraphFromJson } from "./jointjs-digram";
+
+//In modern JavaScript with modules (ES6+), functions and variables inside a module are not automatically available globally. Instead, they are scoped to the module. This means that if you define a function inside a JavaScript file and import it somewhere, it won’t be accessible from inline scripts in .html.erb unless you explicitly expose it.
+
+//By assigning the function to window.createGraphFromJson, we explicitly attach it to the global window object so it can be accessed from anywhere, including inline scripts in .html.erb:
+window.createGraphFromJson = createGraphFromJson;
 
 var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
 var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
     return new bootstrap.Tooltip(tooltipTriggerEl)
 })
-$(document).ready(function () {
-
-});
-
 $(document).on("click", "#case_screenshot", function () {
     showMarkerArea(this);
 });

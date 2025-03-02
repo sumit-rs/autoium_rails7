@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_01_13_182509) do
+ActiveRecord::Schema[7.2].define(version: 2025_02_24_163917) do
   create_table "active_storage_attachments", charset: "utf8mb3", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -238,6 +238,13 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_13_182509) do
     t.datetime "updated_at", null: false
     t.index ["test_suite_id"], name: "index_test_cases_on_test_suite_id"
     t.index ["user_id"], name: "index_test_cases_on_user_id"
+  end
+
+  create_table "test_plan_flows", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "test_plan_id"
+    t.integer "link_test_plan_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "test_plan_steps", charset: "utf8mb3", force: :cascade do |t|

@@ -15,4 +15,5 @@ pin "jquery_ui", to: "jquery-ui.min.js", preload: true
 
 pin_all_from "app/javascript/controllers", under: "controllers"
 
-#pin "apexcharts", to: "apexcharts/apexcharts.min.js", preload: true
+#pin "apexcharts", to: "apexcharts/apexcharts.min.js", preload: truepin "@markerjs/mjs-diagram", to: "@markerjs--mjs-diagram.js" # @1.3.2
+pin "@joint/core", to: "@joint--core.js" # @4.1.2

@@ -70,7 +70,12 @@ Rails.application.routes.draw do
       post :git_branch_details
     end
     resources :custom_commands
-    resources :test_plans
+    resources :test_plans do
+      collection do
+        get :flow_states
+        get :connected_flow_nodes
+      end
+    end
     resources :test_roles
 
     resources :test_suites do

@@ -1,6 +1,6 @@
 class TestPlansController < ApplicationController
   before_action :get_environment
-  before_action :get_test_plan, only: [:show, :edit, :update, :destroy]
+  before_action :get_test_plan, only: [:show, :edit, :update, :destroy, :connected_flow_nodes]
 
   def index
     @test_plans = @environment.test_plans
@@ -51,6 +51,15 @@ class TestPlansController < ApplicationController
     end
   end
 
+  def flow_states
+    @test_plan_flows = TestPlanFlow.build_node_hirerchy(@environment)
+  end
+
+  def connected_flow_nodes
+    test_plans = TestPlan.where("name like ?", "#{params[:term]}%").where(status: 1, environment: @environment).where.not(id: params[:test_plan])
+    render json: {results: test_plans.collect{|test_plan| {id: test_plan.id, text: test_plan.name }}}
+  end
+
   private
 
   def get_environment
@@ -61,6 +70,6 @@ class TestPlansController < ApplicationController
     @test_plan = @environment.test_plans.where(id: params[:id]).take
   end
   def test_plan_params
-    params.require(:test_plan).permit(:name, :description, :suite_count, :status, test_role_ids: [], test_plan_steps_attributes: [:id, :name, :description, :_destroy])
+    params.require(:test_plan).permit(:name, :description, :suite_count, :status, test_role_ids: [], plan_flows: [], test_plan_steps_attributes: [:id, :name, :description, :_destroy])
   end
 end

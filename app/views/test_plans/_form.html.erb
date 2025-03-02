@@ -28,6 +28,11 @@
       <%= f.select :status, [['Active', 1], ['In-active', 0]], {}, class: 'form-control' %>
     </div>
 
+    <div class="col-md-12">
+      <label class="form-label fw-bold" for="user_email">Connected Test Plan:</label>
+      <%= select_tag(:plan_flows, options_for_select(TestPlan.all.map { |ma| ["#{ma.name}", ma.id] }, @test_plan.test_plan_flows.pluck(:link_test_plan_id)), name: 'test_plan[plan_flows][]', id:'connected-nodes', class: "form-control connected-nodes", multiple: true) %>
+
+    </div>
 
     <div class="col-md-12">
       <label class="form-label fw-bold" for="test_plan_steps">Steps:</label>
@@ -84,4 +89,15 @@
         }
         $(this).parent().parent().hide();
     });
+
+    $('.connected-nodes').select2({
+        theme: "bootstrap",
+        placeholder: "Search and select connect nodes by name",
+        width: '100%',
+        multiple: true,
+        ajax: {
+            url: '<%= connected_flow_nodes_environment_test_plans_path(format: :json, test_plan: params[:id]) %>',
+            dataType: 'json'
+        },
+    })
 </script>
