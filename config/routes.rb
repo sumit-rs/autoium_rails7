@@ -73,7 +73,9 @@ Rails.application.routes.draw do
     resources :test_plans do
       collection do
         get :flow_states
-        get :connected_flow_nodes
+        get :hierarchy
+        post :hierarchy
+        get :load_plan_tree
       end
     end
     resources :test_roles
@@ -156,6 +158,9 @@ Rails.application.routes.draw do
       get :invite
       post :invite
       get :accept_invitation
+      get :forgot_password
+      post :forgot_password
+      get :reset_password
     end
   end
 

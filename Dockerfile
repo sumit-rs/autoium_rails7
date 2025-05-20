@@ -7,7 +7,7 @@ FROM ruby:3.1.2
 RUN apt-get update -qq
 RUN apt-get install -y build-essential curl git nodejs libmariadb-dev figlet vim
 
-# Copy the Gemfile and Gemfile.lock.bck.bk
+# Copy the Gemfile and Gemfile.lock.dock.bck.bk
 RUN mkdir /gem_playground
 WORKDIR /gem_playground
 

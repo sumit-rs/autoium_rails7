@@ -10,8 +10,15 @@ class NotifyMailer < ApplicationMailer
     mail(to: @user.email, subject: "Welcome to our #{ENV['APP_NAME']} platform!")
   end
 
-  def credentials_email(user)
+  def forgot_password(user)
     @user = user
-    mail(to: @user.email, subject: "Your #{ENV['APP_NAME']} platform account credentials.")
+    @reset_password_url = reset_password_users_url(token: @user.reset_password_token)
+    mail(to: @user.email, subject: "#{ENV['APP_NAME']} Reset password instructions.")
+  end
+
+  def credentials_email(user, for_action = 'accept_invitation')
+    @user = user
+    @action = for_action
+    mail(to: @user.email, subject: "#{ENV['APP_NAME']} platform account credentials.")
   end
 end

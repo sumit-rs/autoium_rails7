@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_action :restricted_to_sign_in_user, only: [:accept_invitation]
+  skip_before_action :restricted_to_sign_in_user, only: [:accept_invitation, :forgot_password, :reset_password]
 
   before_action :user_projects_and_environments, only: [:settings]
   before_action :redirect_if_not_admin, only: [:invite, :remove_invitation, :resend_invitation]
@@ -87,6 +87,41 @@ class UsersController < ApplicationController
       end
     else
       flash[:errors] = 'Invalid invitation link.'
+    end
+    redirect_to login_session_path
+  end
+
+  def forgot_password
+    redirect_to root_path and return if Current.user.present?
+    if request.post?
+      if params[:email].blank?
+        redirect_to forgot_password_users_path, notice: 'Email address is required.' and return
+      else
+        _user = User.where(email: params[:email]).take
+        if _user.present?
+          _user.reset_password_token = User.random_token(20)
+          _user.reset_password_sent_at = DateTime.now
+          _user.save
+          Thread.new{ NotifyMailer.forgot_password(_user).deliver_now }
+        end
+        redirect_to login_session_path, notice: 'Reset password instruction has been sent to your registered email address.' and return
+      end
+    end
+  end
+
+  def reset_password
+    _user = User.where(reset_password_token: params[:token]).take
+    if _user.present?
+      _user.reset_password_token = nil
+      _user.allow_generate_password = true
+      if _user.save
+        Thread.new{ NotifyMailer.credentials_email(_user, 'reset_password').deliver_now }
+        flash[:success] = 'You password has been changed. We have sent your credentials on your email address.'
+      else
+        flash[:errors] = _user.errors.full_messages
+      end
+    else
+      flash[:errors] = 'Reset password link either invalid or expired.'
     end
     redirect_to login_session_path
   end
