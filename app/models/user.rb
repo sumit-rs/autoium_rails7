@@ -51,6 +51,10 @@ class User < ApplicationRecord
     SecureRandom.hex(length)
   end
 
+  def self.send_reminder
+    Rails.logger.info "==================Sending reminder email to users"
+  end
+
   private
 
   def password_required?
