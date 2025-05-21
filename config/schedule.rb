@@ -10,8 +10,13 @@ set :environment, ENV['RAILS_ENV'] || 'development'
 
 job_type :runner, "cd :path && bundle exec rails runner -e :environment ':task' :output"
 
-every 1.minutes do
-  runner "User.send_reminder"
+every 1.day, at: '11:55 pm' do
+  runner 'SuiteSchedule.clear_daily_suite_status'
+end
+
+every 1.hour do
+  puts 'Schdeuling'
+  runner 'SuiteSchedule.schedule_daily_suites'
 end
 #
 # every 2.hours do

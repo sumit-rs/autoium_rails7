@@ -1,0 +1,46 @@
+<%= render partial: 'layouts/flash_message' %>
+<%
+    _url, _method = if @suite_schedule.new_record?
+                      [environment_test_suite_periodics_path(@environment, @test_suite), :post]
+    else
+      [environment_test_suite_periodic_path(@environment, @test_suite, @suite_schedule), :patch]
+    end
+
+%>
+
+  <%= form_with model: @suite_schedule, url: _url, method: _method.to_sym, data: { turbo: false } do |f| %>
+      <%= f.hidden_field :suite_schedule_id, value: @suite_schedule.id %>
+
+  <div class="row g-3">
+
+    <div class="col-md-12">
+      <label class="form-label fw-bold" for="suite_schedule_name">Name</label>
+      <%= f.text_field :name, placeholder: "Periodic Scheduler Name", class: 'form-control' %>
+    </div>
+
+    <div class="col-md-12">
+      <%= f.label :start_date, class: "form-label fw-bold" %>
+      <%= f.text_field :start_date, placeholder: "Enter Start Date", class: 'form-control' %>
+    </div>
+
+    <div class="col-md-12">
+      <%= f.label :end_date, class: "form-label fw-bold" %>
+      <%= f.text_field :end_date, placeholder: "Enter End Date", class: 'form-control' %>
+    </div>
+
+    <div class="col-md-12">
+      <%= f.label :time, class: "form-label fw-bold" %>
+      <%= f.text_field :time, placeholder: "Enter schedule time", class: 'form-control' %>
+    </div>
+
+    <div class="col-md-12">
+      <%= f.label :browsers, class: "form-label fw-bold" %>
+      <%= f.select :browsers, options_for_select(@browsers, @suite_schedule.browsers), { include_blank: false }, { class: 'form-control', multiple: true } %>
+    </div>
+
+    <div class="col-md-12">
+      <%= f.submit "Submit", class:"btn btn-primary" %>
+    </div>
+
+  </div>
+<% end %>

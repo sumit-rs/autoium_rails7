@@ -65,7 +65,8 @@ gem 'aws-sdk-s3'
 gem 'caxlsx'
 gem 'caxlsx_rails'
 gem 'whenever'
-
+gem 'date_validator'
+gem 'validates_timeliness'
 #gem "devise", "~> 4.9"
 
 group :development, :test do

@@ -1,0 +1,61 @@
+<%
+  breadcrumb = {'Home': root_url, 'Environments' => environments_url, 'Test Suites' => automated_environment_test_suites_url(@environment), 'Periodic Schedule' => '#' }
+  btn = [{name: 'Add New', url: new_environment_test_suite_periodic_path(@environment, @test_suite), class: 'btn btn-primary btn-sm float-right'}]
+%>
+<%= render partial: 'common/breadcrumb', locals: {heading: 'Periodics Suite Schedulers', breadcrumb: breadcrumb, action_btns: btn} %>
+
+<section class="section min-vh-100">
+  <div class="row">
+    <div class="col-lg-12">
+      <%= render partial: 'layouts/flash_message' %>
+      <div class="card">
+        <div class="card-body">
+          <p><strong>Environment:</strong> <%= @environment.name %> - <%= @environment.url %></p>
+          <p><strong>Suite:</strong>Test Suite: <%= @test_suite.name %></p>
+
+          <!-- Table with stripped rows -->
+          <table class="table datatable mt-2" id="myTable">
+            <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Start</th>
+              <th>End</th>
+              <th>Time</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% if @periodics %>
+              <% @periodics.each do |periodic| %>
+                <tr>
+                  <td><%= periodic.id %></td>
+                  <td><%= periodic.name  %></td>
+                  <td><%= periodic.start_date  %></td>
+                  <td><%= periodic.end_date  %></td>
+                  <td><%= periodic.time  %></td>
+                  <td><%= periodic.status  %></td>
+                  <td>
+                    <%= link_to(edit_environment_test_suite_periodic_path(@environment, @test_suite, periodic), title: 'Edit Periodic Schedule') do %>
+                      <i class="bi bi-pencil-fill"></i> |
+                    <% end %>
+
+                    <%= link_to(environment_test_suite_periodic_url(@environment, @test_suite, periodic), method: :delete, title: 'Delete Periodic Schedule') do %>
+                      <i class="bi bi-trash"></i>
+                    <% end %>
+
+                  </td>
+                </tr>
+              <% end %>
+            <% end %>
+            </tbody>
+          </table>
+          <!-- End Table with stripped rows -->
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

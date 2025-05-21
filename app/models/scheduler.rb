@@ -10,7 +10,7 @@ class Scheduler < ApplicationRecord
   STATUS = [READY_STATUS, ERROR_STATUS, RUNNING_STATUS, SUCCESS_STATUS]
 
   # -------------------------------------------------------------
-  belongs_to :user
+  belongs_to :user, optional: true
   belongs_to :test_suite
   belongs_to :browser
   has_many :result_suites

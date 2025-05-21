@@ -30,7 +30,7 @@
             <div class="col-4"><strong><span class="small text-danger">Fail: <%= _fail.count %></span> | <span class="small text-success">Pass: <%= _pass.count %></span></strong></div>
 
             <div class="col-2"><strong>Tester:</strong></div>
-            <div class="col-4"><%= @result_suite.user.full_name %></div>
+            <div class="col-4"><%= user_full_name(@result_suite.user) %></div>
 
             <div class="col-12 mt-2">
               <a href="<%= download_results_environment_test_suite_scheduler_results_path(@environment, @test_suite, @scheduler) %>" target="_blank" class="btn btn-warning" title="Download Results" title="Download Results"><i class="bi bi-download me-1"></i>Results</a>

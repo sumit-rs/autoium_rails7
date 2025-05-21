@@ -11,6 +11,9 @@ module ApplicationHelper
     date.strftime('%d-%m-%Y %H:%M')
   end
 
+  def user_full_name(user)
+    user&.full_name || 'SYSTEM'
+  end
   def get_environment
     Environment.where(id: params[:environment_id]).first || '#'
   end

@@ -1,0 +1,19 @@
+<%
+  breadcrumb = {'Home': root_url, 'Environments' => environments_url, 'Test Suites' => automated_environment_test_suites_url(@environment), 'Periodic Schedule' => environment_test_suite_periodics_path(@environment, @test_suite) , 'Edit Periodic Schedule' => @suite_schedule.name }
+  btns = []
+%>
+<%= render partial: 'common/breadcrumb', locals: {heading: 'Edit Periodic Schedule', breadcrumb: breadcrumb, action_btns: btns} %>
+<section class="section min-vh-100">
+  <div class="row">
+    <div class="col-lg-12">
+
+      <div class="card">
+        <div class="card-body">
+          <div class="mt-3">
+            <%= render partial: 'periodics/form' %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
