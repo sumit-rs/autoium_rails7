@@ -64,6 +64,7 @@ gem 'jwt'
 gem 'aws-sdk-s3'
 gem 'caxlsx'
 gem 'caxlsx_rails'
+gem 'whenever'
 
 #gem "devise", "~> 4.9"
 
