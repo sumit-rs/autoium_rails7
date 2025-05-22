@@ -42,7 +42,7 @@
             </th>
             <td><%= recent_scheduler.test_suite.name %></td>
             <td><%= Browser::BROWSERS.invert[recent_scheduler.browser_id] %></td>
-            <td><%= recent_scheduler.user.full_name %></td>
+            <td><%= user_full_name(recent_scheduler.user) %></td>
             <td><%= recent_scheduler.scheduled_date.strftime('%Y-%m-%d %H:%m') %></td>
             <td><%= render partial: "schedulers/status", locals: {scheduler: recent_scheduler} %></td>
           </tr>
