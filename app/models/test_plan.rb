@@ -8,6 +8,13 @@ class TestPlan < ApplicationRecord
   has_and_belongs_to_many :test_roles
 
   # -------------------------------------------------------------
+  # store :additional_information,
+  #       accessors: [
+  #         :root_plan
+  #       ],
+  #       coder: JSON
+
+  # -------------------------------------------------------------
   attr_accessor :plan_flows
 
   # -------------------------------------------------------------
@@ -25,10 +32,18 @@ class TestPlan < ApplicationRecord
 
   # -------------------------------------------------------------
   def populate_test_plan_flows
-    self.test_plan_flows.each{|test_plan_flow| test_plan_flow.mark_for_destruction}
+    #self.test_plan_flows.each{|test_plan_flow| test_plan_flow.mark_for_destruction}
     self.plan_flows&.each do |plan_flow|
       self.test_plan_flows.build(link_test_plan_id: plan_flow)
     end
+  end
+
+  def self.environment_root_plan(environment)
+    where(root_element: 1, environment: environment).take || ""
+  end
+
+  def self.environment_non_root_plans(environment)
+    where(root_element: 0, environment: environment)
   end
 
   private

@@ -1,6 +1,7 @@
 <%
   _tabs = []
   _tabs << {label: 'Test Plans', url: environment_test_plans_path(@environment), match: {controller: 'test_plans', action: 'index'}, icon:"docs"}
+  _tabs << {label: 'Test Plan Hierarchy', url: hierarchy_environment_test_plans_path(@environment), match: {controller: 'test_plans', action: 'hierarchy'},icon:"globe"}
   _tabs << {label: 'Flow Graph', url: flow_states_environment_test_plans_path(@environment), match: {controller: 'test_plans', action: 'flow_states'},icon:"globe"}
 %>
 <ul class="nav nav-tabs mt-2">

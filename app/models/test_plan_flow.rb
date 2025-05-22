@@ -13,8 +13,8 @@ class TestPlanFlow < ApplicationRecord
       parent_node = test_flow[:test_plan_id]
       child_node = test_flow[:link_test_plan_id]
 
-      tree[parent_node] ||= { id: parent_node, name: test_flow.test_plan.name, children: [] }
-      tree[child_node] ||= { id: child_node, name: test_flow.link_test_plan.name, children: [] }
+      tree[parent_node] ||= { id: parent_node, parent_id: "#", name: test_flow.test_plan.name, text: test_flow.test_plan.name, state: { opened: true }, children: [] }
+      tree[child_node] ||= { id: child_node, data: {parent_id: parent_node.to_s}, parent_id: parent_node.to_s,  name: test_flow.link_test_plan.name, text: test_flow.link_test_plan.name, state: { opened: true }, children: [] }
 
       tree[parent_node][:children] << tree[child_node]
     end
